@@ -255,7 +255,7 @@ ifeq ($(LIBNAME),)
 	echo;\
 	echo WARNING: The vscode target is preliminary...
 else
-	@echo
+	@echo 
 endif
 
 CY_HELP_eclipse=Generates eclipse IDE launch configs.

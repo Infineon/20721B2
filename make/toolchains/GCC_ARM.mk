@@ -65,7 +65,6 @@ endif
 CY_TOOLCHAIN_CM4_COMMON_FLAGS=\
 	-mcpu=cortex-m4 \
 	-mthumb\
-	-mthumb-interwork\
 	-mlittle-endian
 
 CY_TOOLCHAIN_CM4_CFLAGS += \
@@ -177,4 +176,3 @@ CY_TOOLCHAIN_INCLUDES=
 # Additional libraries in the link process based on this toolchain
 #
 CY_TOOLCHAIN_DEFINES=
-

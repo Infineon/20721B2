@@ -1,5 +1,5 @@
 /*
- * Copyright 2019, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -178,6 +178,9 @@ extern "C"
  *
  *  @return     WICED_BT_SUCCESS           if the action was carried out successfully as desired
  *              WICED_BT_NO_RESOURCES      no resources.
+ *
+ * Note : This API will create separate private pool so please increase max_number_of_buffer_pools by one (in wiced_bt_cfg_settings_t structure)
+ *
  */
 #define wiced_bt_rfcomm_init    wiced_bt_rfcomm_set_buffer_pool
 wiced_bt_dev_status_t wiced_bt_rfcomm_set_buffer_pool(uint16_t buffer_size,

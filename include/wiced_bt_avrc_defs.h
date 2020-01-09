@@ -1,5 +1,5 @@
 /*
- * Copyright 2019, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -422,17 +422,17 @@ typedef uint8_t wiced_bt_avrc_systemstate_t;
 #define AVRC_FOLDER_TYPE_YEARS      0x06
 
 /* major player type */
-#define AVRC_MJ_TYPE_AUDIO          0x01  /* Audio */
-#define AVRC_MJ_TYPE_VIDEO          0x02  /* Video */
-#define AVRC_MJ_TYPE_BC_AUDIO       0x04  /* Broadcasting Audio */
-#define AVRC_MJ_TYPE_BC_VIDEO       0x08  /* Broadcasting Video */
-#define AVRC_MJ_TYPE_INVALID        0xF0
+#define AVRC_PLAYER_MAJOR_TYPE_AUDIO          0x01  /* Audio */
+#define AVRC_PLAYER_MAJOR_TYPE_VIDEO          0x02  /* Video */
+#define AVRC_PLAYER_MAJOR_TYPE_BC_AUDIO       0x04  /* Broadcasting Audio */
+#define AVRC_PLAYER_MAJOR_TYPE_BC_VIDEO       0x08  /* Broadcasting Video */
+#define AVRC_PLAYER_MAJOR_TYPE_INVALID        0xF0
 
 /* player sub type */
-#define AVRC_SUB_TYPE_NONE          0x00
-#define AVRC_SUB_TYPE_AUDIO_BOOK    0x01  /* Audio Book */
-#define AVRC_SUB_TYPE_PODCAST       0x02  /* Podcast */
-#define AVRC_SUB_TYPE_INVALID       0xFC
+#define AVRC_PLAYER_SUB_TYPE_NONE          0x00
+#define AVRC_PLAYER_SUB_TYPE_AUDIO_BOOK    0x01  /* Audio Book */
+#define AVRC_PLAYER_SUB_TYPE_PODCAST       0x02  /* Podcast */
+#define AVRC_PLAYER_SUB_TYPE_INVALID       0xFC
 
 /* media item - media type */
 #define AVRC_MEDIA_TYPE_AUDIO       0x00
@@ -962,8 +962,8 @@ typedef uint8_t wiced_bt_avrc_feature_mask_t[AVRC_FEATURE_MASK_SIZE];
 typedef struct
 {
     uint16_t                        player_id;      /* A unique identifier for this media player.*/
-    uint8_t                         major_type;     /* Use AVRC_MJ_TYPE_AUDIO, AVRC_MJ_TYPE_VIDEO, AVRC_MJ_TYPE_BC_AUDIO, or AVRC_MJ_TYPE_BC_VIDEO.*/
-    uint32_t                        sub_type;       /* Use AVRC_SUB_TYPE_NONE, AVRC_SUB_TYPE_AUDIO_BOOK, or AVRC_SUB_TYPE_PODCAST*/
+    uint8_t                         major_type;     /* Use AVRC_PLAYER_MAJOR_TYPE_AUDIO, AVRC_PLAYER_MAJOR_TYPE_VIDEO, AVRC_PLAYER_MAJOR_TYPE_BC_AUDIO, or AVRC_PLAYER_MAJOR_TYPE_BC_VIDEO.*/
+    uint32_t                        sub_type;       /* Use AVRC_PLAYER_SUB_TYPE_NONE, AVRC_PLAYER_SUB_TYPE_AUDIO_BOOK, or AVRC_PLAYER_SUB_TYPE_PODCAST*/
     uint8_t                         play_status;    /* Use AVRC_PLAYSTATE_STOPPED, AVRC_PLAYSTATE_PLAYING, AVRC_PLAYSTATE_PAUSED, AVRC_PLAYSTATE_FWD_SEEK,
                                                         AVRC_PLAYSTATE_REV_SEEK, or AVRC_PLAYSTATE_ERROR*/
     wiced_bt_avrc_feature_mask_t    features;       /* Supported feature bit mask*/

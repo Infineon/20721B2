@@ -117,10 +117,14 @@ set +e
 
 # set up some tools that may be native and not modus-shell
 CY_TOOL_PERL=perl
-if ! type "$CY_TOOL_PERL" > /dev/null; then
+if ! type "$CY_TOOL_PERL" > /dev/null 2>&1; then
 CY_TOOL_PERL=$CYMODUSSHELL/bin/perl
 fi
 
+if [ "$VERBOSE" != "" ]; then
+echo "$CY_TOOL_PERL" "$CYWICEDSCRIPTS/ChipLoad.pl" -tools_path $CYWICEDTOOLS -build_path $dir -id $CYWICEDID -btp $CYWICEDBTP \
+                            -mini $CYWICEDMINI -hex $CY_APP_HEX -flags $CYWICEDFLAGS
+fi
 "$CY_TOOL_PERL" "$CYWICEDSCRIPTS/ChipLoad.pl" -tools_path $CYWICEDTOOLS -build_path $dir -id $CYWICEDID -btp $CYWICEDBTP \
                             -mini $CYWICEDMINI -hex $CY_APP_HEX -flags $CYWICEDFLAGS
 

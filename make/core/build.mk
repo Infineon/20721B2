@@ -85,7 +85,7 @@ $(1)_shared_lib: | $$($(1)_SHAREDLIB_BUILD_LOCATION)/inclist.rsp $$($(1)_SHAREDL
 $(1)_shared_lib:
 	 @inclist_read=$$$$(cat $$($(1)_SHAREDLIB_BUILD_LOCATION)/inclist.rsp | sed -e "s/I\.\//I$$($(1)_SED_PATTERN)\//g" | tr " " "\n"); \
 	 if [ -f "$$($(1)_SHAREDLIB_BUILD_LOCATION)/inclist_export.rsp" ]; then \
-		inclist_export_read=$$$$(cat $$($(1)_SHAREDLIB_BUILD_LOCATION)/inclist_export.rsp | tr " " "\n"); \
+	 	inclist_export_read=$$$$(cat $$($(1)_SHAREDLIB_BUILD_LOCATION)/inclist_export.rsp | tr " " "\n"); \
 	 else \
 		 echo $$$$inclist_read > $$($(1)_SHAREDLIB_BUILD_LOCATION)/inclist_export.rsp ;\
 	 fi;\
@@ -94,16 +94,16 @@ $(1)_shared_lib:
 	 fi; \
 	 liblist_read=$$$$(cat $$($(1)_SHAREDLIB_BUILD_LOCATION)/liblist.rsp | sed -e "s/\.\//$$($(1)_SED_PATTERN)\//g" | tr " " "\n"); \
 	 if [ -f "$$($(1)_SHAREDLIB_BUILD_LOCATION)/liblist_export.rsp" ]; then \
-		liblist_export_read=$$$$(cat $$($(1)_SHAREDLIB_BUILD_LOCATION)/liblist_export.rsp | tr " " "\n"); \
+	 	liblist_export_read=$$$$(cat $$($(1)_SHAREDLIB_BUILD_LOCATION)/liblist_export.rsp | tr " " "\n"); \
 	 else \
-		echo $$$$liblist_read > $$($(1)_SHAREDLIB_BUILD_LOCATION)/liblist_export.rsp ;\
+	  	echo $$$$liblist_read > $$($(1)_SHAREDLIB_BUILD_LOCATION)/liblist_export.rsp ;\
 	 fi;\
 	 if [[ "$$$$liblist_read" != "$$$$liblist_export_read" ]]; then \
 		echo $$$$liblist_read > $$($(1)_SHAREDLIB_BUILD_LOCATION)/liblist_export.rsp ;\
 	 fi; \
 	 artifact_read=$$$$(sed '1s;^;$$($(1)_SHAREDLIB_BUILD_LOCATION)/;' $$($(1)_SHAREDLIB_BUILD_LOCATION)/artifact.rsp); \
 	 if [ -f "$$($(1)_SHAREDLIB_BUILD_LOCATION)/artifact_export.rsp" ]; then \
-		artifact_export_read=$$$$(cat $$($(1)_SHAREDLIB_BUILD_LOCATION)/artifact_export.rsp); \
+ 		artifact_export_read=$$$$(cat $$($(1)_SHAREDLIB_BUILD_LOCATION)/artifact_export.rsp); \
 	 else \
 		echo $$$$artifact_read > $$($(1)_SHAREDLIB_BUILD_LOCATION)/artifact_export.rsp;\
 	 fi;\
@@ -241,7 +241,7 @@ else
 CY_COMPILE_PRINT=$(notdir $<)
 endif
 
-#
+# 
 # Gather the includes in inclist_export.rsp files
 # $(1) : List of inclist_export.rsp files
 #
@@ -277,7 +277,7 @@ CY_BUILD_COMPILE_AS_UC=$(AS) $(CY_BUILD_ALL_ASFLAGS_UC) $(CY_TOOLCHAIN_INCRSPFIL
 CY_BUILD_COMPILE_AS_LC=$(AS) $(CY_BUILD_ALL_ASFLAGS_LC) $(CY_TOOLCHAIN_INCRSPFILE_ASM)$(CY_CONFIG_DIR)/inclist.rsp \
 						$(CY_BUILD_SHAREDLIB_INCLIST) $(CY_TOOLCHAIN_OUTPUT_OPTION)
 CY_BUILD_COMPILE_C=$(CC) $(CY_BUILD_ALL_CFLAGS) $(CY_TOOLCHAIN_INCRSPFILE)$(CY_CONFIG_DIR)/inclist.rsp \
-						$(CY_BUILD_SHAREDLIB_INCLIST) $(CY_TOOLCHAIN_DEPENDENCIES) $(CY_TOOLCHAIN_OUTPUT_OPTION)
+						$(CY_BUILD_SHAREDLIB_INCLIST) $(CY_TOOLCHAIN_DEPENDENCIES) $(CY_TOOLCHAIN_OUTPUT_OPTION) 
 CY_BUILD_COMPILE_CPP=$(CXX) $(CY_BUILD_ALL_CXXFLAGS) $(CY_TOOLCHAIN_INCRSPFILE)$(CY_CONFIG_DIR)/inclist.rsp \
 						$(CY_BUILD_SHAREDLIB_INCLIST) $(CY_TOOLCHAIN_DEPENDENCIES) $(CY_TOOLCHAIN_OUTPUT_OPTION)
 
@@ -291,7 +291,7 @@ CY_BUILD_LINK=$(LD) $(CY_RECIPE_LDFLAGS) $(CY_TOOLCHAIN_OUTPUT_OPTION) $@ $(CY_T
 #
 # Archiver arguments
 #
-CY_BUILD_ARCHIVE=$(AR) $(CY_RECIPE_ARFLAGS) $(CY_TOOLCHAIN_OUTPUT_OPTION) $@ $(CY_TOOLCHAIN_OBJRSPFILE)$(CY_CONFIG_DIR)/objlist.rsp
+CY_BUILD_ARCHIVE=$(AR) $(CY_RECIPE_ARFLAGS) $(CY_TOOLCHAIN_OUTPUT_OPTION) $@ $(CY_TOOLCHAIN_OBJRSPFILE)$(CY_CONFIG_DIR)/objlist.rsp 
 
 
 ################################################################################

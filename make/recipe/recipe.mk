@@ -1,5 +1,5 @@
 #
-# Copyright 2019, Cypress Semiconductor Corporation or a subsidiary of
+# Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
 # Cypress Semiconductor Corporation. All Rights Reserved.
 #
 # This software, including source code, documentation and related
@@ -47,16 +47,22 @@ CY_RECIPE_CFLAGS?=\
 
 CY_RECIPE_ASFLAGS?=\
     $(CY_CORE_SFLAGS)\
-	$(CY_TOOLCHAIN_ASFLAGS)
+    $(CY_TOOLCHAIN_ASFLAGS)
+
+ifeq ($(NO_OBFS),)
+CY_CORE_PATCH_SYMBOLS=$(CY_CORE_PATCH:.elf=.sym)
+else
+CY_CORE_PATCH_SYMBOLS=$(CY_CORE_PATCH)
+endif
 
 CY_RECIPE_LDFLAGS?=\
-	$(LDFLAGS)\
-	$(CY_TOOLCHAIN_LDFLAGS)\
+    $(LDFLAGS)\
+    $(CY_TOOLCHAIN_LDFLAGS)\
     $(CY_CORE_LDFLAGS)\
     -Wl,--entry=$(CY_CORE_APP_ENTRY)\
     -Wl,-z,muldefs\
     -Wl,--no-warn-mismatch\
-    -Wl,--just-symbols="$(CY_CORE_PATCH)"\
+    -Wl,--just-symbols="$(CY_CORE_PATCH_SYMBOLS)"\
     -T$(CY_CONFIG_DIR)/$(APPNAME).ld
 
 CY_RECIPE_ARFLAGS?=$(CY_TOOLCHAIN_ARFLAGS)
@@ -65,9 +71,9 @@ CY_RECIPE_ARFLAGS?=$(CY_TOOLCHAIN_ARFLAGS)
 # Defines construction
 #
 CY_RECIPE_DEFINES?=\
-	$(addprefix -D,$(DEFINES))\
-	$(CY_APP_DEFINES)\
-	$(CY_APP_OTA_DEFINES)\
+    $(addprefix -D,$(DEFINES))\
+    $(CY_APP_DEFINES)\
+    $(CY_APP_OTA_DEFINES)\
     $(CY_CORE_DEFINES)\
     $(CY_CORE_EXTRA_DEFINES)\
     $(CY_TOOLCHAIN_DEBUG_FLAG)\
@@ -77,10 +83,23 @@ CY_RECIPE_DEFINES?=\
 #
 # Includes construction
 #
+# build COMPONENT includes with proper directory prefix
+CY_COMPONENT_PATHS=$(addprefix COMPONENT_,$(COMPONENTS))
+CY_COMPONENT_DISABLE_FILTERS=$(addprefix %/COMPONENT_,$(filter-out CY_DEFAULT_COMPONENT,$(DISABLE_COMPONENTS)))
+CY_COMPONENT_SEARCH_PATHS=$(patsubst ./%,%,$(CY_SEARCH_APP_INCLUDES) $(SEARCH_LIBS_AND_INCLUDES) $(INCLUDES))
+#$(info CY_COMPONENT_SEARCH_PATHS $(CY_COMPONENT_SEARCH_PATHS))
+CY_COMPONENT_INCLUDES=$(filter-out $(CY_COMPONENT_DISABLE_FILTERS), \
+        $(foreach search_path,$(CY_COMPONENT_SEARCH_PATHS), \
+          $(foreach component,$(CY_COMPONENT_PATHS), \
+            $(wildcard $(search_path)/$(component)) )))
+#$(info CY_COMPONENT_INCLUDES $(CY_COMPONENT_INCLUDES))
+#$(info CY_COMPONENT_DISABLE_FILTERS $(CY_COMPONENT_DISABLE_FILTERS))
 CY_RECIPE_INCLUDES?=\
-	$(addprefix -I,$(INCLUDES))\
     $(CY_TOOLCHAIN_INCLUDES)\
-    $(addprefix -I,$(CY_SEARCH_APP_INCLUDES))
+    $(addprefix -I,$(INCLUDES))\
+    $(addprefix -I,$(CY_SEARCH_APP_INCLUDES))\
+    $(addprefix -I,$(CY_COMPONENT_INCLUDES))
+#$(info CY_RECIPE_INCLUDES $(CY_RECIPE_INCLUDES))
 
 #
 # Sources construction
@@ -119,7 +138,7 @@ CY_RECIPE_PREBUILD?=\
     "--shell=$(CY_MODUS_SHELL_DIR)"\
     "--scripts=$(CY_INTERNAL_BASELIB_PATH)/make/scripts"\
     "--defs=$(CY_CORE_LD_DEFS)"\
-    "--patch=$(CY_CORE_PATCH)"\
+    "--patch=$(CY_CORE_PATCH_SYMBOLS)"\
     "--ld=$(CY_CONFIG_DIR)/$(APPNAME).ld"\
     $(if $(VERBOSE),"--verbose"); CY_CMD_TERM=;
 endif
@@ -147,6 +166,7 @@ CY_RECIPE_POSTBUILD?=\
     "--chip=$(CHIP)$(CHIP_REV)"\
     "--target=$(TARGET)"\
     "--minidriver=$(CY_CORE_MINIDRIVER)"\
+    "--failsafe=$(CY_CORE_FAIL_SAFE_CGS)"\
     "--clflags=$(CY_CORE_APP_CHIPLOAD_FLAGS)"\
     --extras=$(CY_APP_OTA)$(APP_STATIC_DATA)$(CY_CORE_APP_XIP_EXTRA)$(CY_CORE_DS2_EXTRA)\
     $(if $(VERBOSE),"--verbose"); CY_CMD_TERM=;

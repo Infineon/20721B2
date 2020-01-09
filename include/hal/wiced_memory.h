@@ -1,5 +1,5 @@
 /*
- * Copyright 2019, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -74,9 +74,9 @@ uint32_t wiced_memory_get_free_bytes( void );
 /**
  * Function         wiced_memory_set_application_thread_stack_size
  *
- * Update the stack size of the application thread (MPAF)
+ *                  Update the stack size of the application thread (MPAF)
  *
- * NOTE : This API will work only when invoked from SPAR_CRT_SETUP()
+ *                  NOTE : This API will work only when invoked from SPAR_CRT_SETUP()
  *
  * @param[in]       new_stack_size - required size of the stack.
  *
@@ -84,31 +84,34 @@ uint32_t wiced_memory_get_free_bytes( void );
  */
 wiced_bool_t wiced_memory_set_application_thread_stack_size(uint16_t new_stack_size);
 
-
 /**
  * Function         wiced_bt_create_pool
  *
- *                  Creates a private pool dedicated for the application usage.
+ *                  Creates a private buffer pool dedicated for the application usage.
  *
- * @param[in]       buffer_size           :size of the buffers in the pool
+ * @param[in]       buffer_size          : size of the buffers in the pool
  *
-  * @param[in]       buffer_cnt           :number of buffers in the pool
+ * @param[in]       buffer_cnt           : number of buffers in the pool
  *
- * @return         pointer to the created pool on success
- *                     NULL on failure
+ * @return          pointer to the created pool on success
+ *                  NULL on failure
+ *
+ * Note :           The max number of buffer pools configured in
+ *                  wiced_bt_cfg_settings_t.max_number_of_buffer_pools
+ *                  must be increased for each buffer pool the application creates.
  */
-
 wiced_bt_buffer_pool_t* wiced_bt_create_pool( uint32_t buffer_size, uint32_t buffer_cnt );
 
 /**
  * Function         wiced_bt_get_buffer_from_pool
  *
- *                  Allocates a buffer from the private pool. Pass the pool pointer to get the buffer from the desired pool
+ *                  Allocates a buffer from the private pool. Pass the pool pointer to
+ *                  get the buffer from the desired pool
  *
  * @param[in]       p_pool           : pool pointer
  *
- * @return         the pointer to the buffer
- *                     NULL on failure
+ * @return          the pointer to the buffer
+ *                  NULL on failure
  */
 void* wiced_bt_get_buffer_from_pool( wiced_bt_buffer_pool_t* p_pool );
 
@@ -119,7 +122,7 @@ void* wiced_bt_get_buffer_from_pool( wiced_bt_buffer_pool_t* p_pool );
  *
  * @param[in]       p_pool           : pool pointer
  *
- * @return         the number of buffers available in the pool
+ * @return          the number of buffers available in the pool
  */
 uint32_t wiced_bt_get_buffer_count( wiced_bt_buffer_pool_t* p_pool );
 
@@ -131,8 +134,8 @@ uint32_t wiced_bt_get_buffer_count( wiced_bt_buffer_pool_t* p_pool );
  *
  * @param[in]       buffer_size           : size of the buffer
  *
- * @return         the pointer to the buffer
- *                     NULL on failure
+ * @return          the pointer to the buffer
+ *                  NULL on failure
  */
 void* wiced_bt_get_buffer( uint16_t buffer_size );
 
@@ -143,7 +146,7 @@ void* wiced_bt_get_buffer( uint16_t buffer_size );
  *
  * @param[in]       p_buf           : pointer to the start of the buffer to be freed
  *
- * @return         None
+ * @return          None
  */
 void wiced_bt_free_buffer( void* p_buf );
 
@@ -154,14 +157,15 @@ void wiced_bt_free_buffer( void* p_buf );
  *
  * @param[in]       p_buf           : pointer to the start of the buffer
  *
- * @return        the buffer size
+ * @return          the buffer size
  */
 uint32_t wiced_bt_get_buffer_size( void* p_buf );
 
 /**
  * Function         wiced_bt_get_buffer_usage
  *
- * Dumps dynamic buffer usage (see #wiced_bt_buffer_statistics_t),from the last start of the system.
+ *                  Dumps dynamic buffer usage (see #wiced_bt_buffer_statistics_t),
+ *                  from the last start of the system.
  *
  * @param[in]       p_buffer_stat - pointer buffer to fill statistics.
  * @param[in]       size - size of the memory to get the statistics.
@@ -177,8 +181,8 @@ wiced_result_t wiced_bt_get_buffer_usage ( wiced_bt_buffer_statistics_t *p_buffe
  *
  * @param[in]       size           :size of the memory to be allocated
  *
- * @return         pointer to the allocated memory on success
- *                     NULL on failure
+ * @return          pointer to the allocated memory on success
+ *                  NULL on failure
  */
 void* wiced_memory_allocate( uint32_t size );
 
@@ -189,16 +193,30 @@ void* wiced_memory_allocate( uint32_t size );
  *
  * @param[in]       p_buf           : free memory allocated from Dynamic Memory pools
  *
- * @return         None
+ * @return          None
  */
 void wiced_memory_free( void *memoryBlock );
 
 /** Get specific buffer pool utilization
  *
- * @param[in]       pool_id : (input) pool ID
- * @return             : % of buffers used from 0 to 100
+ * @param[in]       pool_id     : (input) pool ID
+ *
+ * @return          % of buffers used from 0 to 100
  */
 UINT16 wiced_bt_buffer_poolutilization (UINT8 pool_id);
 
+/******************************************************************************
+* Function Name: wiced_memory_permanent_allocate
+***************************************************************************//**
+*
+* Allocates memory for permanent usage.
+*
+* @param[in]        size            : The size of the memory to be allocated
+*
+* @return           The pointer to the allocated memory on success
+*                   NULL on failure
+*
+******************************************************************************/
+void* wiced_memory_permanent_allocate( uint32_t size );
 
 /** @} */

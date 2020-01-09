@@ -1,5 +1,5 @@
 /*
- * Copyright 2019, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -41,13 +41,23 @@
 #endif
 
 #ifdef ENABLE_DEBUG
-#include "tx_port.h"
 #include "wiced_hal_wdog.h"
+#include <string.h>
+unsigned int _tx_v7m_get_and_disable_int(void);
+void _tx_v7m_set_int(unsigned int posture);
 
 /// When debugging is enabled, sets up the HW for debugging.
 #define SETUP_APP_FOR_DEBUG_IF_DEBUG_ENABLED()   do{        \
-         wiced_hal_gpio_select_function(WICED_P33, WICED_SWDCK); \
-         wiced_hal_gpio_select_function(WICED_P34, WICED_SWDIO); \
+         if(0 == memcmp(PLATFORM, "CYW920721B2EVK_02", 17)) \
+         { \
+            wiced_hal_gpio_select_function(WICED_P02, WICED_SWDCK); \
+            wiced_hal_gpio_select_function(WICED_P03, WICED_SWDIO); \
+         } \
+         else \
+         { \
+            wiced_hal_gpio_select_function(WICED_P33, WICED_SWDCK); \
+            wiced_hal_gpio_select_function(WICED_P34, WICED_SWDIO); \
+         } \
         wiced_hal_wdog_disable(); \
     }while(0)
 

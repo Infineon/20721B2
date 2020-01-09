@@ -3,7 +3,7 @@
 # \version 1.0
 #
 # \brief
-# Opens/launches a specified tool
+# Opens/launches a specified tool 
 #
 ################################################################################
 # \copyright

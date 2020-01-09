@@ -86,7 +86,8 @@ my $mem_lut = {
 			"*(.ARM.extab*)",
 			"*(.gnu.linkonce.armextab.*)",
 			"*(.ARM.exidx*)",
-			"*(.gnu.linkonce.armexidx.*)"],
+			"*(.gnu.linkonce.armexidx.*)",
+			"*(.vpc_decoder_section)"],
 		"mem_type" => "ram",
 		"pre" => [],
 		"post" => [],},
@@ -194,6 +195,9 @@ sub main
 	foreach my $arg (@ARGV) {
 		if($arg =~ /\.elf$/) {
 			$param->{'elf'} = $arg;
+		}
+		if($arg =~ /\.sym$/) {
+			$param->{'sym'} = $arg;
 		}
 		elsif($arg =~ /^ISTATIC_BEGIN=(\w+)/) {
 			$param->{'ISTATIC_BEGIN'} = hex($1);
@@ -310,11 +314,15 @@ sub main
 			if($line =~ /\s*(\w+)\s*\=\s*(0x[0-9a-fA-F]+)/) {
 				$param->{$1} = hex($2);
 			}
+			elsif($line =~ /\s*(\w+)\s*\=\s*([0-9]+)/) {
+				$param->{$1} = int($2);
+			}
 		}
 		close $BTP;
 	}
 
 	my $section_lut = {};
+	if(defined $param->{elf}) {
 	my $sections = [];
 	my $stringtable = {};
 	my $sym_str_tbl = {};
@@ -330,6 +338,18 @@ sub main
 		}
 		$section_lut->{$section->{name}} = $section;
 		#printf "section %s: start 0x%x len 0x%x\n", $section->{name}, $section->{sh_addr}, $section->{sh_size};
+	}
+	}
+	elsif(defined $param->{sym}) {
+		# using sym file, so fake reading section headers from elf
+		open(my $SYM, "<", $param->{sym}) or die "Could not read $param->{sym}, $!\n";
+		while(defined(my $line = <$SYM>)) {
+			if($line =~ /(\w+)\s*=\s*0x([0-9A-Fa-f]+)/) {
+				last if $1 eq "END_SECTION_INFO";
+				$section_lut->{$1} = { sh_addr => hex($2) };
+			}
+		}
+		close $SYM;
 	}
 	$param->{SRAM_START_ADDR} = $section_lut->{first_free_section_in_SRAM}->{sh_addr}
 			if defined $section_lut->{first_free_section_in_SRAM}->{sh_addr};
@@ -364,6 +384,22 @@ sub output_ld
 		$rom_end = $sections->{PATCH_CODE_END}->{sh_addr};
 		die "Could not locate code ram start in patch elf\n" if !defined $rom_begin;
 		die "Could not locate code ram end in patch elf\n" if !defined $rom_end;
+	}
+	elsif($param->{btp} =~ /20706/) {
+		my $lst_file = $param->{elf};
+		$lst_file =~ s/\.elf$/\.lst/;
+		open(my $LST, "<", $lst_file) or die "Could not open $lst_file, $!\n";
+		while(defined(my $line = <$LST>)) {
+			if($line =~ /Load Region CM3_Ver1 \(Base: 0x([0-9a-f]+), Size: 0x([0-9a-f]+), Max: 0x([0-9a-f]+)/) {
+				$rom_start = hex($1);
+				my $rom_code_len = hex($2);
+				my $rom_max = hex($3);
+				$rom_begin = $rom_start + $rom_code_len;
+				$rom_end = $rom_start + $rom_max;
+				last;
+			}
+		}
+		close $LST;
 	}
 	if(defined $sections->{FIRST_FREE_SECTION_IN_AON}) {
 		$aon_begin = $sections->{FIRST_FREE_SECTION_IN_AON}->{sh_addr};

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -338,6 +338,8 @@ typedef struct
     uint16_t    supervision_timeout;
 }wiced_bt_ble_conn_params_t;
 
+#define MULTI_ADV_MAX_NUM_INSTANCES                                        16
+
 /* The power table for multi ADV Tx Power levels
     Min   : -12 dBm     #define BTM_BLE_ADV_TX_POWER_MIN        0
     Low   :  -8 dBm     #define BTM_BLE_ADV_TX_POWER_LOW        1
@@ -345,8 +347,8 @@ typedef struct
     Upper :   0 dBm     #define BTM_BLE_ADV_TX_POWER_UPPER      3
     Max   :   4 dBm     #define BTM_BLE_ADV_TX_POWER_MAX        4
 */
-#define MULTI_ADV_TX_POWER_MIN_INDEX                0
-#define MULTI_ADV_TX_POWER_MAX_INDEX                4
+#define MULTI_ADV_TX_POWER_MIN                0
+#define MULTI_ADV_TX_POWER_MAX                4
 
 /* Transmit Power in dBm ( MULTI_ADV_TX_POWER_MIN to MULTI_ADV_TX_POWER_MAX ) */
 typedef int8_t wiced_bt_ble_adv_tx_power_t;
@@ -368,6 +370,16 @@ enum wiced_bt_ble_multi_advert_type_e
     MULTI_ADVERT_LOW_DUTY_CYCLE_DIRECT_EVENT        = 0x04
 };
 typedef uint8_t wiced_bt_ble_multi_advert_type_t;    /**< BLE advertisement type (see #wiced_bt_ble_multi_advert_type_e) */
+
+/** Multi-advertisement Filtering policy */
+enum wiced_bt_ble_multi_advert_filtering_policy_e
+{
+    MULTI_ADVERT_FILTER_POLICY_WHITE_LIST_NOT_USED                         = 0x00, /**< white list not used */
+    MULTI_ADVERT_WHITE_LIST_POLICY_ADV_ALLOW_UNKNOWN_CONNECTION            = 0x01, /**< white list for scan request */
+    MULTI_ADVERT_WHITE_LIST_POLICY_ADV_ALLOW_UNKNOWN_SCANNING              = 0x02, /**< white list for connection request */
+    MULTI_ADVERT_FILTER_POLICY_WHITE_LIST_USED_FOR_ALL                     = 0x03
+};
+typedef uint8_t wiced_bt_ble_multi_advert_filtering_policy_t;                      /**< \ref wiced_bt_ble_multi_advert_filtering_policy_e */
 
 
 /* LE Multi advertising parameter */
@@ -1041,6 +1053,20 @@ void wiced_bt_ble_set_resolvable_private_address(wiced_bt_device_address_t rpa);
  *                  BTM_LOCAL_IDENTITY_KEYS_UPDATE_EVT
  */
 void wiced_bt_ble_set_local_identity_key_data(uint8_t *p_data);
+
+
+/**
+ * Function         wiced_ble_private_device_address_resolution
+ *
+ *                  Private Device Address Resolution
+ *
+ * @param rpa       BLE Resolvable Private Address
+ * @param irk       BLE IRK
+ * @return          wiced_result_t
+ *                  WICED_BT_SUCCESS the identity of device address has been resolved.
+ *                  WICED_BT_ERROR   otherwise.
+ */
+wiced_result_t wiced_ble_private_device_address_resolution(wiced_bt_device_address_t rpa, BT_OCTET16 irk);
 
 /**@} btm_ble_api_functions */
 

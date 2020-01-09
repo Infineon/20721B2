@@ -1,5 +1,5 @@
 /**
- * Copyright 2019, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -42,7 +42,6 @@
 #include "wiced.h"
 #include "wiced_timer.h"
 #include "platform_led.h"
-#include "wiced_filesystem.h"
 
 #ifdef __cplusplus
 extern "C" {

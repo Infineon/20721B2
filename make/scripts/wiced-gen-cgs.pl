@@ -102,7 +102,7 @@ sub main
             $cgs_record->{'order'} = 2;
         }
         # platform cgs
-        elsif($cgs =~ /platforms\/[^\.]+.cgs$/) {
+        elsif(($cgs =~ /platforms\/[^\.]+.cgs$/) || ($cgs =~ /TARGET_.*\/.*.cgs$/)) {
             $cgs_record->{'type'} = 'platform';
             $cgs_record->{'order'} = 3;
         }
@@ -255,8 +255,10 @@ sub report_resource_usage
 	}
 	close $LD;
 
-	if(defined $flash_ds && defined $flash_ds2) {
-		printf "DS length %d (0x%06X) at 0x%06X\n", $flash_ds2 - $flash_ds, $flash_ds2 - $flash_ds, $flash_ds;
+	if(defined $flash_ds) {
+		my $flash_ds_len = $flash_len - $flash_ds;
+		$flash_ds_len = ($flash_ds2 - $flash_ds) if defined $flash_ds2;
+		printf "DS length %d (0x%06X) at 0x%06X\n", $flash_ds_len/2, $flash_ds_len/2, $flash_ds;
 	}
 
 	foreach my $section (@{$sections}) {

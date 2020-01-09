@@ -1,5 +1,5 @@
 /*
- * Copyright 2019, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -135,65 +135,6 @@ extern wiced_worker_thread_t wiced_networking_worker_thread;
  */
 wiced_thread_t*  wiced_rtos_create_thread( void );
 
-/** Checks if there is a stackoverflow
- *
- * Verifies if the stack of the thread from which this API is invoked is corrupted
- *
- * @return    TRUE  : stack overflow
- * @return    FALSE : not stack overflow
- */
-wiced_bool_t wiced_rtos_check_for_stack_overflow( void );
-
-/** Creates a new instance of queue
- *
- * Creates a new queue (Allocates memory for a new queue instance and
- * returns the pointer)
- *
- * @return    valid pointer : on success.
- * @return    NULL          : if an error occurred
- */
-wiced_queue_t*  wiced_rtos_create_queue( void );
-
-/** Creates a new instance of mutex
- *
- * Creates a new mutex (Allocates memory for a new mutex instance and
- * returns the pointer)
- *
- * @return    valid pointer : on success.
- * @return    NULL          : if an error occurred
- */
-wiced_mutex_t*  wiced_rtos_create_mutex( void );
-
-/** Creates a new instance of semaphore
- *
- * Creates a new semaphore (Allocates memory for a new semaphore instance and
- * returns the pointer)
- *
- * @return    valid pointer : on success.
- * @return    NULL          : if an error occurred
- */
-wiced_semaphore_t*  wiced_rtos_create_semaphore( void );
-
-/** Creates a new instance of event flags
- *
- * Creates a new event_flag (Allocates memory for a new event flags instance and
- * returns the pointer)
- *
- * @return    valid pointer : on success.
- * @return    NULL          : if an error occurred
- */
-wiced_event_flags_t*  wiced_rtos_create_event_flags( void );
-
-/** Creates a new instance of worker thread
- *
- * Creates a new worker thread (Allocates memory for a new worker thread instance and
- * returns the pointer)
- *
- * @return    valid pointer : on success.
- * @return    NULL          : if an error occurred
- */
-wiced_worker_thread_t* wiced_rtos_create_worker_thread(void);
-
 /** Initializes and starts a new thread
  *
  * Initializes and starts a new thread
@@ -218,6 +159,15 @@ wiced_result_t wiced_rtos_init_thread( wiced_thread_t* thread, uint8_t priority,
  * @return    WICED_ERROR   : if an error occurred
  */
 wiced_result_t wiced_rtos_delete_thread( wiced_thread_t* thread );
+
+/** Checks if there is a stackoverflow
+ *
+ * Verifies if the stack of the thread from which this API is invoked is corrupted
+ *
+ * @return    TRUE  : stack overflow
+ * @return    FALSE : not stack overflow
+ */
+wiced_bool_t wiced_rtos_check_for_stack_overflow( void );
 
 /** Sleep for a given period of milliseconds
  *
@@ -292,6 +242,51 @@ wiced_result_t wiced_rtos_thread_force_awake( wiced_thread_t* thread );
  */
 wiced_result_t wiced_rtos_is_current_thread( wiced_thread_t* thread );
 
+
+/** @} */
+/*****************************************************************************/
+/** @addtogroup worker       Worker Threads
+ *  @ingroup rtos
+ *
+ * Worker thread management functions
+ *
+ *
+ *  @{
+ */
+/*****************************************************************************/
+
+/** Creates a new instance of a worker thread
+ *
+ * Creates a new worker thread (Allocates memory for a new worker thread instance and
+ * returns the pointer)
+ * A worker thread is a thread in whose context timed and asynchronous events
+ * execute.
+ *
+ * @return    valid pointer : on success.
+ * @return    NULL          : if an error occurred
+ */
+wiced_worker_thread_t* wiced_rtos_create_worker_thread(void);
+
+
+/** Initializes and starts a worker thread
+ *
+ * Initializes and starts a worker thread
+ * A worker thread is a thread in whose context timed and asynchronous events
+ * execute.
+ *
+ * @param worker_thread    : a pointer to the worker thread to be created
+ * @param priority         : thread priority
+ * @param stack_size       : thread's stack size in number of bytes
+ * @param event_queue_size : number of events can be pushed into the queue
+ *
+ * @return    WICED_SUCCESS : on success.
+ * @return    WICED_ERROR   : if an error occurred
+ * Note :     The number of buffers in wiced_bt_cfg_settings_t.max_number_of_buffer_pools
+ *            must be increased for each worker thread the application will utilize.
+ */
+wiced_result_t wiced_rtos_init_worker_thread( wiced_worker_thread_t* worker_thread, uint8_t priority, uint32_t stack_size, uint32_t event_queue_size );
+
+
 /** @} */
 /*****************************************************************************/
 /** @addtogroup semaphores       Semaphores
@@ -303,6 +298,17 @@ wiced_result_t wiced_rtos_is_current_thread( wiced_thread_t* thread );
  *  @{
  */
 /*****************************************************************************/
+
+/** Creates a new instance of semaphore
+ *
+ * Creates a new semaphore (Allocates memory for a new semaphore instance and
+ * returns the pointer)
+ *
+ * @return    valid pointer : on success.
+ * @return    NULL          : if an error occurred
+ */
+wiced_semaphore_t*  wiced_rtos_create_semaphore( void );
+
 
 /** Initialises a semaphore
  *
@@ -354,6 +360,17 @@ wiced_result_t wiced_rtos_get_semaphore( wiced_semaphore_t* semaphore, uint32_t 
  *  @{
  */
 /*****************************************************************************/
+
+/** Creates a new instance of mutex
+ *
+ * Creates a new mutex (Allocates memory for a new mutex instance and
+ * returns the pointer)
+ *
+ * @return    valid pointer : on success.
+ * @return    NULL          : if an error occurred
+ */
+wiced_mutex_t*  wiced_rtos_create_mutex( void );
+
 
 /** Initialises a mutex
  *
@@ -421,17 +438,34 @@ wiced_result_t wiced_rtos_deinit_mutex( wiced_mutex_t* mutex );
  */
 /*****************************************************************************/
 
+/** Creates a new instance of queue
+ *
+ * Creates a new FIFO queue (Allocates memory for a new queue instance and
+ * returns the pointer)
+ *
+ * @return    valid pointer : on success.
+ * @return    NULL          : if an error occurred
+ */
+wiced_queue_t*  wiced_rtos_create_queue( void );
+
+
 /** Initialises a queue
  *
  * Initialises a FIFO queue
  *
  * @param queue : a pointer to the queue handle to be initialised
  * @param name  : a text string name for the queue (NULL is allowed)
- * @param message_size : size in bytes of objects that will be held in the queue(currentlt only 1 byte is acccepted)
- * @param number_of_messages : depth of the queue - i.e. max number of objects in the queue
+ * @param message_size : size in bytes of objects that will be held in the queue
+ *                       (currently only 1 byte is acccepted)
+ * @param number_of_messages : depth of the queue - i.e. max number of objects
+ *                             in the queue
  *
  * @return    WICED_SUCCESS : on success.
  * @return    WICED_ERROR   : if an error occurred
+ *
+ * Note : This API will create a separate private memory buffer pool so please
+ * increase max_number_of_buffer_pools (in wiced_bt_cfg_settings_t structure)
+ * by the number of rtos queues initialized - i.e. one per call to this API.
  */
 wiced_result_t wiced_rtos_init_queue( wiced_queue_t* queue, const char* name, uint32_t message_size, uint32_t number_of_messages );
 
@@ -514,34 +548,6 @@ wiced_result_t wiced_rtos_get_queue_occupancy( wiced_queue_t* queue, uint32_t *c
 
 /** @} */
 /*****************************************************************************/
-/** @addtogroup worker       Worker Threads
- *  @ingroup rtos
- *
- * Worker thread management functions
- *
- *
- *  @{
- */
-/*****************************************************************************/
-
-/** Creates a worker thread
- *
- * Creates a worker thread
- * A worker thread is a thread in whose context timed and asynchronous events
- * execute.
- *
- * @param worker_thread    : a pointer to the worker thread to be created
- * @param priority         : thread priority
- * @param stack_size       : thread's stack size in number of bytes
- * @param event_queue_size : number of events can be pushed into the queue
- *
- * @return    WICED_SUCCESS : on success.
- * @return    WICED_ERROR   : if an error occurred
- */
-wiced_result_t wiced_rtos_init_worker_thread( wiced_worker_thread_t* worker_thread, uint8_t priority, uint32_t stack_size, uint32_t event_queue_size );
-
-/** @} */
-/*****************************************************************************/
 /** @addtogroup events       Events
  *  @ingroup rtos
  *
@@ -574,6 +580,17 @@ wiced_result_t wiced_rtos_send_asynchronous_event( wiced_worker_thread_t* worker
  *  @{
  */
 /*****************************************************************************/
+
+/** Creates a new instance of event flags
+ *
+ * Creates a new event_flag (Allocates memory for a new event flags instance and
+ * returns the pointer)
+ *
+ * @return    valid pointer : on success.
+ * @return    NULL          : if an error occurred
+ */
+wiced_event_flags_t*  wiced_rtos_create_event_flags( void );
+
 
 /** Initialise an event flags
  *

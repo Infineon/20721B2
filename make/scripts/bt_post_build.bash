@@ -257,6 +257,7 @@ fi
 "$CY_TOOL_CP" "$CY_APP_HDF" "$CY_MAINAPP_BUILD_DIR/."
 
 # set up BDADDR if random or default
+CY_APP_CGS_ARGS_ORIG=$CY_APP_CGS_ARGS
 CY_APP_CGS_ARGS=$("$CY_TOOL_PERL" -I "$CYWICEDSCRIPTS" "$CYWICEDSCRIPTS/wiced-bdaddr.pl" ${CY_CHIP} "$CY_APP_BTP" ${CY_APP_CGS_ARGS})
 
 # fancy arg fixup for RAM_runtime, could check more generally for args with spaces that need to be quoted
@@ -340,20 +341,30 @@ echo "inserting fail safe into ota upgrade image"
 echo "$CYWICEDTOOLS/CGS/cgs -D $CY_MAINAPP_BUILD_DIR -B $CY_APP_BTP $CY_APP_CGS_ARGS -O DLConfigVSLocation:0x2000 -O DLConfigFixedHeader:0 -O DLMaxWriteSize:251 -I $CY_APP_HEX_SS --cgs-files $CY_APP_FAILSAFE"
 "$CYWICEDTOOLS/CGS/cgs" -D "$CY_MAINAPP_BUILD_DIR" -B "$CY_APP_BTP" $CY_APP_CGS_ARGS -O DLConfigVSLocation:0x2000 -O DLConfigFixedHeader:0 -O DLMaxWriteSize:251 -I "$CY_APP_HEX_SS" --cgs-files "$CY_APP_FAILSAFE"
 # create text listing: $(call CONV_SLASHES,$(HEX_TO_BIN_FULL_NAME)) -a build/$(OUTPUT_NAME)/$(OUTPUT_NAME)_ihexss_temp.hex build/$(OUTPUT_NAME)/$(OUTPUT_NAME)_full.txt
+if [ "$VERBOSE" != "" ]; then
 echo "create text listing"
+fi
 "$CYWICEDTOOLS/IntelHexToBin/IntelHexToBin" -a "$CY_APP_HEX_SS" "$CY_APP_HEX_SS.full.txt"
 # trim off FE 00 00 from end of text listing: $(call CONV_SLASHES,$(HEAD_OR_TAIL_FULL_NAME)) H -3 $CY_APP_HEX_SS.full.txt $CY_APP_HEX_SS.txt
+if [ "$VERBOSE" != "" ]; then
 echo "trim text listing"
+fi
 "$CYWICEDTOOLS/IntelHexToBin/HeadOrTail" H -3 "$CY_APP_HEX_SS.full.txt" "$CY_APP_HEX_SS.txt"
 
 # create app hex with default SS: $(call CONV_SLASHES,$(CGS_FULL_NAME)) -D $(SOURCE_ROOT)platforms -B $(SOURCE_ROOT)platforms/$(PLATFORM_FULL)/$(PLATFORM_BOOTP) $(BTP_OVERRIDES_SPAR) -I build/$(OUTPUT_NAME)/$(OUTPUT_NAME)_ihexserial_temp.hex --cgs-files build/$(OUTPUT_NAME)/$(BLD)-$(APP)-$(BASE_LOC)-$(SPAR_LOC)-spar.cgs
+if [ "$VERBOSE" != "" ]; then
 echo "create app hex with default SS, zero origin"
+fi
 echo "generate hex file:"
-echo "cgs -D $CY_MAINAPP_BUILD_DIR $CY_APP_CGS_ARGS -B $CY_APP_BTP -I $CY_APP_HEX --cgs-files $CY_MAINAPP_BUILD_DIR/$CY_MAINAPP_NAME.cgs"
-$CYWICEDTOOLS/CGS/cgs -D "$CY_MAINAPP_BUILD_DIR" -O ConfigDSLocation:0x4000 -O DLConfigVSLocation:0x2000 -B "$CY_APP_BTP" -I "$CY_APP_HEX.ihexserial.temp.hex" --cgs-files "$CY_MAINAPP_BUILD_DIR/$CY_MAINAPP_NAME.cgs"
+CY_APP_CGS_ARGS=$(echo ${CY_APP_CGS_ARGS} | sed -E 's/.*(-O DLConfigBD_ADDRBase:[^ ]+).*/\1/')
+CY_APP_CGS_ARGS+=" -O ConfigDSLocation:0x4000 -O DLConfigVSLocation:0x2000"
+echo "cgs -D $CY_MAINAPP_BUILD_DIR $CY_APP_CGS_ARGS -B $CY_APP_BTP -I $CY_APP_HEX.ihexserial.temp.hex --cgs-files $CY_MAINAPP_BUILD_DIR/$CY_MAINAPP_NAME.cgs"
+$CYWICEDTOOLS/CGS/cgs -D "$CY_MAINAPP_BUILD_DIR" $CY_APP_CGS_ARGS -B "$CY_APP_BTP" -I "$CY_APP_HEX.ihexserial.temp.hex" --cgs-files "$CY_MAINAPP_BUILD_DIR/$CY_MAINAPP_NAME.cgs"
 
 # append text SS with regular hex: $(call CONV_SLASHES,$(APPEND_TO_INTEL_HEX_FULL_NAME)) -I 0x1b build/$(OUTPUT_NAME)/$(OUTPUT_NAME)_ss_temp.txt build/$(OUTPUT_NAME)/$(OUTPUT_NAME)_ihexserial_temp.hex build/$(OUTPUT_NAME)/$(OUTPUT_NAME)_combined_temp.hex
+if [ "$VERBOSE" != "" ]; then
 echo "append text ss with fail safe to app hex"
+fi
 "$CYWICEDTOOLS/IntelHexToBin/AppendToIntelHex" -I 0x1b "$CY_APP_HEX_SS.txt" "$CY_APP_HEX.ihexserial.temp.hex" "$CY_APP_HEX.combined.hex"
 
 # add FLASH offset to hex: $(QUIET)$(call CONV_SLASHES,$(SHIFT_INTEL_HEX_FULL_NAME)) 0xFF000000 build/$(OUTPUT_NAME)/$(OUTPUT_NAME)_combined_temp.hex build/$(OUTPUT_NAME)/$(OUTPUT_NAME)_.hex
@@ -373,11 +384,16 @@ echo "building OTA upgrade image (*.bin)"
 CY_APP_OTA_HEX="$CY_MAINAPP_BUILD_DIR/${CY_MAINAPP_NAME}_${CY_TARGET}.ota.hex"
 CY_APP_OTA_BIN=${CY_APP_OTA_HEX//.hex/.bin}
 if [[ $CY_APP_BUILD_EXTRAS = *"_APPDS2_"* ]]; then
-    echo "Adjusting image to trim DS2 app, we only want to ota update with DS1 + XIP code"
+    if [ "$VERBOSE" != "" ]; then
+        echo "Adjusting image to trim DS2 app, only do ota update with DS1 + XIP code"
+    fi
     CY_APP_HEX="$CY_APP_HEX.ds1"
 fi
 # convert hex to bin
 DS_ADDR=$("$CY_TOOL_PERL" -ne 'print "$1" if /DS length \d+ \(0x[0-9A-Fa-f]+\) at (0x[0-9A-Fa-f]+)/' "$CY_MAINAPP_BUILD_DIR/$CY_MAINAPP_NAME.report.txt")
+if [[ $CY_APP_CGS_ARGS_ORIG = *"-A 0xFF000000"* ]]; then
+    DS_ADDR=$(printf "0x%08X" $((${DS_ADDR}+0xFF000000)))
+fi
 "$CYWICEDTOOLS/IntelHexToBin/IntelHexToBin" -l $DS_ADDR -f 00 "$CY_APP_HEX" "$CY_APP_OTA_BIN"
 # print size
 FILESIZE=$("$CY_TOOL_WC" -c < "$CY_APP_OTA_BIN")
@@ -385,7 +401,7 @@ echo "OTA Upgrade file size is $FILESIZE"
 DS_LENGTH=$("$CY_TOOL_PERL" -ne 'print "$1" if /DS length (\d+)/' "$CY_MAINAPP_BUILD_DIR/$CY_MAINAPP_NAME.report.txt")
 echo "DS length $DS_LENGTH, OTA image size $FILESIZE"
 [ "$FILESIZE" -gt "$DS_LENGTH" ] && echo "WARNING: OTA image exceeds DS area"
-fi
+fi # end if OTA
 
 # copy files necessary for download to help launch config find them
 "$CY_TOOL_CP" "$CY_APP_BTP" "$CY_MAINAPP_BUILD_DIR/$CY_MAINAPP_NAME.btp"

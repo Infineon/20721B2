@@ -1,5 +1,5 @@
 /*
- * Copyright 2019, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -331,6 +331,8 @@ uint16_t wiced_bt_avrc_close_browse(uint8_t handle);
  * @param[in]       buffer_count     : the number of buffers in this new pool
  *
  * @return          Result code (see @ref AVRC_RESULT "AVRC result codes")
+ *
+ * Note : This API will create separate private pool so please increase max_number_of_buffer_pools by one (in wiced_bt_cfg_settings_t structure).
  *
  */
 uint16_t wiced_bt_avrc_set_buffer_pool(uint16_t buffer_size, uint16_t buffer_count);
