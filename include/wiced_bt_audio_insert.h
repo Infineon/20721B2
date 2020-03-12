@@ -56,15 +56,35 @@ extern "C" {
 
 #include <stdint.h>
 #include "wiced.h"
+#include "wiced_bt_sco_hook.h"
 
 /**
-*  @addtogroup  audio_insert_data_types        Data Types
-*  @ingroup     audio_insert
-*
-*  <b> Data Types </b> for @b Audio Insert.
-*
-*  @{
-*/
+ * @brief Number of PCM Samples for Audio Insertion in Audio Stream
+ *
+ * The user application shall provide (WICED_BT_AUDIO_INSERT_PCM_SAMPLE_NB_AUDIO * 2)
+ * samples (each sample is 16-bit) in each audio insertion.
+ */
+#define WICED_BT_AUDIO_INSERT_PCM_SAMPLE_NB_AUDIO   128
+
+/**
+ * @brief Number of PCM Samples for Audio Insertion in Voice Stream
+ *
+ * The controller will ask the application to provide 120 samples data (120 * 16 bits) in every
+ * WICED_BT_SCO_HOOK_EVT_SPK_SAMPLES event.
+ */
+#define WICED_BT_AUDIO_INSERT_PCM_SAMPLE_NB_SCO     120
+
+/**
+ * @brief   Audio Insert Type
+ *
+ * Type of audio insertion
+ */
+typedef enum
+{
+    WICED_BT_AUDIO_INSERT_TYPE_SCO_MIC, /* Insertion data will be added in the Microphone data. */
+    WICED_BT_AUDIO_INSERT_TYPE_SCO_SPK, /* Insertion data will be added in the Voice Call Speaker data. */
+    WICED_BT_AUDIO_INSERT_TYPE_AUDIO,   /* Insertion data will be added in the audio data (streaming or playback). */
+} wiced_bt_audio_insert_type_t;
 
 /**
  * @brief Audio Insert Events.
@@ -78,11 +98,50 @@ typedef enum
     WICED_BT_AUDIO_INSERT_EVT_SCO,          /* indicates start SCO audio injection */
 } wiced_bt_audio_insert_event_t;
 
+/**
+ * Callback when the insertion data is exhausted.
+ *
+ * @param[in] type
+ */
+typedef void (wiced_bt_audio_insert_source_data_exhausted_callback_t)(wiced_bt_audio_insert_type_t type);
+
+typedef struct wiced_bt_audio_insert_data
+{
+    int16_t        *p_source;   /* pointer to the insertion data */
+    uint32_t        len;        /* length of insertion data in bytes */
+    wiced_bool_t    overwrite;  /* TRUE: Overwrite existent data
+                                   FALSE: Amend with insertion data. */
+    wiced_bool_t    loop;       /* TRUE: loop mode
+                                   FALSE: The user application shall call
+                                          wiced_bt_audio_insert_start() utility again to keep the
+                                          audio insertion when the data exhausted callback is
+                                          called.*/
+    uint8_t         volume_reduce_factor_insert;    /* Must be bigger than 0.
+                                                       The insertion data will be divided by this
+                                                       factor and been substituted/amended the
+                                                       original data */
+    uint8_t         volume_reduce_factor_original;  /* Must be bigger than 0.
+                                                       The original data will be divided by this
+                                                       factor first and the insertion data will be
+                                                       amended if overwrite filed value is set to
+                                                       0 */
+
+    wiced_bt_audio_insert_source_data_exhausted_callback_t  *p_source_data_exhausted_callback;
+    wiced_bool_t    stop_insertion_when_source_exhausted;   /* TRUE: stop audio insertion if the
+                                                                     source data is exhausted. */
+} wiced_bt_audio_insert_data_t;
 
 /**
- * @brief Number of PCM Samples for Audio Insertion
+ * @brief Configuration data used to enable/start audio insertion.
  */
-#define WICED_BT_AUDIO_INSERT_PCM_SAMPLE_NB       128
+typedef struct wiced_bt_audio_insert_config
+{
+    wiced_bt_audio_insert_type_t    type;
+    wiced_bool_t                    multiple_device;    /* TRUE: the insertion data shall be added
+                                                                 in multiple devices. */
+    uint32_t                        *p_sample_rate;
+    wiced_bt_audio_insert_data_t    insert_data;
+} wiced_bt_audio_insert_config_t;
 
 /**
  * @brief Data associated with WICED_BT_AUDIO_INSERT_EVT_DATA_REQ.
@@ -157,22 +216,33 @@ typedef void (wiced_bt_audio_insert_callback_t)(wiced_bt_audio_insert_event_t ev
  */
 wiced_result_t wiced_bt_audio_insert_init(wiced_bt_audio_insert_callback_t *p_callback);
 
-/**@} audio_insert_api_functions */
+#if 1
+/**
+ * wiced_bt_audio_insert_init_new
+ *
+ * Initialize the WiCED BT Audio Insertion Module.
+ */
+void wiced_bt_audio_insert_init_new(void);
+#endif
 
 /**
+ * wiced_bt_audio_insert_start
  *
- * Function         wiced_bt_audio_insert_enable
+ * Start the audio insertion
  *
- *                  This function is called to Enable/disable Audio Insert.
- *
- * @param[in]       enable: Enable (1) or Disable (0) Audio Insertion
- * @param[in/out]   sample_rate: IN: Sample Rate proposed by the application
- *                               OUT: Sample Rate to use (decided by HW/HW)
- *
- * @return          Result code (see wiced_result_t)
+ * @param p_config - refer to wiced_bt_audio_insert_config_t
  *
  */
-wiced_result_t wiced_bt_audio_insert_enable(uint8_t enable, uint32_t *p_sample_rate);
+void wiced_bt_audio_insert_start(wiced_bt_audio_insert_config_t *p_config);
+
+/**
+ * wiced_bt_audio_insert_stop
+ *
+ * Stop the audio insertion
+ *
+ * @param type - refer to wiced_bt_audio_insert_type_t
+ */
+void wiced_bt_audio_insert_stop(wiced_bt_audio_insert_type_t type);
 
 #ifdef __cplusplus
 }

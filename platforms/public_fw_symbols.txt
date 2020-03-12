@@ -62,6 +62,11 @@ FIRST_FREE_SECTION_IN_AON         ,     SECTION,      PUBLIC,               0,  
 __aeabi_memclr                                   ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 __aeabi_memcpy                                   ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 __aeabi_uldivmod                                 ,           SYMBOL ,      PUBLIC,      0,                      ,              1
+__aeabi_memmove4                                 ,           SYMBOL ,      PUBLIC,      0,                      ,              1
+__aeabi_llsl                                     ,           SYMBOL ,      PUBLIC,      0,                      ,              1
+_ll_shift_l                                      ,           SYMBOL ,      PUBLIC,      0,                      ,              1
+__aeabi_lasr                                     ,           SYMBOL ,      PUBLIC,      0,                      ,              1
+_ll_sshift_r                                     ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 _tx_v7m_get_and_disable_int                      ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 _tx_v7m_set_int                                  ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 AVCT_Register                                    ,           SYMBOL ,      PUBLIC,      0,                      ,              1
@@ -79,6 +84,7 @@ bttransport_Detect                               ,           SYMBOL ,      PUBLI
 bttransport_GetType                              ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 btu_hcif_send_cmd                                ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 clock_SystemTimeMicroseconds64                   ,           SYMBOL ,      PUBLIC,      0,                      ,              1
+clock_SystemTimeMicroseconds32                   ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 clock_SystemTimeMicroseconds32_nolock            ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 copyStreamToBda                                  ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 g_aon_memory_manager_MinAddress                  ,           SYMBOL ,      PUBLIC,      0,                      ,              0
@@ -89,9 +95,6 @@ g_rfp_config                                     ,           SYMBOL ,      PUBLI
 dynamic_memory_AllocatePermanent                 ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 gpio_slimboot_reinforce_all_outputpin_value      ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 lm_GetPowerRegValue                              ,           SYMBOL ,      PUBLIC,      0,                      ,              1
-memcmp                                           ,           SYMBOL ,      PUBLIC,      0,                      ,              1
-memcpy                                           ,           SYMBOL ,      PUBLIC,      0,                      ,              1
-memset                                           ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 mpaf_memcpy                                      ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 mpaf_memset                                      ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 micro_bcsIsNormalModeTransition                  ,           SYMBOL ,      PUBLIC,      0,                      ,              1
@@ -100,7 +103,6 @@ osapi_activateTimer                              ,           SYMBOL ,      PUBLI
 osapi_createTimer                                ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 osapi_deactivateTimer                            ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 rmulp_constInfo                                  ,           SYMBOL ,      PUBLIC,      0,                      ,              0
-strlen                                           ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 wdog_generate_hw_reset                           ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 #
 wiced_*                                          ,           SYMBOL ,      PUBLIC,      0,                      ,              1
@@ -112,7 +114,6 @@ crc32_Update                                     ,           SYMBOL ,      PUBLI
 curve_p256                                       ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 ECC_Double                                       ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 ECC_PM_B_NAF                                     ,           SYMBOL ,      PUBLIC,      0,                      ,              1
-g_config_Info                                    ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 g_nvram_intf                                     ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 MP_Add                                           ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 MP_CMP                                           ,           SYMBOL ,      PUBLIC,      0,                      ,              1
@@ -128,16 +129,17 @@ MP_SubMod                                        ,           SYMBOL ,      PUBLI
 sha2_finish                                      ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 sha2_starts                                      ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 sha2_update                                      ,           SYMBOL ,      PUBLIC,      0,                      ,              1
+sha2_hmac                                        ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 #
 allowSlaveLatency                                ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 pmu_Enable32KhzOscillator                        ,           SYMBOL ,      PUBLIC,      0,                      ,              1
+pmu_ldo_trim_v2_set_pmic_fp                      ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 BtTransportDetectionPollingRetryMax              ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 copyBdaToStream                                  ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 DEFAULT_SUPERVISION_TIMEOUT                      ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 g_foundation_config_PMUflags                     ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 g_foundation_config_sleepModeParam               ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 gatt_find_tcb_by_addr                            ,           SYMBOL ,      PUBLIC,      0,                      ,              1
-gpio_registerForInterrupt                        ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 hciulp_leCsFeatureSet                            ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 mia_isResetReasonPor                             ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 mpaf_pmu_changeLPOSourceSelection                ,           SYMBOL ,      PUBLIC,      0,                      ,              1
@@ -166,7 +168,6 @@ uECC_shared_secret                               ,           SYMBOL ,      PUBLI
 hw_sha2_engine                                   ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 aes_ecb_128_decrypt                              ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 aes_ecb_128_encrypt                              ,           SYMBOL ,      PUBLIC,      0,                      ,              0
-strncpy                                          ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 GKI_freebuf                                      ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 GKI_getpoolbuf                                   ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 GKI_get_pool_bufsize                             ,           SYMBOL ,      PUBLIC,      0,                      ,              0
@@ -191,10 +192,8 @@ player                                           ,           SYMBOL ,      PUBLI
 PLL_Running                                      ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 BTM_GetHCIConnHandle                              , SYMBOL, PUBLIC, 0, , 1
 BTM_ReadScoHandle                                 , SYMBOL, PUBLIC, 0, , 1
-BTM_SetDeviceClass                                , SYMBOL, PUBLIC, 0, , 1
 BTM_SetLinkPolicy                                 , SYMBOL, PUBLIC, 0, , 1
 BTM_SetLinkSuperTout                              , SYMBOL, PUBLIC, 0, , 1
-BTM_SetLocalDeviceName                            , SYMBOL, PUBLIC, 0, , 1
 BTM_SetWBSCodec                                   , SYMBOL, PUBLIC, 0, , 1
 BTM_SwitchRole                                    , SYMBOL, PUBLIC, 0, , 1
 DHM_HCIRx                                         , SYMBOL, PUBLIC, 0, , 1
@@ -228,6 +227,7 @@ btclk_GetSysClk_slot                              , SYMBOL, PUBLIC, 0, , 1
 btclk_Sub_clkpclk                                 , SYMBOL, PUBLIC, 0, , 1
 bthci_events_vs_lrac_sendPSSwitchExecutedEvent    , SYMBOL, PUBLIC, 0, , 1
 btm_lrac_sync_role_update                         , SYMBOL, PUBLIC, 0, , 1
+btm_remove_acl                                    , SYMBOL, PUBLIC, 0, , 1
 chip_id_check_or_crash                            , SYMBOL, PUBLIC, 0, , 1
 dynamic_memory_Release                            , SYMBOL, PUBLIC, 0, , 1
 enableAdvancedJitterControl                       , SYMBOL, PUBLIC, 0, , 1
@@ -292,6 +292,7 @@ lite_host_ppmChangeValue                          , SYMBOL, PUBLIC, 0, , 1
 lite_host_quickPacketShift                        , SYMBOL, PUBLIC, 0, , 1
 lite_host_send_play_status_ind                    , SYMBOL, PUBLIC, 0, , 1
 lite_host_set_extend_average_time                 , SYMBOL, PUBLIC, 0, , 1
+lite_host_set_pll_parameters                      , SYMBOL, PUBLIC, 0, , 1
 litehostLracWorkQueue                             , SYMBOL, PUBLIC, 0, , 1
 lm_SendLmpBPCS_LRACControlMessage                 , SYMBOL, PUBLIC, 0, , 1
 lm_handleHciSetAFHCC                              , SYMBOL, PUBLIC, 0, , 1
@@ -498,3 +499,29 @@ lrac_referenceClkAllocated                        , SYMBOL, PUBLIC, 0, , 1
 lrac_secondaryStartInfo                           , SYMBOL, PUBLIC, 0, , 1
 lrac_streamStarted                                , SYMBOL, PUBLIC, 0, , 1
 p_callback_lite_host_2_wiced                      , SYMBOL, PUBLIC, 0, , 1
+#
+# general
+__2sprintf                                        , SYMBOL, PUBLIC, 0, , 1
+__2snprintf                                       , SYMBOL, PUBLIC, 0, , 1
+rtc_init                                          , SYMBOL, PUBLIC, 0, , 1
+strncpy                                           , SYMBOL, PUBLIC, 0, , 1
+strlen                                            , SYMBOL, PUBLIC, 0, , 1
+strcmp                                            , SYMBOL, PUBLIC, 0, , 1
+strchr                                            , SYMBOL, PUBLIC, 0, , 1
+strstr                                            , SYMBOL, PUBLIC, 0, , 1
+g_aon_flags                                       , SYMBOL, PUBLIC, 0, , 1
+gpio_getPortOutput                                , SYMBOL, PUBLIC, 0, , 1
+gpio_setPortOutput                                , SYMBOL, PUBLIC, 0, , 1
+gpio_getPortInput                                 , SYMBOL, PUBLIC, 0, , 1
+gpio_getPortInterruptStatus                       , SYMBOL, PUBLIC, 0, , 1
+gpio_clearPortInterruptStatus                     , SYMBOL, PUBLIC, 0, , 1
+gpio_configurePortPins                            , SYMBOL, PUBLIC, 0, , 1
+gpio_registerForInterrupt                         , SYMBOL, PUBLIC, 0, , 1
+BTM_SetDeviceClass                                , SYMBOL, PUBLIC, 0, , 1
+BTM_ReadDeviceClass                               , SYMBOL, PUBLIC, 0, , 1
+BTM_SetLocalDeviceName                            , SYMBOL, PUBLIC, 0, , 1
+BTM_ReadLocalDeviceName                           , SYMBOL, PUBLIC, 0, , 1
+memmove                                           , SYMBOL, PUBLIC, 0, , 1
+memcmp                                            , SYMBOL, PUBLIC, 0, , 1
+memcpy                                            , SYMBOL, PUBLIC, 0, , 1
+memset                                            , SYMBOL, PUBLIC, 0, , 1

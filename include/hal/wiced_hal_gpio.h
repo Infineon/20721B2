@@ -286,8 +286,8 @@ typedef enum
     WICED_KSO17,
     WICED_KSO18,
     WICED_KSO19,
-    WICED_TX_PD,
-    WICED_TX_PD_TILDA,
+    WICED_EPA_CRX,
+    WICED_EPA_CTX,
     WICED_PA_RAMP,
     WICED_BT_GPIO_00,
     WICED_BT_GPIO_01,
@@ -307,6 +307,7 @@ typedef enum
     WICED_RX_FSM,
     WICED_TX_PU,              /**< TX PU */
     WICED_RX_PU,              /**< RX PU */
+    WICED_EPA_CSD,
     WICED_UNAVAILABLE = 0xFF  /**< Invalid functionality for error check */
 } wiced_bt_gpio_function_t;
 

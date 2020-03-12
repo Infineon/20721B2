@@ -150,24 +150,26 @@ ifeq ($(LIBNAME),)
 CY_RECIPE_POSTBUILD?=\
     bash --norc --noprofile\
     "$(CY_INTERNAL_BASELIB_PATH)/make/scripts/bt_post_build.bash"\
-    "--shell=$(CY_MODUS_SHELL_DIR)"\
-    "--cross=$(CY_CROSSPATH)/arm-none-eabi-"\
-    "--scripts=$(CY_INTERNAL_BASELIB_PATH)/make/scripts"\
-    "--tools=$(CY_WICED_TOOLS_DIR)"\
-    "--builddir=$(CY_CONFIG_DIR)"\
-    "--elfname=$(APPNAME).elf"\
-    "--appname=$(APPNAME)"\
-    "--hdf=$(CY_CORE_HDF)"\
-    "--entry=$(CY_CORE_APP_ENTRY).entry"\
-    "--cgslist=$(CY_CORE_CGSLIST)"\
-    "--cgsargs=$(CY_CORE_CGS_ARGS)"\
-    "--btp=$(CY_CORE_BTP)"\
-    "--id=$(CY_CORE_HCI_ID)"\
-    "--chip=$(CHIP)$(CHIP_REV)"\
-    "--target=$(TARGET)"\
-    "--minidriver=$(CY_CORE_MINIDRIVER)"\
-    "--failsafe=$(CY_CORE_FAIL_SAFE_CGS)"\
-    "--clflags=$(CY_CORE_APP_CHIPLOAD_FLAGS)"\
+    --shell="$(CY_MODUS_SHELL_DIR)"\
+    --cross="$(CY_CROSSPATH)/arm-none-eabi-"\
+    --scripts="$(CY_INTERNAL_BASELIB_PATH)/make/scripts"\
+    --tools="$(CY_WICED_TOOLS_DIR)"\
+    --builddir="$(CY_CONFIG_DIR)"\
+    --elfname="$(APPNAME).elf"\
+    --appname="$(APPNAME)"\
+    --hdf="$(CY_CORE_HDF)"\
+    --entry="$(CY_CORE_APP_ENTRY).entry"\
+    --cgslist="$(CY_CORE_CGSLIST)"\
+    --cgsargs="$(CY_CORE_CGS_ARGS)"\
+    --btp="$(CY_CORE_BTP)"\
+    --id="$(CY_CORE_HCI_ID)"\
+    --overridebaudfile="$(CY_INTERNAL_BASELIB_PATH)/platforms/BAUDRATEFILE.txt"\
+    --chip="$(CHIP)$(CHIP_REV)"\
+    --target="$(TARGET)"\
+    --minidriver="$(CY_CORE_MINIDRIVER)"\
+    --ds2_app="$(CY_DS2_APP_HEX)"\
+    --failsafe="$(CY_CORE_FAIL_SAFE_CGS)"\
+    --clflags="$(CY_CORE_APP_CHIPLOAD_FLAGS)"\
     --extras=$(CY_APP_OTA)$(APP_STATIC_DATA)$(CY_CORE_APP_XIP_EXTRA)$(CY_CORE_DS2_EXTRA)\
     $(if $(VERBOSE),"--verbose"); CY_CMD_TERM=;
 endif

@@ -421,6 +421,7 @@ typedef unsigned char BOOL8;
         #endif
 
         #define __weak __attribute__((weak))
+        #define PLACE_TEXT_IN_RAM __attribute__((section(".text_in_ram")))
 #endif
 
 

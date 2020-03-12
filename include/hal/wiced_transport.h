@@ -324,6 +324,25 @@ wiced_result_t wiced_transport_send_hci_trace( wiced_transport_buffer_pool_t *hc
  */
 wiced_result_t wiced_transport_set_detect_on( UINT16 detect_on_second );
 
+/**
+ * Function         wiced_transport_send_raw_buffer
+ *
+ *    Used when transport mode is WICED_TRANSPORT_UART_RAW_MODE. Available with the wiced_uart_raw_mode_lib.
+ *    Send the packet to the host over the transport using the buffer allocated by the application.
+ *    This function takes care of preparing the header and sending the data. The buffer must be freed
+ *    by the application if return status is WICED_SUCCESS.
+ *
+ * Note: Application has to allocate buffer from transport pool using wiced_transport_allocate_buffer
+ *         and copy the payload to this buffer and send the payload pointer.
+ *         This allows the application to use custom size buffers and avoid overrun of generic buffers,
+ *         which is shared across firmware code.
+ *
+ *@param[in]    p_buf                :Pointer to the payload
+ *@param[in]    length               :Payload length
+ * @return   wiced_result_t
+ */
+wiced_result_t wiced_transport_send_raw_buffer( uint8_t* p_buf, uint16_t length );
+
 /** @} */
 
 #endif // _WICED_TRANSPORT_H_
