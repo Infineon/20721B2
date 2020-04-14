@@ -1436,6 +1436,19 @@ wiced_result_t wiced_bt_dev_write_eir (uint8_t *p_buff, uint16_t len);
  */
 
 /**
+ * Function         wiced_bt_dev_configure_secure_connections_only_mode
+ *
+ *                  Configure device to allow connections only with
+ *                  secure connections supported devices
+ *
+ * @note           API must be called only once after BTM_ENABLED_EVT event
+ *                   received, before starting bluetooth activity
+ *
+ * @return          void
+ */
+void wiced_bt_dev_configure_secure_connections_only_mode (void);
+
+/**
  * Function         wiced_bt_dev_pin_code_reply
  *
  *                  PIN code reply (use in response to <b>BTM_PIN_REQUEST_EVT </b> in #wiced_bt_management_cback_t)
@@ -1868,8 +1881,7 @@ wiced_result_t wiced_bt_set_tx_power ( wiced_bt_device_address_t bd_addr , INT8 
  *
  * Description     Application can invoke this function to configure the  BT RF front end to apply additional
  *                 attenuation to the RF output signal for specific modes, ie BR, EDR, LE, and LE2. The higher
- *                 the ticks value, the more attenuation is applied. For BR/EDR, valid tick values range from
- *                 0 to 13. For LE/LE2, valid tick values range from 0 to 20.
+ *                 the ticks value, the more attenuation is applied. Valid tick values range from 0 to 4.
  *
  * @param[in]      mode  : Phy mode (BR, EDR, LE, or LE2)
  * @param[in]      ticks : Amount of attenuation in ticks
@@ -1879,6 +1891,43 @@ wiced_result_t wiced_bt_set_tx_power ( wiced_bt_device_address_t bd_addr , INT8 
  *
  */
 wiced_result_t  wiced_bt_dev_set_tx_power_table_offset(wiced_bt_tx_power_table_offset_mode_t mode, uint8_t ticks);
+
+/*
+ * wiced_bt_connect
+ *
+ * Connect with remote device
+ *
+ * @param[in]   remote_bd_addr - remote device's address
+ *
+ * @return      WICED_TRUE: success
+ *              WICED_FALSE: fail
+ */
+wiced_bool_t wiced_bt_connect(wiced_bt_device_address_t remote_bd_addr);
+
+/*
+ * wiced_bt_start_authentication
+ *
+ * Start the authentication process with remote device
+ *
+ * @param[in]   bdaddr - remote device's address
+ * @param[in]   hci_handle - ACL connection's handle
+ *
+ * @return      WICED_TRUE: success
+ *              WICED_FALSE: fail
+ */
+wiced_bool_t wiced_bt_start_authentication(wiced_bt_device_address_t bdaddr, uint16_t hci_handle);
+
+/*
+ * wiced_bt_start_encryption
+ *
+ * Start the encryption process with remote device
+ *
+ * @param[in]   bdaddr - remote device's address
+ *
+ * @return      WICED_TRUE: success
+ *              WICED_FALSE: fail
+ */
+wiced_bool_t wiced_bt_start_encryption(wiced_bt_device_address_t bdaddr);
 
 /*******************************************************************************
 * Function         wiced_bt_set_pairable_mode
@@ -2065,6 +2114,56 @@ wiced_result_t wiced_bt_dev_get_device_class(wiced_bt_device_address_t bdaddr,
  *        (by calling app_bt_init()).
  */
 void wiced_bt_dev_lrac_disable_secure_connection(void);
+
+/**
+ * wiced_bt_connect
+ *
+ * Connect with remote device
+ *
+ * @param[in]   remote_bd_addr - remote device's address
+ *
+ * @return      WICED_TRUE: success
+ *              WICED_FALSE: fail
+ */
+wiced_bool_t wiced_bt_connect(wiced_bt_device_address_t remote_bd_addr);
+
+/**
+ * wiced_bt_start_authentication
+ *
+ * Start the authentication process with remote device
+ *
+ * @param[in]   bdaddr - remote device's address
+ * @param[in]   hci_handle - ACL connection's handle
+ *
+ * @return      WICED_TRUE: success
+ *              WICED_FALSE: fail
+ */
+wiced_bool_t wiced_bt_start_authentication(wiced_bt_device_address_t bdaddr, uint16_t hci_handle);
+
+/**
+ * wiced_bt_start_encryption
+ *
+ * Start the encryption process with remote device
+ *
+ * @param[in]   bdaddr - remote device's address
+ *
+ * @return      WICED_TRUE: success
+ *              WICED_FALSE: fail
+ */
+wiced_bool_t wiced_bt_start_encryption(wiced_bt_device_address_t bdaddr);
+
+/**
+ * Function         wiced_bt_conn_handle_get
+ *
+ *                  Get the connection handle
+ *
+ * @param[in]       remote_bda      : remote device's address
+ * @param[in]       transport       : BT_TRANSPORT_BR_EDR or BT_TRANSPORT_LE
+ *
+ * @return          connection handle value
+ *                  0xffff for invalid
+*/
+uint16_t wiced_bt_conn_handle_get(wiced_bt_device_address_t remote_bda, wiced_bt_transport_t transport);
 
 #ifdef __cplusplus
 }

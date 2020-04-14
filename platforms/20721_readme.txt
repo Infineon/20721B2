@@ -23,7 +23,7 @@ SDK Software Features
 
 Kits
 ----
-CYW920721B2EVK-01, -02, -03:
+CYW920721B2EVK-02, -03:
     40-QFN package, Arduino compatible headers, 9-axis motion sensor and thermistor,
     user switches and LEDs, USB connector for power, programming and USB-UART bridge.
     Note: Max UART baud rate is 3M
@@ -132,11 +132,6 @@ UART
 ENABLE_DEBUG
     For HW debugging, see the document WICED-Hardware-Debugging.pdf for more
     information. Configuring this setting with value =1 configures GPIO for SWD.
-    CYW920721B2EVK-01: SWD hardware debugging is not compatible with the
-    CYW9BT_AUDIO board. PUART RX/TX signals are shared with SWDCK and SWDIO.
-    Remove RX and TX jumpers on J10 when using SWD. PUART and SWD cannot be
-    used simultaneously on this board unless these pins are changed from the
-    default configuration.
     CYW920721B2EVK-02: SWD hardware debugging supported. SWD signals are shared
     with D4 and D5, see SW9 in schematics.
     CYW920721B2EVK-03: SWD hardware debugging is not supported.
@@ -156,7 +151,7 @@ Applications that support OTA upgrade can be updated via the peer OTA app in:
 See the readme.txt file located in the above folder for instructions.
 To generate OTA image for the app, configure OTA_FW_UPGRADE=1 in the app
 makefile, or append OTA_FW_UPGRADE=1 to a build command line, for example:
-> make PLATFORM=CYW920721B2EVK-01 OTA_FW_UPGRADE=1 build
+> make PLATFORM=CYW920721B2EVK-02 OTA_FW_UPGRADE=1 build
 This will generate <app>.bin file in the 'build' folder.
 
 

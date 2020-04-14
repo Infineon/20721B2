@@ -65,6 +65,40 @@ void wiced_pre_init(void)
 
 }
 
+#ifdef TARGET_HAS_NO_32K_CLOCK
+//! PMU LPO structure definitions.
+typedef enum PMU_LPO_CLK_SOURCE_TAG
+{
+    PMU_LPO_CLK_INTERNAL,    // default
+    PMU_LPO_CLK_EXTERNAL,
+    PMU_LPO_CLK_CRYSTAL,
+    PMU_LPO_NO_SELECTED,
+    PMU_LPO_32KHZ_OSC,  // for 20735/739 and 43012/4347
+    PMU_LPO_LHL_703,    // for 20735/739
+    PMU_LPO_LHL_732,    // for 20735/739
+    PMU_LPO_LHL_LPO2,   // for 43012/4347
+}PMU_LPO_CLK_SOURCE;
+
+typedef enum DEFAULT_ENHANCED_LPO_TAG
+{
+    // 3 bits for this field!
+    PMU_DEFAULT_NO_LHL  = 0,
+    PMU_DEFAULT_32kHz   = 1,    // for 20735/739 and 43012/4347
+    PMU_DEFAULT_LHL_703 = 2,    // for 20735/739
+    PMU_DEFAULT_LHL_LPO2 =2,    // for 43012/4347
+    PMU_DEFAULT_LHL_732 = 4,    // for 20735/739
+}DEFAULT_ENHANCED_LPO;
+
+
+
+extern uint32_t g_aon_flags[];
+void wiced_platform_default_lpo_init()
+{
+    g_aon_flags[0] |= PMU_DEFAULT_LHL_703 | PMU_DEFAULT_LHL_732;
+    g_aon_flags[0] &= ~PMU_DEFAULT_32kHz;
+}
+#endif
+
 /*****************************************************************
  *   Function: spar_setup()
  *
@@ -105,4 +139,8 @@ void SPAR_CRT_SETUP(void)
 
     // Call Application pre-initialization function (either the weak or the real (lib) one)
     wiced_pre_init();
+
+#ifdef TARGET_HAS_NO_32K_CLOCK
+    wiced_platform_default_lpo_init();
+#endif
 }

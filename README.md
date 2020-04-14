@@ -6,5 +6,5 @@ The Cypress CYW20721 is an ultra-low-power dual-mode Bluetooth 5.0 wireless MCU 
 
 ### Kits Supported
 
-CYW920721B2EVK-01, CYW920721B2EVK-02, CYW920721B2EVK-03
+CYW920721B2EVK-02, CYW920721B2EVK-03
 

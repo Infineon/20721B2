@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<baseview>
+  <mcu>
+  </mcu>
+  <vendor>Cypress</vendor>
+  <flash>1048576</flash>
+  <ram>524288</ram>
+  <package>30-SMT</package>
+  <minvoltage>1760</minvoltage>
+  <maxvoltage>3630</maxvoltage>
+  <description>The CYBT-413061-02 device.</description>
+</baseview>
