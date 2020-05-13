@@ -2116,43 +2116,6 @@ wiced_result_t wiced_bt_dev_get_device_class(wiced_bt_device_address_t bdaddr,
 void wiced_bt_dev_lrac_disable_secure_connection(void);
 
 /**
- * wiced_bt_connect
- *
- * Connect with remote device
- *
- * @param[in]   remote_bd_addr - remote device's address
- *
- * @return      WICED_TRUE: success
- *              WICED_FALSE: fail
- */
-wiced_bool_t wiced_bt_connect(wiced_bt_device_address_t remote_bd_addr);
-
-/**
- * wiced_bt_start_authentication
- *
- * Start the authentication process with remote device
- *
- * @param[in]   bdaddr - remote device's address
- * @param[in]   hci_handle - ACL connection's handle
- *
- * @return      WICED_TRUE: success
- *              WICED_FALSE: fail
- */
-wiced_bool_t wiced_bt_start_authentication(wiced_bt_device_address_t bdaddr, uint16_t hci_handle);
-
-/**
- * wiced_bt_start_encryption
- *
- * Start the encryption process with remote device
- *
- * @param[in]   bdaddr - remote device's address
- *
- * @return      WICED_TRUE: success
- *              WICED_FALSE: fail
- */
-wiced_bool_t wiced_bt_start_encryption(wiced_bt_device_address_t bdaddr);
-
-/**
  * Function         wiced_bt_conn_handle_get
  *
  *                  Get the connection handle
@@ -2164,6 +2127,22 @@ wiced_bool_t wiced_bt_start_encryption(wiced_bt_device_address_t bdaddr);
  *                  0xffff for invalid
 */
 uint16_t wiced_bt_conn_handle_get(wiced_bt_device_address_t remote_bda, wiced_bt_transport_t transport);
+
+/**
+ * Function         wiced_bt_dev_set_link_policy
+ *
+ *                  This function is called to set the Link Policy for remote device
+ *
+ * @param[in]       remote_bda      : remote device's address
+ * @param[in/out]   settings        : pointer to the settings value.
+ *                                    the policy setting is defined in hcidefs.h
+ *                                    if the input setting consists of unsupport feature
+ *                                    for local device, it will be cleared
+ *
+ * @return          wiced_result_t
+*/
+wiced_result_t wiced_bt_dev_set_link_policy(wiced_bt_device_address_t remote_bda,
+        uint16_t *settings);
 
 #ifdef __cplusplus
 }

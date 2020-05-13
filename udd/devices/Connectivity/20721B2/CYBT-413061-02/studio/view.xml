@@ -5,6 +5,7 @@
   <Param name="DeviceDie" value="20721B2" />
   <Param name="Silicon_Revision" value="PRODUCTION" />
   <Param name="Package" value="30-SMT" />
+  <Param name="CPU" value="ARM CM4" />
   <Param name="DeviceSeries" value="20721" />
   <Param name="Speed_MHz" value="96" />
   <Param name="Flash_KB" value="1024" />

@@ -161,6 +161,7 @@ adc_advanced_audio_handler_enable                ,           SYMBOL ,      PUBLI
 #
 # audio
 patch_autoInstall                                ,           SYMBOL ,      PUBLIC,      0,                      ,              0
+PORT_Purge                                       ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 PORT_Read                                        ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 PORT_Write                                       ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 sco_aud_init                                     ,           SYMBOL ,      PUBLIC,      0,                      ,              0
@@ -525,3 +526,12 @@ memmove                                           , SYMBOL, PUBLIC, 0, , 1
 memcmp                                            , SYMBOL, PUBLIC, 0, , 1
 memcpy                                            , SYMBOL, PUBLIC, 0, , 1
 memset                                            , SYMBOL, PUBLIC, 0, , 1
+#
+# SBC
+#
+SBC_Encoder_Init                                  ,
+SBC_Encoder_encode                                ,
+sha256_final                                      , SYMBOL, PUBLIC, 0, , 1
+sha256_update                                     , SYMBOL, PUBLIC, 0, , 1
+sha256_init                                       , SYMBOL, PUBLIC, 0, , 1
+smp_aes_decrypt                                   , SYMBOL, PUBLIC, 0, , 1

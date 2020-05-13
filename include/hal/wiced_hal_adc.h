@@ -132,16 +132,6 @@ void wiced_hal_adc_init(void);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Power up or power down the ADC hardware.
-///
-/// \param pwr - ADC_POWER_UP(0) or ADC_POWER_DOWN(1).
-///
-/// \return The previous power state.
-///////////////////////////////////////////////////////////////////////////////
-ADC_POWER_TYPE wiced_hal_adc_set_power(ADC_POWER_TYPE pwr);
-
-
-///////////////////////////////////////////////////////////////////////////////
 /// Calibrate and set the input voltage range expected for the ADC hardware.
 ///
 /// \param range_idx - 0 to 3.6v(0) or 0 to 1.8v(1).

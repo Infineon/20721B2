@@ -499,30 +499,6 @@ wiced_result_t wiced_bt_avrc_ct_set_volume_cmd( uint8_t handle, uint8_t volume )
 
 /* Utility Functions */
 
-/*******************************************************************************
-**
-** Function         bdcpy
-**
-** Description      Copy bd addr b to a.
-**
-**
-** Returns          void
-**
-*******************************************************************************/
-void bdcpy(wiced_bt_device_address_t a, const wiced_bt_device_address_t b);
-
-/*******************************************************************************
-**
-** Function         bdcmp
-**
-** Description      Compare bd addr b to a.
-**
-**
-** Returns          Zero if b==a, nonzero otherwise (like memcmp).
-**
-*******************************************************************************/
-int bdcmp(const wiced_bt_device_address_t a, const wiced_bt_device_address_t b);
-
 /** API To get LRAC Switch data
  *
  *  Called by the application to get the LRAC Switch Data

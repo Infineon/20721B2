@@ -162,7 +162,7 @@ typedef enum
  * @brief Codec configuration
  *
  */
-typedef struct __attribute__((packed))
+typedef struct
 {
     uint32_t  codec_type;     /**<  Type of Codec  */
 } codec_config_t;
@@ -171,7 +171,7 @@ typedef struct __attribute__((packed))
  * @brief Audio configuration
  *
  */
-typedef struct __attribute__((packed))
+typedef struct
 {
     int32_t  sr;                /**<  Sampling rate  */
     int32_t  channels;          /**<  no of channels  */
@@ -185,7 +185,7 @@ typedef struct __attribute__((packed))
 /**
  *  @brief NREC configuration
  */
-typedef struct __attribute__((packed))
+typedef struct
 {
     uint32_t  sample_rate;     /**<  Place holder for NREC configuration parameters  */
 } nrec_config_t;

@@ -307,7 +307,7 @@ echo "Building in static section from staticdata.hex"
 "$CY_TOOL_MV" $CY_APP_HEX $CY_APP_HEX.temp
 "$CY_TOOL_RM" $CY_APP_HCD
 "$CY_TOOL_SYNC"
-"$CYWICEDTOOLS/IntelHexToBin/hexgen2" -a 0x500800 -i "$CY_MAINAPP_BUILD_DIR/../../../datainput.txt" -o "$CY_MAINAPP_BUILD_DIR/../../../staticdata.hex"
+"$CYWICEDTOOLS/hexgen/hexgen2" -a 0x500800 -i "$CY_MAINAPP_BUILD_DIR/../../../datainput.txt" -o "$CY_MAINAPP_BUILD_DIR/../../../staticdata.hex"
 "$CYWICEDTOOLS/IntelHexToBin/IntelHexMerge" "$CY_APP_HEX.temp" "$CY_MAINAPP_BUILD_DIR/../../../staticdata.hex" "$CY_APP_HEX"
 "$CYWICEDTOOLS/IntelHexToBin/IntelHexToHCD" "$CY_APP_HEX" "$CY_APP_HCD"
 fi
