@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -41,16 +41,16 @@
 #ifndef _WICED_HAL_EFLASH_H_
 #define _WICED_HAL_EFLASH_H_
 
-
-/** \addtogroup Platform config - Default flash (i.e. flash exists on WICED eval boards) configuration.
-*   \ingroup HardwareDrivers
+/**  \addtogroup EmbeddedFlashInterfaceDriver Embedded Flash Interface
+* \ingroup HardwareDrivers
+* Defines a driver for the Embedded Flash interface.
+* @{
 */
-/*! @{ */
 /******************************************************
  *                   Enumerations
  ******************************************************/
 /**
- *  819 uses 512 byte sector, 1 MB on chip flash.
+ *  721 uses 512 byte sector, 1 MB on chip flash.
  */
 #define FLASH_SECTOR_SIZE           (0x200u)
 #define FLASH_SIZE                  0x100000
@@ -64,13 +64,6 @@
  size while reserving using below.
  */
 #define APPLICATION_SPECIFIC_FLASH_RESERVATION  0
-/* @} */
-
-/**  \addtogroup EmbeddedFlashInterfaceDriver Embedded Flash Interface
-* \ingroup HardwareDrivers
-* Defines a driver for the Serial Flash interface.
-* @{
-*/
 
 /**
  * Function         wiced_hal_eflash_init

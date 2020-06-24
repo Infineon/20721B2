@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -1035,6 +1035,18 @@ wiced_bt_gatt_status_t wiced_bt_gatt_disconnect (uint16_t conn_id);
  *
  */
 wiced_bool_t wiced_bt_gatt_listen (wiced_bool_t start, wiced_bt_device_address_t bd_addr);
+
+
+/**
+ * Function wiced_bt_gatt_get_uncompleted_tx_packet_count
+ *
+ *          Get the count of uncompleted transmitting packets in the controller.
+ *
+ * @param[in] conn_id : connection identifier.
+ *
+ * @return 0xff if conn_id is invalid, otherwise the count of uncompleted packets.
+ */
+uint8_t wiced_bt_gatt_get_uncompleted_tx_packet_count(uint16_t conn_id);
 /**@} gatt_common_api_functions*/
 
 /*****************************************************************************/

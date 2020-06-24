@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -43,11 +43,9 @@
 
 #include "wiced.h"
 
-/**  \addtogroup BatteryMonitorDriver
+/**  \addtogroup BatteryMonitorDriver Battery Monitor
 * \ingroup HardwareDrivers
-*/
-/*! @{ */
-/**
+* @{
 * Defines a driver to facilitate interfacing with the Battery Monitor.
 * The driver uses the Analog-to-Digital Converter (ADC) driver to take a
 * moving average of the battery voltage, and decides when to suspend or
@@ -67,7 +65,8 @@
 ******************************************************************************/
 
 /**
-/// Supported ADC input channel selection for battery connection.
+// Supported ADC input channel selection for battery connection.
+@verbatim
 typedef enum ADC_INPUT_CHANNEL_SEL {
     ADC_INPUT_P17           =   0x0,    //GPIO 16
     ADC_INPUT_P16           =   0x1,    //GPIO 17
@@ -103,6 +102,7 @@ typedef enum ADC_INPUT_CHANNEL_SEL {
     ADC_INPUT_P18           =   0x1F,   //GPIO 15
     ADC_INPUT_CHANNEL_MASK  =   0x1f,
 }ADC_INPUT_CHANNEL_SEL;
+@endverbatim
 **/
 
 /******************************************************************************

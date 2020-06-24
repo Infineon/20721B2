@@ -1,5 +1,5 @@
 /**
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -114,45 +114,13 @@ typedef enum
 } param_type_t;
 
 /**
- * @brief Interface types.
- *
- */
-typedef enum
-{
-    INF_CAPTURE,      /**< Audio Capture Interface. */
-    INF_RENDER,       /**< Audio Render Interface.  */
-} intf_type_t;
-
-
-/**
- * @brief Codec type.
- *
- */
-typedef enum
-{
-    SBC,    /**< Codec type Sub Band                          */
-    AAC,    /**< Codec type Advance Audio Coding              */
-    CVSD,   /**< Codec type Continuously Variable Slope Delta */
-    MSBC,   /**< Codec type Modified Sub Band                 */
-} codec_type_t;
-
-/**
- * @brief Event type.
- *
- */
-typedef enum
-{
-    DATA_READY,     /**< Data ready. */
-    DATA_EMPTY,     /**< Data Empty. */
-} event_type_t;
-
-/**
  * @brief audio output type
  */
 typedef enum
 {
     AM_SPEAKERS,
     AM_HEADPHONES,
+    AM_UART,
 } am_audio_io_device_t;
 
 /******************************************************

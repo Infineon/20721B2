@@ -40,6 +40,7 @@ extern "C" {
 #endif
 
 /** @defgroup opus_errorcodes Error codes
+ *  @ingroup Opus
  * @{
  */
 /** No error @hideinitializer*/
@@ -176,6 +177,7 @@ extern "C" {
 /** @endcond */
 
 /** @defgroup opus_ctlvalues Pre-defined values for CTL interface
+ *  @ingroup Opus
   * @see opus_genericctls, opus_encoderctls
   * @{
   */
@@ -219,6 +221,7 @@ extern "C" {
 
 
 /** @defgroup opus_encoderctls Encoder related CTLs
+ *  @ingroup opus_encoder
   *
   * These are convenience macros for use with the \c opus_encode_ctl
   * interface. They are used to generate the appropriate series of
@@ -605,6 +608,7 @@ extern "C" {
 /**@}*/
 
 /** @defgroup opus_genericctls Generic CTLs
+ *  @ingroup Opus
   *
   * These macros are used with the \c celt_opus_decoder_ctl and
   * \c opus_encoder_ctl calls to generate a particular
@@ -684,6 +688,7 @@ extern "C" {
 /**@}*/
 
 /** @defgroup opus_decoderctls Decoder related CTLs
+ *  @ingroup opus_decoder
   * @see opus_genericctls, opus_encoderctls, opus_decoder
   * @{
   */
@@ -708,6 +713,7 @@ extern "C" {
 /**@}*/
 
 /** @defgroup opus_libinfo Opus library information functions
+ *  @ingroup Opus
   * @{
   */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -93,10 +93,7 @@ enum
 
     /// The attempted operation failed, possibly because
     /// of no ack from slave.
-    I2CM_OP_FAILED,
-
-    /// The I2C HW block is busy with another transaction.
-    I2CM_BUSY
+    I2CM_OP_FAILED
 };
 
 /******************************************************************************
@@ -109,6 +106,9 @@ enum
 /// right after this call.
 ///
 /// I2C pins are configured through platform_gpio_pins[] in wiced_platform_pin_config.c
+/// In case of change in I2C pins from default platform initialization,
+/// the user needs to use external pull-ups or internal GPIO pull-ups.
+/// It is recommended to use external pull-ups for a reliable design
 ///
 /// \param none
 ///
@@ -169,7 +169,7 @@ uint8_t wiced_hal_i2c_get_speed(void);
 /// \param length - The length of the data to read.
 /// \param slave  - The source slave address.
 ///
-/// \return The status of the transaction (success[0], failure[1], or busy[2]).
+/// \return The status of the transaction (success[0], failure[1]).
 ///////////////////////////////////////////////////////////////////////////////
 uint8_t wiced_hal_i2c_read(uint8_t* data, uint16_t length, uint8_t slave);
 
@@ -187,7 +187,7 @@ uint8_t wiced_hal_i2c_read(uint8_t* data, uint16_t length, uint8_t slave);
 /// \param length - The length of the data to write.
 /// \param slave  - The destination slave address.
 ///
-/// \return The status of the transaction (success[0], failure[1], or busy[2]).
+/// \return The status of the transaction (success[0], failure[1]).
 ///////////////////////////////////////////////////////////////////////////////
 uint8_t wiced_hal_i2c_write(uint8_t* data, uint16_t length, uint8_t slave);
 
@@ -209,6 +209,7 @@ void wiced_hal_i2c_select_pads(uint8_t scl_pin, uint8_t sda_pin);
 /// \param tx_data Pointer to the buffer that is to be written to the slave
 /// \param tx_data_len Number of bytes to write to the slave starting from tx_data
 /// \param slave   slave addr
+/// \return The status of the transaction (success[0], failure[1])
 ///////////////////////////////////////////////////////////////////////////////
 uint8_t wiced_hal_i2c_combined_read(uint8_t* rx_data, uint8_t rx_data_len, uint8_t* tx_data, uint16_t tx_data_len, uint8_t slave);
 

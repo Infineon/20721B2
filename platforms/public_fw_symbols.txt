@@ -132,7 +132,6 @@ sha2_update                                      ,           SYMBOL ,      PUBLI
 sha2_hmac                                        ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 #
 allowSlaveLatency                                ,           SYMBOL ,      PUBLIC,      0,                      ,              1
-pmu_Enable32KhzOscillator                        ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 pmu_ldo_trim_v2_set_pmic_fp                      ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 BtTransportDetectionPollingRetryMax              ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 copyBdaToStream                                  ,           SYMBOL ,      PUBLIC,      0,                      ,              1
@@ -144,20 +143,10 @@ hciulp_leCsFeatureSet                            ,           SYMBOL ,      PUBLI
 mia_isResetReasonPor                             ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 mpaf_pmu_changeLPOSourceSelection                ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 mywiced_stack_event_handler_cb                   ,           SYMBOL ,      PUBLIC,      0,                      ,              1
-OSTASK_DisablePreemption                         ,           SYMBOL ,      PUBLIC,      0,                      ,              1
-OSTASK_RestorePreemption                         ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 patch_lib_setEnabled                             ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 rmulp_getBaseConnFromHciConnhandle               ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 rmulp_getLtchFromConnhandle                      ,           SYMBOL ,      PUBLIC,      0,                      ,              1
-savedFullbootReason                              ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 slimboot_ext_wake_enable                         ,           SYMBOL ,      PUBLIC,      0,                      ,              1
-#
-# Wiced_hidd_lib Library
-emConInfo_devInfo                                ,           SYMBOL ,      PUBLIC,      0,                      ,              0
-#
-# acd_audio_lib
-adcAudioFilterData                               ,           SYMBOL ,      PUBLIC,      0,                      ,              0
-adc_advanced_audio_handler_enable                ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 #
 # audio
 patch_autoInstall                                ,           SYMBOL ,      PUBLIC,      0,                      ,              0
@@ -307,7 +296,6 @@ lm_lracApPausedSet                                , SYMBOL, PUBLIC, 0, , 1
 lm_lracAsLinkAFHChannelAssessModeRestore          , SYMBOL, PUBLIC, 0, , 1
 lm_lracBackupAsLinkAFHChannelAssessMode           , SYMBOL, PUBLIC, 0, , 1
 lm_lracEavesdroppingStatusUpdate                  , SYMBOL, PUBLIC, 0, , 1
-lm_lracHandlePSSwitchExecute                      , SYMBOL, PUBLIC, 0, , 1
 lm_lracIsPSLink                                   , SYMBOL, PUBLIC, 0, , 1
 lm_lracMmSeqLmpAcked                              , SYMBOL, PUBLIC, 0, , 1
 lm_lracMmStartLmpAcked                            , SYMBOL, PUBLIC, 0, , 1

@@ -47,7 +47,8 @@ extern "C" {
 #endif
 
 /**
- * @mainpage Opus
+ * @defgroup Opus Opus Codec
+ * @ingroup wicedbt_av
  *
  * The Opus codec is designed for interactive speech and audio transmission over the Internet.
  * It is designed by the IETF Codec Working Group and incorporates technology from
@@ -79,6 +80,7 @@ extern "C" {
  */
 
 /** @defgroup opus_encoder Opus Encoder
+ *  @ingroup Opus
   * @{
   *
   * @brief This page describes the process and functions used to encode Opus.
@@ -339,6 +341,7 @@ OPUS_EXPORT int opus_encoder_ctl(OpusEncoder *st, int request, ...) OPUS_ARG_NON
 /**@}*/
 
 /** @defgroup opus_decoder Opus Decoder
+ *  @ingroup Opus
   * @{
   *
   * @brief This page describes the process and functions used to decode Opus.
@@ -680,6 +683,7 @@ OPUS_EXPORT void opus_pcm_soft_clip(float *pcm, int frame_size, int channels, fl
 /**@}*/
 
 /** @defgroup opus_repacketizer Repacketizer
+ *  @ingroup Opus
   * @{
   *
   * The repacketizer can be used to merge multiple Opus packets into a single

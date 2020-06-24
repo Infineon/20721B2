@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -71,9 +71,10 @@ typedef enum
     SPEAKERS,
     HEADPHONES,
     LINEOUT,
-	ANALOGMIC,
-	DIGIMIC,
-	AUDIO_IO_MAX,	/*Not a device, just max device count*/
+    ANALOGMIC,
+    DIGIMIC,
+    LINEIN,
+    AUDIO_IO_MAX,	/*Not a device, just max device count*/
 } platform_audio_io_device_t;
 
 

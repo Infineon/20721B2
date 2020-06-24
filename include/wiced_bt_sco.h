@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -39,6 +39,23 @@
 #pragma once
 
 #include "wiced.h"
+/**
+ *  @addtogroup  sco_api_functions       Synchronous Connection Oriented (SCO) Channel
+ *  @ingroup     wicedbt_av
+ *
+ *  SCO Definitions and Functions
+ *
+ *  SCO logical transport, is a symmetric, point-to-point transport between
+ *  the master and a specific slave. The SCO logical transport reserves slots
+ *  and can therefore be considered as a circuit-switched connection between
+ *  the master and the slave. The master may support up to three SCO links to
+ *  the same slave or to different slaves. A slave may support up to three SCO
+ *  links from the same master, or two SCO links if the links originate from
+ *  different masters. SCO packets are never retransmitted.
+ *
+ *  @{
+ */
+
 /******************************************************
  *              Constants
  ******************************************************/
@@ -65,6 +82,7 @@
 typedef enum
 {
     WICED_BT_SCO_OVER_PCM = 0,   /**< [DEFAULT] PCM data config for routing over I2S/PCM interface */
+    WICED_BT_SCO_OVER_APP_CB     /**< PCM data config for routing over APP */
 }wiced_bt_sco_route_path_t;
 
 /******************************************************
@@ -82,20 +100,15 @@ typedef struct
 
 } wiced_bt_sco_params_t;
 
+/** Call back function for pcm data transfer, ltch_len = (length)<<8|(sco_channel) */
+typedef void (wiced_bt_sco_data_cb_t) (uint32_t ltch_len, uint8_t *p_data);
+
 /** SCO path config */
 typedef struct
 {
     wiced_bt_sco_route_path_t    path;           /**< sco routing path  0:pcm/i2s; 1: app*/
+    wiced_bt_sco_data_cb_t       *p_sco_data_cb; /**< If not NULL and route is APP_CB, callback function called for incoming pcm data */
 }wiced_bt_voice_path_setup_t;
-
-/**
- *  @addtogroup  sco_api_functions       Synchronous Connection Oriented (SCO) Channel
- *  @ingroup     wicedbt
- *
- *  SCO Functions
- *
- *  @{
- */
 
 /******************************************************
  *              Function Declarations

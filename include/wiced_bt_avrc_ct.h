@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -35,9 +35,12 @@
  *
  * Bluetooth AVRC Remote Control Application Programming WICED Interface
  *
- * @defgroup wicedbt      Bluetooth
+ * @addtogroup  wicedbt_avrc_ct       AVRCP Controller Role (CT)
+ * @ingroup wicedbt_avrc
  *
- * WICED Bluetooth AVRC Remote Control Functions
+ * WICED Bluetooth AVRC Remote Control CT Functions
+ *
+ * @{
  */
 
 #pragma once
@@ -59,17 +62,17 @@
 /** AVRC remote control feature mask */
 typedef enum
 {
-    REMOTE_CONTROL_FEATURE_TARGET       = 0x0001,
-    REMOTE_CONTROL_FEATURE_CONTROLLER   = 0x0002,
+    REMOTE_CONTROL_FEATURE_TARGET       = 0x0001, /**< Select to support the features of a Target */
+    REMOTE_CONTROL_FEATURE_CONTROLLER   = 0x0002, /**< Select to support the features of a Controller */
     /* TODO: We need to add the AVRCP feature bits */
 } wiced_bt_avrc_ct_features_t;
 
 /** AVRC remote control connection state */
 typedef enum
 {
-    REMOTE_CONTROL_DISCONNECTED = 0,
-    REMOTE_CONTROL_CONNECTED    = 1,
-    REMOTE_CONTROL_INITIALIZED  = 2
+    REMOTE_CONTROL_DISCONNECTED = 0, /**< Remote control is disconnected from peer */
+    REMOTE_CONTROL_CONNECTED    = 1, /**< Remote control is connected to peer */
+    REMOTE_CONTROL_INITIALIZED  = 2  /**< Remote control is idle (not connected to any peer) */
 } wiced_bt_avrc_ct_connection_state_t;
 
 /** Callback for connection state */
@@ -110,6 +113,9 @@ typedef void (*wiced_bt_avrc_ct_features_cback_t) (wiced_bt_avrc_ct_features_eve
         wiced_bt_avrc_ct_features_data_t *p_data);
 #endif /* AVRC_ADV_CTRL_INCLUDED == TRUE */
 
+/** Callback when peer device sends AVRCP passthrough commands op code */
+typedef void (*wiced_bt_avrc_ct_pt_evt_cback_t)(uint8_t handle, uint8_t op_id);
+
 /******************************************************
  *               Function Declarations
  ******************************************************/
@@ -121,9 +127,6 @@ extern "C" {
 /**
  * AVRC remote control functions
  *
- * @addtogroup   AV Remote Control       Remote control
- *
- * @{
  */
 /****************************************************************************/
 
@@ -522,6 +525,13 @@ wiced_result_t wiced_bt_avrc_ct_lrac_switch_get(void *p_opaque, uint16_t *p_sync
  *  @return none
  */
 wiced_result_t wiced_bt_avrc_ct_lrac_switch_set(void *p_opaque, uint16_t sync_data_len);
+
+/**
+ * wiced_bt_avrc_ct_register_passthrough_event_callback
+ *
+ * @param pt_evt_cb callback
+ */
+void wiced_bt_avrc_ct_register_passthrough_event_callback( wiced_bt_avrc_ct_pt_evt_cback_t pt_evt_cb);
 
 /** @}*/
 
