@@ -1298,6 +1298,29 @@ uint16_t wiced_bt_l2cap_le_get_peer_mtu (uint16_t lcid);
  */
 uint16_t wiced_bt_l2cap_le_determ_secur_rsp (wiced_bt_device_address_t bd_addr, uint8_t req_secur, uint8_t req_encr_key_size);
 
+/**
+ *
+ *  Function        wiced_bt_l2cap_reply_ble_remote_conn_params_req
+ *
+ *                  Reply BLE remote connection parameters request.
+ *                  This function shall be called in BTM_BLE_REMOTE_CONNECTION_PARAM_REQ_EVT
+ *                  event handler.
+ *                  After calling this function, it shall return WICED_BT_CMD_STORED in BTM
+ *                  event handler to notify stack that application had handled the event.
+ *
+ *  @param[in]      bd_addr: BD Address
+ *  @param[in]      accept: flag to accept the request or not
+ *  @param[in]      min_int: Min interval
+ *  @param[in]      max_int: Max interval
+ *  @param[in]      latency: Latency value
+ *  @param[in]      timeout: Timeout value
+ *
+ *  @return:   TRUE if success
+ *
+ */
+wiced_bool_t wiced_bt_l2cap_reply_ble_remote_conn_params_req(
+        wiced_bt_device_address_t bd_addr, wiced_bool_t accept,
+        uint16_t min_int, uint16_t max_int, uint16_t latency, uint16_t timeout);
 
 /**@} l2cap_api_functions */
 

@@ -695,6 +695,16 @@ typedef struct
     uint8_t                      rx_phy;      /**< Receiver PHY, values: 1=1M, 2=2M, 3=LE coded */
 } wiced_bt_ble_phy_update_t;
 
+/** BLE Remote connection parameter update request event related data */
+typedef struct
+{
+    wiced_bt_device_address_t   bd_addr;    /**< peer BD address */
+    uint16_t                    min_int;    /**< minimum value of connection interval */
+    uint16_t                    max_int;    /**< maximum value of connection interval */
+    uint16_t                    latency;    /**< Maximum allowed slave latency */
+    uint16_t                    timeout;    /**< Supervision timeout */
+} wiced_bt_ble_rc_connection_param_req_t;
+
 /** Power Management status codes */
 enum wiced_bt_dev_power_mgmt_status_e
 {
@@ -769,7 +779,9 @@ verify that the correct link key has been generated. Event data: #wiced_bt_devic
     BTM_SCO_CONNECTION_REQUEST_EVT,                 /**< SCO connection request event. Event data: #wiced_bt_sco_connection_request_t */
     BTM_SCO_CONNECTION_CHANGE_EVT,                  /**< SCO connection change event. Event data: #wiced_bt_sco_connection_change_t */
     BTM_BLE_CONNECTION_PARAM_UPDATE,                /**< BLE connection parameter update. Event data: #wiced_bt_ble_connection_param_update_t */
-    BTM_BLE_PHY_UPDATE_EVT                          /**< BLE Physical link update. Event data: wiced_bt_ble_phy_update_t */
+    BTM_BLE_PHY_UPDATE_EVT,                         /**< BLE Physical link update. Event data: wiced_bt_ble_phy_update_t */
+    BTM_LPM_STATE_LOW_POWER,                        /**< BT device wake has been deasserted */
+    BTM_BLE_REMOTE_CONNECTION_PARAM_REQ_EVT,        /**< BLE remote connection parameter request. Reply using wiced_bt_l2cap_reply_ble_remote_conn_params_req and return WICED_BT_CMD_STORED to denote this event was handled. Event data: wiced_bt_ble_rc_connection_param_req_t */
 };
 #endif
 typedef uint8_t wiced_bt_management_evt_t;          /**< Bluetooth management events (see #wiced_bt_management_evt_e) */
@@ -1059,6 +1071,7 @@ typedef union
     wiced_bt_sco_connection_change_t        sco_connection_change;              /**< Data for BTM_SCO_CONNECTION_CHANGE_EVT */
     wiced_bt_ble_connection_param_update_t  ble_connection_param_update;        /**< Data for BTM_BLE_CONNECTION_PARAM_UPDATE */
     wiced_bt_ble_phy_update_t               ble_phy_update_event;               /**< Data for BTM_BLE_PHY_UPDATE_EVT */
+    wiced_bt_ble_rc_connection_param_req_t  ble_rc_connection_param_req;        /**< Data for BTM_BLE_REMOTE_CONNECTION_PARAM_REQ_EVT */
 
 } wiced_bt_management_evt_data_t;
 

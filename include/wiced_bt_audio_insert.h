@@ -105,7 +105,29 @@ typedef enum
  */
 typedef void (wiced_bt_audio_insert_source_data_exhausted_callback_t)(wiced_bt_audio_insert_type_t type);
 
-typedef struct wiced_bt_audio_insert_data
+/* Utility for advanced audio insert (audio insert over multiple devices) control. */
+typedef void (wiced_bt_audio_insert_advanced_control_enable_t)(void);
+typedef void (wiced_bt_audio_insert_advanced_control_disable_t)(void);
+
+typedef struct wiced_bt_audio_insert_advanced_control_config_sco
+{
+    wiced_bt_audio_insert_advanced_control_enable_t     *p_enable;
+    wiced_bt_audio_insert_advanced_control_disable_t    *p_disable;
+} wiced_bt_audio_insert_advanced_control_config_sco_t;
+
+typedef struct wiced_bt_audio_insert_advanced_control_config_audio
+{
+    wiced_bt_audio_insert_advanced_control_enable_t     *p_enable;
+    wiced_bt_audio_insert_advanced_control_disable_t    *p_disable;
+} wiced_bt_audio_insert_advanced_control_config_audio_t;
+
+typedef struct wiced_bt_audio_insert_advanced_control_config
+{
+    wiced_bt_audio_insert_advanced_control_config_sco_t     sco;
+    wiced_bt_audio_insert_advanced_control_config_audio_t   audio;
+} wiced_bt_audio_insert_advanced_control_config_t;
+
+typedef struct wiced_bt_audio_insert_data_sco
 {
     int16_t        *p_source;   /* pointer to the insertion data */
     uint32_t        len;        /* length of insertion data in bytes */
@@ -118,7 +140,7 @@ typedef struct wiced_bt_audio_insert_data
                                           called.*/
     uint8_t         volume_reduce_factor_insert;    /* Must be bigger than 0.
                                                        The insertion data will be divided by this
-                                                       factor and been substituted/amended the
+                                                       factor and substitutes/amends the
                                                        original data */
     uint8_t         volume_reduce_factor_original;  /* Must be bigger than 0.
                                                        The original data will be divided by this
@@ -129,6 +151,47 @@ typedef struct wiced_bt_audio_insert_data
     wiced_bt_audio_insert_source_data_exhausted_callback_t  *p_source_data_exhausted_callback;
     wiced_bool_t    stop_insertion_when_source_exhausted;   /* TRUE: stop audio insertion if the
                                                                      source data is exhausted. */
+    wiced_bool_t    insert_data_after_target_seq_num;   /* Data will be inserted after the target
+                                                           SCO data time sequence number defined in
+                                                           expected_sco_time_seq_num. */
+    uint32_t        expected_sco_time_seq_num;  /* Valid only when the field,
+                                                   insert_data_after_target_seq_num is set. */
+} wiced_bt_audio_insert_data_sco_t;
+
+typedef struct wiced_bt_audio_insert_data_audio
+{
+    int16_t        *p_source;   /* pointer to the insertion data */
+    uint32_t        len;        /* length of insertion data in bytes */
+    wiced_bool_t    overwrite;  /* TRUE: Overwrite existent data
+                                   FALSE: Amend with insertion data. */
+    wiced_bool_t    loop;       /* TRUE: loop mode
+                                   FALSE: The user application shall call
+                                          wiced_bt_audio_insert_start() utility again to keep the
+                                          audio insertion when the data exhausted callback is
+                                          called.*/
+    uint8_t         volume_reduce_factor_insert;    /* Must be bigger than 0.
+                                                       The insertion data will be divided by this
+                                                       factor and substitutes/amends the
+                                                       original data */
+    uint8_t         volume_reduce_factor_original;  /* Must be bigger than 0.
+                                                       The original data will be divided by this
+                                                       factor first and the insertion data will be
+                                                       amended if overwrite filed value is set to
+                                                       0 */
+
+    wiced_bt_audio_insert_source_data_exhausted_callback_t  *p_source_data_exhausted_callback;
+    wiced_bool_t    stop_insertion_when_source_exhausted;   /* TRUE: stop audio insertion if the
+                                                                     source data is exhausted. */
+    wiced_bool_t    multiple;   /* TRUE if the audio insertion is for multiple devices. */
+} wiced_bt_audio_insert_data_audio_t;
+
+typedef struct wiced_bt_audio_insert_data
+{
+    union
+    {
+        wiced_bt_audio_insert_data_sco_t    sco;
+        wiced_bt_audio_insert_data_audio_t  audio;
+    };
 } wiced_bt_audio_insert_data_t;
 
 /**
@@ -137,8 +200,6 @@ typedef struct wiced_bt_audio_insert_data
 typedef struct wiced_bt_audio_insert_config
 {
     wiced_bt_audio_insert_type_t    type;
-    wiced_bool_t                    multiple_device;    /* TRUE: the insertion data shall be added
-                                                                 in multiple devices. */
     uint32_t                        *p_sample_rate;
     wiced_bt_audio_insert_data_t    insert_data;
 } wiced_bt_audio_insert_config_t;
@@ -203,27 +264,11 @@ typedef void (wiced_bt_audio_insert_callback_t)(wiced_bt_audio_insert_event_t ev
 */
 
 /**
- *
- * Function         wiced_bt_audio_insert_init
- *
- *                  This function is called for Audio Insert Initialization.
- *                  This function must be called, once, before any other Audio Insert functions.
- *
- * @param[in]       p_callback: Pointer to application Audio Insert callback function
- *
- * @return          Result code (see wiced_result_t)
- *
- */
-wiced_result_t wiced_bt_audio_insert_init(wiced_bt_audio_insert_callback_t *p_callback);
-
-#if 1
-/**
- * wiced_bt_audio_insert_init_new
+ * wiced_bt_audio_insert_init
  *
  * Initialize the WiCED BT Audio Insertion Module.
  */
-void wiced_bt_audio_insert_init_new(void);
-#endif
+void wiced_bt_audio_insert_init(void);
 
 /**
  * wiced_bt_audio_insert_start
@@ -243,6 +288,24 @@ void wiced_bt_audio_insert_start(wiced_bt_audio_insert_config_t *p_config);
  * @param type - refer to wiced_bt_audio_insert_type_t
  */
 void wiced_bt_audio_insert_stop(wiced_bt_audio_insert_type_t type);
+
+/**
+ * wiced_bt_audio_insert_sco_in_data_latest_time_sequence_number_get
+ *
+ * Acquire the latest time sequence number of incoming SCO data.
+ *
+ * @return lastest sco in data time sequence number
+ */
+uint32_t wiced_bt_audio_insert_sco_in_data_latest_time_sequence_number_get(void);
+
+/**
+ * wiced_bt_audio_insert_advanced_control_utility_install
+ *
+ * Utilities used to install the advanced audio insert (multiple device audio insertion) utilities.
+ *
+ * @param p_config - configuration
+ */
+void wiced_bt_audio_insert_advanced_control_utility_install(wiced_bt_audio_insert_advanced_control_config_t *p_config);
 
 #ifdef __cplusplus
 }

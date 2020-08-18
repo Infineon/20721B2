@@ -477,10 +477,12 @@ wiced_result_t wiced_rtos_init_queue( wiced_queue_t* queue, const char* name, ui
  * @param queue : a pointer to the queue handle
  * @param message : the object to be added to the queue. Size is assumed to be
  *                  the size specified in @ref wiced_rtos_init_queue
- * @param timeout_ms: the number of milliseconds to wait before returning
+ * @param timeout_ms: [DEPRECATED] the number of milliseconds to wait before returning
+ *                    Note: timeout option is not supported and the API returns
+ *                    immediately without waiting even when timeout_ms is non zero.
  *
  * @return    WICED_SUCCESS : on success.
- * @return    WICED_ERROR   : if an error or timeout occurred
+ * @return    WICED_ERROR   : if an error occurred.
  */
 wiced_result_t wiced_rtos_push_to_queue( wiced_queue_t* queue, void* message, uint32_t timeout_ms );
 
@@ -495,10 +497,12 @@ wiced_result_t wiced_rtos_push_to_queue( wiced_queue_t* queue, void* message, ui
  *                  the size specified in @ref wiced_rtos_init_queue , hence
  *                  you must ensure the buffer is long enough or memory
  *                  corruption will result
- * @param timeout_ms: the number of milliseconds to wait before returning
+ * @param timeout_ms: [DEPRECATED] the number of milliseconds to wait before returning
+ *                    Note: timeout option is not supported and irrespective of timeout_ms value,
+ *                    API would be in blocking state until it receives single message in a queue.
  *
  * @return    WICED_SUCCESS : on success.
- * @return    WICED_ERROR   : if an error or timeout occurred
+ * @return    WICED_ERROR   : if an error occurred.
  */
 wiced_result_t wiced_rtos_pop_from_queue( wiced_queue_t* queue, void* message, uint32_t timeout_ms );
 

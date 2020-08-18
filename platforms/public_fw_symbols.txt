@@ -523,3 +523,10 @@ sha256_final                                      , SYMBOL, PUBLIC, 0, , 1
 sha256_update                                     , SYMBOL, PUBLIC, 0, , 1
 sha256_init                                       , SYMBOL, PUBLIC, 0, , 1
 smp_aes_decrypt                                   , SYMBOL, PUBLIC, 0, , 1
+#
+# adc
+#
+adc_pdm_pinconfig                                 , SYMBOL, PUBLIC, 0, , 1
+adc_startAudio                                    , SYMBOL, PUBLIC, 0, , 1
+adc_stopAudio                                     , SYMBOL, PUBLIC, 0, , 1
+adc_config                                        , SYMBOL, PUBLIC, 0, , 1
