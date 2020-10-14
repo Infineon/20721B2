@@ -166,6 +166,7 @@ wiced_result_t wiced_bt_avrc_ct_features_register(
         wiced_bt_avrc_ct_features_cback_t features_callback);
 #endif
 
+#ifdef WICED_BT_AVRC_CT_DEINIT_SUPPORT
 /**
  * Function         wiced_bt_avrc_ct_deinit
  *
@@ -175,6 +176,7 @@ wiced_result_t wiced_bt_avrc_ct_features_register(
  *
  */
 wiced_result_t wiced_bt_avrc_ct_deinit(void);
+#endif // WICED_BT_AVRC_CT_DEINIT_SUPPORT
 
 /**
  * Function         wiced_bt_avrc_ct_connect
@@ -526,13 +528,14 @@ wiced_result_t wiced_bt_avrc_ct_lrac_switch_get(void *p_opaque, uint16_t *p_sync
  */
 wiced_result_t wiced_bt_avrc_ct_lrac_switch_set(void *p_opaque, uint16_t sync_data_len);
 
+#ifdef CT_HANDLE_PASSTHROUGH_COMMANDS
 /**
  * wiced_bt_avrc_ct_register_passthrough_event_callback
  *
  * @param pt_evt_cb callback
  */
 void wiced_bt_avrc_ct_register_passthrough_event_callback( wiced_bt_avrc_ct_pt_evt_cback_t pt_evt_cb);
-
+#endif // CT_HANDLE_PASSTHROUGH_COMMANDS
 /** @}*/
 
 #ifdef __cplusplus

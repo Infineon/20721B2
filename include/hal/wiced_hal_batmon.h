@@ -108,6 +108,20 @@ typedef enum ADC_INPUT_CHANNEL_SEL {
 /******************************************************************************
 *** Function prototypes and defines.
 ******************************************************************************/
+
+/******************************************************************************
+ * Battery Observer List
+******************************************************************************/
+typedef void (wiced_hal_batmon_observer_fp)(uint32_t);
+
+typedef struct _wiced_hal_batmon_observer
+{
+    struct _wiced_hal_batmon_observer* next;
+
+    wiced_hal_batmon_observer_fp* callback;
+} wiced_hal_batmon_observer_t;
+
+
 ///////////////////////////////////////////////////////////////////////////////
 /// Sets the configuration parameters of the Battery Monitor. This function is
 /// *optional*, since the Battery Monitor parameters are pre-populated with
@@ -167,6 +181,51 @@ wiced_bool_t wiced_hal_batmon_config(uint8_t  adcInputConnected,
 ///////////////////////////////////////////////////////////////////////////////
 void wiced_hal_batmon_init(void);
 
+/////////////////////////////////////////////////////////////////////////
+/// Get battery level (0-max level).
+///
+/// \param none
+///
+/// \return current battery level
+/////////////////////////////////////////////////////////////////////////
+uint8_t wiced_hal_batmon_get_battery_level(void);
+
+/////////////////////////////////////////////////////////////////////////
+/// Get the current running average raw voltage
+///
+/// \param none
+///
+/// \return the current average raw voltage in MilleVolts
+/////////////////////////////////////////////////////////////////////////
+uint32_t wiced_hal_batmon_get_battery_raw_vol(void);
+
+/////////////////////////////////////////////////////////////////////////
+/// add observer for battery level changed
+///
+/// \param observer - pointer to callback function
+///
+/// \return none
+/////////////////////////////////////////////////////////////////////////
+void wiced_hal_batmon_add_battery_observer(wiced_hal_batmon_observer_fp* observer);
+
+/////////////////////////////////////////////////////////////////////////
+/// register application callback handler for low battery shut down
+///
+/// \param func_CB - pointer to call back function
+///
+/// \return none
+/////////////////////////////////////////////////////////////////////////
+void wiced_hal_batmon_register_low_battery_shutdown_cb(void (* func_CB)(void));
+
+////////////////////////////////////////////////////////////////////////////////
+/// Check if low battery shutdown is on-going
+///
+/// \param none
+///
+/// \return WICED_TRUE/WICED_FALSE
+////////////////////////////////////////////////////////////////////////////////
+wiced_bool_t wiced_hal_batmon_is_low_battery_shutdown(void);
+
 ///////////////////////////////////////////////////////////////////////////////
 /// Polls the battery by monitoring the voltage via the ADC. Takes a running
 /// average of the measured voltage and determines whether to
@@ -180,6 +239,15 @@ void wiced_hal_batmon_init(void);
 /// \return none
 ///////////////////////////////////////////////////////////////////////////////
 void wiced_hal_batmon_poll_monitor(void);
+
+/////////////////////////////////////////////////////////////////////////
+/// set flag to indicate if battery report is ever sent out once
+///
+/// \param flag -WICED_TRUE/WICED_FALSE
+///
+/// \return none
+/////////////////////////////////////////////////////////////////////////
+void wiced_hal_batmon_set_battery_report_sent_flag(wiced_bool_t flag);
 
 /* @} */
 

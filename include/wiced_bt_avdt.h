@@ -1151,6 +1151,7 @@ uint16_t wiced_bt_avdt_get_l2cap_channel(uint8_t handle);
  */
 uint16_t wiced_bt_avdt_get_signal_channel(uint8_t handle, wiced_bt_device_address_t bd_addr);
 
+#ifdef WICED_BT_AVDT_SET_MEDIA_BUF_SUPPORT
 /**
  * Function         wiced_bt_avdt_set_media_buf
  *
@@ -1174,7 +1175,9 @@ uint16_t wiced_bt_avdt_get_signal_channel(uint8_t handle, wiced_bt_device_addres
  *
  */
 uint16_t wiced_bt_avdt_set_media_buf(uint8_t handle, uint8_t *p_buf, uint32_t buf_len);
+#endif // WICED_BT_AVDT_SET_MEDIA_BUF_SUPPORT
 
+#ifdef WICED_BT_AVDT_SEND_REPORT_SUPPORT
 /**
  * Function         wiced_bt_avdt_send_report
  *
@@ -1189,6 +1192,7 @@ uint16_t wiced_bt_avdt_set_media_buf(uint8_t handle, uint8_t *p_buf, uint32_t bu
  */
 uint16_t wiced_bt_avdt_send_report(uint8_t handle, AVDT_REPORT_TYPE type,
                                    wiced_bt_avdt_report_data_t *p_data);
+#endif // WICED_BT_AVDT_SEND_REPORT_SUPPORT
 
 /*
  *

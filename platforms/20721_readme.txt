@@ -15,7 +15,7 @@ SDK Software Features
 - WICED HCI protocol to simplify host/MCU application development.
 - APIs and drivers to access on board peripherals
 - Bluetooth protocols include GAP, GATT, SMP, RFCOMM, SDP, AVDT/AVCT, BLE Mesh
-- BLE and BR/EDR profile APIs, libraries and sample apps
+- BLE and BR/EDR profile APIs, libraries, and sample apps
 - Support for Over-The-Air (OTA) upgrade.
 - Device Configurator for creating custom pin mapping.
 - Bluetooth Configurator for creating BLE GATT Database.
@@ -24,15 +24,16 @@ SDK Software Features
 Kits
 ----
 CYW920721B2EVK-02, -03:
-    40-QFN package, Arduino compatible headers, 9-axis motion sensor and thermistor,
-    user switches and LEDs, USB connector for power, programming and USB-UART bridge.
+    40-QFN package, Arduino compatible headers, 9-axis motion sensor,
+    thermistor, user switches and LEDs, and a USB connector for power,
+    programming, and USB-UART bridge.
     Note: Max UART baud rate is 3M
 
 Software Tools
 --------------
-Following applications are installed with ModusToolbox on your computer.
+The following applications are installed with ModusToolbox on your computer.
 
-BT Spy :
+BT Spy:
     BTSpy is a trace viewer utility that can be used with WICED BT platforms to
     view protocol and application trace messages from the embedded device. The
     utility is located in the folder below. For more information, see readme.txt
@@ -70,7 +71,7 @@ BLE Mesh Client Control:
     Mesh models.
     A limited version supporting only the Lighting model (QT_ClientControl) is
     provided for Windows, Linux, and macOS.
-    <Workspace Dir>\wiced_btsdk\tools\btsdk-host-apps-mesh
+    <Workspace Dir>\wiced_btsdk\tools\btsdk-host-peer-apps-mesh\host
 
 Peer apps:
     Applications that run on Windows, iOS or Android and act as peer BT apps to
@@ -79,7 +80,7 @@ Peer apps:
     BLE apps location:
     <Workspace Dir>\wiced_btsdk\tools\btsdk-peer-apps-ble
     BLE Mesh apps location:
-    <Workspace Dir>\wiced_btsdk\tools\btsdk-peer-apps-mesh
+    <Workspace Dir>\wiced_btsdk\tools\btsdk-host-peer-apps-mesh\peer
     OTA apps location:
     <Workspace Dir>\wiced_btsdk\tools\btsdk-peer-apps-ota
 

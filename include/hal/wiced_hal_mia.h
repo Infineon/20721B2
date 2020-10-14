@@ -41,7 +41,7 @@
 #ifndef __WICED_MIA_H__
 #define __WICED_MIA_H__
 
-#include "wiced.h"
+#include "brcm_fw_types.h"
 
 /**  \addtogroup MIADriver Multiple Interface Adapter (MIA)
 * \ingroup HardwareDrivers
@@ -83,7 +83,7 @@ void wiced_hal_mia_init(void);
 ///
 /// \return reason - 1 if reset was caused by Power On Reset, 0 otherwise.
 ///////////////////////////////////////////////////////////////////////////////
-int wiced_hal_mia_is_reset_reason_por(void);
+BOOL32 wiced_hal_mia_is_reset_reason_por(void);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@ int wiced_hal_mia_is_reset_reason_por(void);
 ///
 /// \return none
 ///////////////////////////////////////////////////////////////////////////////
-void wiced_hal_mia_enable_mia_interrupt(wiced_bool_t enable);
+void wiced_hal_mia_enable_mia_interrupt(BOOL32 enable);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -103,8 +103,17 @@ void wiced_hal_mia_enable_mia_interrupt(wiced_bool_t enable);
 ///
 /// \return none
 ///////////////////////////////////////////////////////////////////////////////
-void wiced_hal_mia_enable_lhl_interrupt(wiced_bool_t enable);
+void wiced_hal_mia_enable_lhl_interrupt(BOOL32 enable);
 
+////////////////////////////////////////////////////////////////////////////////
+/// If the HW has seen any change in KS or Quad, this will freeze Mia clock,
+/// extract the event from HW FIFO and then unfreeze clock.
+///
+/// \param none
+///
+/// \return none
+////////////////////////////////////////////////////////////////////////////////
+void wiced_hal_mia_pollHardware(void);
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Get the MIA interrupt state.  This state may not be the
@@ -118,7 +127,7 @@ void wiced_hal_mia_enable_lhl_interrupt(wiced_bool_t enable);
 /// \return 1 if MIA interrupts should be enabled, 0 if MIA interrupts should
 /// be disabled.
 ///////////////////////////////////////////////////////////////////////////////
-int wiced_hal_mia_get_mia_interrupt_state(void);
+BOOL32 wiced_hal_mia_get_mia_interrupt_state(void);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -133,7 +142,7 @@ int wiced_hal_mia_get_mia_interrupt_state(void);
 /// \return 1 if lhl interrupts should be enabled, 0 if lhl interrupts should
 /// be disabled.
 ///////////////////////////////////////////////////////////////////////////////
-int wiced_hal_mia_get_lhl_interrupt_state(void);
+BOOL32 wiced_hal_mia_get_lhl_interrupt_state(void);
 
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -59,12 +59,13 @@ extern "C" {
 #include "wiced_bt_sco_hook.h"
 
 /**
- * @brief Number of PCM Samples for Audio Insertion in Audio Stream
+ * @brief Number of Max Required PCM Samples for Audio Insertion in Audio Stream
  *
- * The user application shall provide (WICED_BT_AUDIO_INSERT_PCM_SAMPLE_NB_AUDIO * 2)
- * samples (each sample is 16-bit) in each audio insertion.
+ * The user application shall provide number of samples * 2 * 2 bytes(each sample is 16-bit and stereo)
+ * The number of samples is based on I2S_AUD_INJECT_EVT_AUDIO_INFO information reported by i2s aud inject.
+ * The max value will be WICED_BT_AUDIO_INSERT_PCM_SAMPLE_NB_AUDIO samples(1024 * 2 * 2 bytes for AAC case)
  */
-#define WICED_BT_AUDIO_INSERT_PCM_SAMPLE_NB_AUDIO   128
+#define WICED_BT_AUDIO_INSERT_PCM_SAMPLE_NB_AUDIO   1024
 
 /**
  * @brief Number of PCM Samples for Audio Insertion in Voice Stream
@@ -104,6 +105,8 @@ typedef enum
  * @param[in] type
  */
 typedef void (wiced_bt_audio_insert_source_data_exhausted_callback_t)(wiced_bt_audio_insert_type_t type);
+
+typedef void (wiced_bt_audio_insert_source_data_pre_handler_t)(wiced_bt_sco_hook_event_data_t *p_data);
 
 /* Utility for advanced audio insert (audio insert over multiple devices) control. */
 typedef void (wiced_bt_audio_insert_advanced_control_enable_t)(void);
@@ -156,6 +159,8 @@ typedef struct wiced_bt_audio_insert_data_sco
                                                            expected_sco_time_seq_num. */
     uint32_t        expected_sco_time_seq_num;  /* Valid only when the field,
                                                    insert_data_after_target_seq_num is set. */
+    wiced_bt_audio_insert_source_data_pre_handler_t  *p_source_data_pre_handler;    /* Data pre handler
+                                                                                       for MIC or SPK */
 } wiced_bt_audio_insert_data_sco_t;
 
 typedef struct wiced_bt_audio_insert_data_audio

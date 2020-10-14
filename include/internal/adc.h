@@ -31,7 +31,7 @@
  * so agrees to indemnify Cypress against all liability.
  */
 
- /*
+/*
 ********************************************************************
 *    File Name: adc.h
 *
@@ -64,11 +64,46 @@ typedef enum
     RST_ADC_CLK_API     = (1 << 18),
 } PULSE_RESET_PERI_BITS;
 
+#define EQ_FILTER_COEFFICIENT_SIZE_N  116
+#define NUMBER_OF_AUDIO_AUX_FILTER_COEF 19
+
+#define BIQUAD_EQ_FILTER_COEFF_COUNT       5  // number of 16-bit coefficients per biquad
+#define BIQUAD_EQ_FILTER_COUNT             4  // 4 biquads to be used as EQ filters
+
+#pragma pack(1)
+typedef PACKED struct
+{
+    UINT8       enable;                   // 1 Enable DRC, 0 Disable DRC
+    UINT16      waitTime;                 // Wait time in mSec, 0x2EE = 750 mSec.
+    UINT8       knee1;                    // Knee 1, 68.5dB,       2660, in 1/2 dB steps.  10^((RSSI_target/2 + 30)/20).
+    UINT8       knee2;                    // Knee 2, 75dB,         5623, in 1/2 dB steps.  10^((RSSI_target/2 + 30)/20).
+    UINT8       knee3;                    // Knee 3, 81dB,        11220, in 1/2 dB steps.  10^((RSSI_target/2 + 30)/20).
+    UINT16      attackTime;               // Attack time in mSec.  0x03E8 = 1000 mSec
+    UINT16      decayTime;                // Decay time in mSec.  0x001F = 31 mSec.
+    UINT16      saturationLevel;          // Saturation Level, 0x6800 = 26624.  This will be the max output level.
+                                          // The DRC will behave like an AGC when the DRC curve exceeds this amount.
+                                          // This value will be used when the pga gain is set lower than 18dB by the DRC loop.
+}AdcAudioDrcSettings;
+
+typedef PACKED struct {
+    INT16               coeff[EQ_FILTER_COEFFICIENT_SIZE_N];
+} filter_coeff_data_t;
+
+typedef PACKED struct {
+    UINT16              audio_aux_filter_coef[NUMBER_OF_AUDIO_AUX_FILTER_COEF];
+    UINT16              biQuadEqFilterCoeffs[BIQUAD_EQ_FILTER_COEFF_COUNT*BIQUAD_EQ_FILTER_COUNT];
+    filter_coeff_data_t eqFilter;
+} AdcAudioFilterCfg_t;
+#pragma pack()
+
 #define READY_DELAY     10
 extern UINT8 g_dma_ActiveChannels;
 
 // config ADC block to default/userconfig state
 void adc_config(void);
+
+// config ADC audio to setup memory for adcAudioFifo and adcAudioFifo2
+void adc_audioConfig(AdcAudioFifo *gAdcAudioFifo, UINT8 fifoNum, AdcAudioFifo *gAdcAudioFifo2);
 
 // calibration for the referenceInput
 void adc_adcCalibrate(UINT32 refVoltageInMicroVolts, ADC_INPUT_CHANNEL_SEL referenceInput);
@@ -90,7 +125,7 @@ UINT8 adc_convertGPIOtoADCInput(UINT8 gpio);
 UINT8 adc_convertADCInputtoGPIO(UINT8 adcInput);
 
 /// assign PDM audio input pin
-void adc_pdm_pinconfig(UINT8 ch1, UINT8 ch2, UINT8 clk);
+void adc_pdm_pinconfig(UINT8 ch1, UINT8 risingEdge1, UINT8 ch2, UINT8 risingEdge2, UINT8 clk);
 
 /// reset adc clk and adc related circuit
 void adc_resetAdcClk(void);

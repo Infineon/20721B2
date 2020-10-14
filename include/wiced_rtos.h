@@ -151,6 +151,7 @@ wiced_thread_t*  wiced_rtos_create_thread( void );
  */
 wiced_result_t wiced_rtos_init_thread( wiced_thread_t* thread, uint8_t priority, const char* name, wiced_thread_function_t function, uint32_t stack_size, void* arg );
 
+#ifdef WICED_RTOS_D
 /** Deletes a terminated thread
  *
  * @param thread     : the handle of the thread to delete
@@ -159,6 +160,8 @@ wiced_result_t wiced_rtos_init_thread( wiced_thread_t* thread, uint8_t priority,
  * @return    WICED_ERROR   : if an error occurred
  */
 wiced_result_t wiced_rtos_delete_thread( wiced_thread_t* thread );
+
+#endif // WICED_RTOS_D
 
 /** Checks if there is a stackoverflow
  *
@@ -414,6 +417,7 @@ wiced_result_t wiced_rtos_lock_mutex( wiced_mutex_t* mutex );
 wiced_result_t wiced_rtos_unlock_mutex( wiced_mutex_t* mutex );
 
 
+#ifdef WICED_RTOS_D
 /** De-initialise a mutex
  *
  * Deletes a mutex created with @ref wiced_rtos_init_mutex
@@ -425,6 +429,7 @@ wiced_result_t wiced_rtos_unlock_mutex( wiced_mutex_t* mutex );
  */
 wiced_result_t wiced_rtos_deinit_mutex( wiced_mutex_t* mutex );
 
+#endif // WICED_RTOS_D
 
 /** @} */
 /*****************************************************************************/
@@ -507,6 +512,7 @@ wiced_result_t wiced_rtos_push_to_queue( wiced_queue_t* queue, void* message, ui
 wiced_result_t wiced_rtos_pop_from_queue( wiced_queue_t* queue, void* message, uint32_t timeout_ms );
 
 
+#ifdef WICED_RTOS_D
 /** De-initialise a queue
  *
  * Deletes a queue created with @ref wiced_rtos_init_queue
@@ -518,6 +524,7 @@ wiced_result_t wiced_rtos_pop_from_queue( wiced_queue_t* queue, void* message, u
  */
 wiced_result_t wiced_rtos_deinit_queue( wiced_queue_t* queue );
 
+#endif // WICED_RTOS_D
 
 /** Check if a queue is empty
  *

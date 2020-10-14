@@ -31,36 +31,29 @@
  * so agrees to indemnify Cypress against all liability.
  */
 
-#pragma once
+#ifndef _ADPCM_CODEC_H
+#define _ADPCM_CODEC_H
 
-#include "wiced_bt_ble_hidh.h"
+#include "brcm_fw_types.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#define MODIFIED_EMBEDDED_ENCODE_C 1
+#define READ_FROM_BUFFER (1 && MODIFIED_EMBEDDED_ENCODE_C)
+#define TEST_PROFILE 0
 
-/**
- * @brief BLE HIDH WakeUp Pattern Maximum Length.
- */
-#define WICED_BT_BLE_HIDH_WAKEUP_PATTERN_LEN_MAX    10
-
-/**
- * @brief BLE HIDH WakeUp Pattern Maximum Number.
- */
-#define WICED_BT_BLE_HIDH_WAKEUP_PATTERN_NB_MAX     1
-
-/**
- * @brief BLE HID Device WakeUp Commands
- *
- */
-/*  */
-typedef enum
+typedef struct CodecState_t
 {
-    WICED_BT_BLE_HIDH_WAKEUP_PATTERN_CMD_ADD = 1,
-    WICED_BT_BLE_HIDH_WAKEUP_PATTERN_CMD_DEL,
-    WICED_BT_BLE_HIDH_WAKEUP_PATTERN_CMD_LIST,
-} wiced_bt_ble_hidh_wakeup_pattern_cmd_t;
+	int valprev;
+	int index;
+}CodecState;
 
-#ifdef __cplusplus
-}
+
+void encode(CodecState* state, INT16* input, int numSamples, UINT8* output);
+#if !MODIFIED_EMBEDDED_ENCODE_C
+void decode(CodecState* state, UINT8* input, int numSamples, INT16* output);
+
+void initDecode68000();
+void decode68000(CodecState* state, UINT8* input, int numSamples, INT16* output);
+#endif //#if !MODIFIED_EMBEDDED_ENCODE_C
+
+
 #endif

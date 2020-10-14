@@ -345,6 +345,18 @@ typedef enum WICED_GPIO_STATUS_e
 void wiced_hal_gpio_init(void);
 
 ///////////////////////////////////////////////////////////////////////////////
+/// Convert a given schematic pin number (i.e. P5) to the internal port/pin
+/// representation used by various other drivers such as PSPI and PUART. There
+/// could be up to 40 GPIO pins on a board so the numbering is P0 - P39.
+///
+/// \param pin - The desired pin number from the schematic. Ex: P<pin>
+///
+/// \return Returns the port and pin representation encoded into a byte.
+/// Value is 0xFF if the input parameter is out of range.
+///////////////////////////////////////////////////////////////////////////////
+uint8_t wiced_hal_gpio_pin_to_port_pin(uint8_t pin);
+
+///////////////////////////////////////////////////////////////////////////////
 /// Configures a GPIO pin.
 ///
 /// Note that the GPIO output value is programmed before
@@ -513,6 +525,15 @@ void wiced_hal_gpio_disable_all_inputs(void);
 ///  \result: TRUE - successful save/update; FALSE - run out of entries, not able to save or invalid pin
 /////////////////////////////////////////////////////////////////////////////////////
 wiced_bool_t wiced_hal_gpio_slimboot_reenforce_cfg(uint8_t pin, uint16_t config);
+
+/////////////////////////////////////////////////////////////////////////////////////
+///  For the GPIO configurations in AON memory that needs to be reenforced in slimboot,
+///  before entering uBCS mode, please call this function to save all the output pins value again in AON memory.
+///  \param none
+///  \result: none
+/////////////////////////////////////////////////////////////////////////////////////
+void gpio_slimboot_reinforce_all_outputpin_value(void);
+#define wiced_hal_gpio_slimboot_reenforce_outputpin_value   gpio_slimboot_reinforce_all_outputpin_value
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///  Configure a GPIO pin to have the chosen functionality.

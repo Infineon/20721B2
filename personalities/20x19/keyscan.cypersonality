@@ -25,6 +25,6 @@
   <DRCs/>
 
   <ConfigFirmware>
-
+    <ConfigDefine name="keyscan_`${instNum}`_ksi_$idx_TRIGGER_IN" value="WICED_GPIO" public="true" include="`${$idx &lt; Inputs}`" repeatCount="15"/>
   </ConfigFirmware>
 </Personality>

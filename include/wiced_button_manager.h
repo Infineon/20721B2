@@ -136,6 +136,11 @@ typedef struct
     uint32_t                             last_released_timestamp;   /**< Button last released time stamp    */
     wiced_bool_t                         check_for_double_click;    /**< Button double click event or not   */
     uint32_t                             repeat;                    /**< Button holding counter */
+    int32_t                              debounce_counter;          /**< Button debounce counter            */
+    wiced_timer_t                        debounce_timer;            /**< Button debounce timer              */
+    wiced_bool_t                         debouncing;                /**< Button debounce state indication   */
+    wiced_timer_t                        long_press_timer;          /**< Button long press detection timer  */
+    uint64_t                             timer_timestamp;           /**< Button event time stamp (us)       */
 } button_manager_button_t;
 
 /**
@@ -181,10 +186,6 @@ typedef struct
     button_manager_button_t*                    buttons;            /**< Button information                         */
     uint32_t                                    number_of_buttons;  /**< Number of buttons                          */
     wiced_button_event_handler_t                button_callback;    /**< Button event handler                       */
-    wiced_worker_thread_t*                      worker_thread;      /**< Button event worker thread                 */
-    wiced_timer_t                               timer;              /**< Button event timer                         */
-    uint64_t                                    timer_timestamp;    /**< Button event time stamp (us)               */
-    wiced_bool_t								first_intr;         /**< Button first interrupt                     */
 } button_manager_t;
 
 /**

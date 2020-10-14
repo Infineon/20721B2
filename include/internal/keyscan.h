@@ -141,6 +141,7 @@ typedef PACKED struct
 }KeyEvent;
 #pragma pack()
 
+#ifdef WICED_KEYSCAN_FUNCTION_SUPPORT
 void ksq_init(void* buffer, BYTE elementSize, BYTE maxElements);
 void ksq_flush(void);
 BYTE ksq_getCurNumElements(void);
@@ -161,7 +162,7 @@ INLINE BOOL32 ksq_isEmpty (void)
 {
     return (ksq_getCurNumElements() == 0);
 }
-
+#endif // WICED_KEYSCAN_FUNCTION_SUPPORT
 
 /* @} */
 
@@ -287,6 +288,7 @@ typedef struct
 } KeyscanState;
 
 
+#ifdef WICED_KEYSCAN_FUNCTION_SUPPORT
 void keyscan_init(void);
 void keyscan_init_forSlimboot(void);
 
@@ -352,7 +354,8 @@ enum {
   STUCKKEY_STATE_NORMAL,
   STUCKKEY_STATE_STUCK,
 };
-#endif
+#endif // KEYSTUCK_ALLOW_SLEEP_SUPPORTED
+#endif // WICED_KEYSCAN_FUNCTION_SUPPORT
 
 /* @} */
 

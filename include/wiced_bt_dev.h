@@ -1847,6 +1847,19 @@ wiced_result_t wiced_bt_dev_get_role( wiced_bt_device_address_t remote_bd_addr, 
  */
 wiced_result_t wiced_bt_dev_switch_role( wiced_bt_device_address_t remote_bd_addr, UINT8 new_role, wiced_bt_dev_cmpl_cback_t *p_cback );
 
+/**
+ * Function     wiced_bt_dev_set_link_supervision_timeout
+ *
+ *              set Link Supervision Timeout
+ *
+ * @param[in]   remote_bd_addr   : BD address of remote device
+ * @param[in]   timeout          :
+ *
+ * @return      WICED_BT_PENDING if successfully initiated, otherwise error.
+ *
+ */
+wiced_result_t BTM_SetLinkSuperTout(wiced_bt_device_address_t remote_bd_addr, uint16_t timeout);
+#define wiced_bt_dev_set_link_supervision_timeout BTM_SetLinkSuperTout
 
 /**
  * Function         wiced_bt_dev_get_security_state

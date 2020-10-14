@@ -320,6 +320,7 @@ wiced_result_t wiced_bt_avrc_tg_absolute_volume_changed(uint16_t handle,   uint8
 *******************************************************************************/
 uint8_t wiced_bt_avrc_tg_is_peer_absolute_volume_capable( void );
 
+#ifdef CATEGORY_2_PASSTROUGH
 /*******************************************************************************
 * Function        wiced_bt_avrc_tg_volume_button_press
 
@@ -328,7 +329,7 @@ uint8_t wiced_bt_avrc_tg_is_peer_absolute_volume_capable( void );
     uint8_t op_id : operation ID  AVRC_ID_VOL_UP or AVRC_ID_VOL_DOWN
 *******************************************************************************/
 wiced_result_t wiced_bt_avrc_tg_volume_button_press(uint8_t op_id);
-
+#endif
 /**@} wicedbt_avrc_tg */
 
 #endif /* WICED_BT_RC_TG_H_ */

@@ -68,7 +68,7 @@ typedef enum
 	PLATFORM_BUTTON_4,
 	PLATFORM_BUTTON_5,
 	PLATFORM_BUTTON_6,
-    PLATFORM_BUTTON_MAX, /* Denotes the total number of Buttons on the board. Not a valid Button Alias */
+	PLATFORM_BUTTON_MAX,
 } platform_button_t;
 /******************************************************
  *                 Type Definitions
