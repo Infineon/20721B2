@@ -46,12 +46,12 @@
  *  SCO Definitions and Functions
  *
  *  SCO logical transport, is a symmetric, point-to-point transport between
- *  the master and a specific slave. The SCO logical transport reserves slots
+ *  the central and a specific peripheral. The SCO logical transport reserves slots
  *  and can therefore be considered as a circuit-switched connection between
- *  the master and the slave. The master may support up to three SCO links to
- *  the same slave or to different slaves. A slave may support up to three SCO
- *  links from the same master, or two SCO links if the links originate from
- *  different masters. SCO packets are never retransmitted.
+ *  the central and the peripheral. The central may support up to three SCO links to
+ *  the same peripheral or to different peripherals. A peripheral may support up to three SCO
+ *  links from the same central, or two SCO links if the links originate from
+ *  different centrals. SCO packets are never retransmitted.
  *
  *  @{
  */
@@ -82,7 +82,6 @@
 typedef enum
 {
     WICED_BT_SCO_OVER_PCM = 0,   /**< [DEFAULT] PCM data config for routing over I2S/PCM interface */
-    WICED_BT_SCO_OVER_APP_CB     /**< PCM data config for routing over APP */
 }wiced_bt_sco_route_path_t;
 
 /******************************************************

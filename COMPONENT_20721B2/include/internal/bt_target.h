@@ -942,7 +942,7 @@ and USER_HW_DISABLE_API macros */
 #endif
 
 
-/* TRUE to include CLB (ConnectionLess Slave Broadcast) */
+/* TRUE to include CLB (ConnectionLess Peripheral Broadcast) */
 #ifndef BTM_CLB_INCLUDED
 #define BTM_CLB_INCLUDED                FALSE
 #endif
@@ -1038,9 +1038,9 @@ and USER_HW_DISABLE_API macros */
 #define L2CAP_WAKE_PARKED_LINK      TRUE
 #endif
 
-/* Whether link wants to be the master or the slave. */
+/* Whether link wants to be the central or the peripheral. */
 #ifndef L2CAP_DESIRED_LINK_ROLE
-#define L2CAP_DESIRED_LINK_ROLE     HCI_ROLE_SLAVE
+#define L2CAP_DESIRED_LINK_ROLE     HCI_ROLE_PERIPHERAL
 #endif
 
 /* Include Non-Flushable Packet Boundary Flag feature of Lisbon */
@@ -1251,9 +1251,9 @@ valid fixed channel id is 0x3e*/
 #define BTM_BLE_CONN_INT_MAX_DEF     40      /* recommended max: 50 ms = 40 * 1.25 */
 #endif
 
-/* BLE default slave latency */
-#ifndef BTM_BLE_CONN_SLAVE_LATENCY_DEF
-#define BTM_BLE_CONN_SLAVE_LATENCY_DEF  0      /* 0 */
+/* BLE default peripheral latency */
+#ifndef BTM_BLE_CONN_PERIPHERAL_LATENCY_DEF
+#define BTM_BLE_CONN_PERIPHERAL_LATENCY_DEF  0      /* 0 */
 #endif
 
 /* BLE default supervision timeout */

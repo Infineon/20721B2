@@ -62,6 +62,7 @@
 #define _WICED_TRANSPORT_H_
 
 #include "wiced_hal_pspi.h"
+#include "wiced_bt_dev.h"
 
 /*****************************************************************************
 **                                                Type Definitions

@@ -105,6 +105,7 @@ osapi_deactivateTimer                            ,           SYMBOL ,      PUBLI
 rmulp_constInfo                                  ,           SYMBOL ,      PUBLIC,      0,                      ,              0
 wdog_generate_hw_reset                           ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 rtcConfig                                        ,           SYMBOL ,      PUBLIC,      0,                      ,              1
+slist_get                                        ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 #
 wiced_*                                          ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 #

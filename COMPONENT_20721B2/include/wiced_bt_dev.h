@@ -284,7 +284,7 @@ typedef struct
 typedef struct
 {
     uint8_t                         status;             /**< Status of the operation */
-    uint8_t                         role;               /**< BTM_ROLE_MASTER or BTM_ROLE_SLAVE */
+    uint8_t                         role;               /**< BTM_ROLE_CENTRAL or BTM_ROLE_PERIPHERAL */
     wiced_bt_device_address_t       bd_addr;            /**< Remote BD address involved with the switch */
 } wiced_bt_dev_switch_role_result_t;
 
@@ -502,13 +502,13 @@ enum wiced_bt_dev_le_key_type_e
     BTM_LE_KEY_PCSRK =  (1 << 2),                       /**< peer SRK */
 #if SMP_LE_SC_INCLUDED == TRUE
     BTM_LE_KEY_PLK =    (1 << 3),
-    BTM_LE_KEY_LENC =   (1 << 4),                       /**< master role security information:div */
-    BTM_LE_KEY_LID =    (1 << 5),                       /**< master device ID key */
+    BTM_LE_KEY_LENC =   (1 << 4),                       /**< Central Role security information:div */
+    BTM_LE_KEY_LID =    (1 << 5),                       /**< Central device ID key */
     BTM_LE_KEY_LCSRK =  (1 << 6),                       /**< local CSRK has been deliver to peer */
     BTM_LE_KEY_LLK =    (1 << 7),
 #else
-    BTM_LE_KEY_LENC =   (1 << 3),                       /**< master role security information:div */
-    BTM_LE_KEY_LID =    (1 << 4),                       /**< master device ID key */
+    BTM_LE_KEY_LENC =   (1 << 3),                       /**< Central Role security information:div */
+    BTM_LE_KEY_LID =    (1 << 4),                       /**< Central device ID key */
     BTM_LE_KEY_LCSRK =  (1 << 5)                        /**< local CSRK has been deliver to peer */
 #endif
 };
@@ -701,7 +701,7 @@ typedef struct
     wiced_bt_device_address_t   bd_addr;    /**< peer BD address */
     uint16_t                    min_int;    /**< minimum value of connection interval */
     uint16_t                    max_int;    /**< maximum value of connection interval */
-    uint16_t                    latency;    /**< Maximum allowed slave latency */
+    uint16_t                    latency;    /**< Maximum allowed peripheral latency */
     uint16_t                    timeout;    /**< Supervision timeout */
 } wiced_bt_ble_rc_connection_param_req_t;
 
@@ -749,7 +749,7 @@ enum wiced_bt_management_evt_e {
     BTM_KEYPRESS_NOTIFICATION_EVT,                  /**< received KEYPRESS_NOTIFY event. Event data: #wiced_bt_dev_user_keypress_t */
     BTM_PAIRING_IO_CAPABILITIES_BR_EDR_REQUEST_EVT, /**< Requesting IO capabilities for BR/EDR pairing. Event data: #wiced_bt_dev_bredr_io_caps_req_t */
     BTM_PAIRING_IO_CAPABILITIES_BR_EDR_RESPONSE_EVT,/**< Received IO capabilities response for BR/EDR pairing. Event data: #wiced_bt_dev_bredr_io_caps_rsp_t */
-    BTM_PAIRING_IO_CAPABILITIES_BLE_REQUEST_EVT,    /**< Requesting IO capabilities for BLE pairing. Slave can check peer io capabilities in event data before updating with local io capabilities. Event data: #wiced_bt_dev_ble_io_caps_req_t */
+    BTM_PAIRING_IO_CAPABILITIES_BLE_REQUEST_EVT,    /**< Requesting IO capabilities for BLE pairing. Peripheral can check peer io capabilities in event data before updating with local io capabilities. Event data: #wiced_bt_dev_ble_io_caps_req_t */
     BTM_PAIRING_COMPLETE_EVT,                       /**< received SIMPLE_PAIRING_COMPLETE event. Event data: #wiced_bt_dev_pairing_cplt_t */
     BTM_ENCRYPTION_STATUS_EVT,                      /**< Encryption status change. Event data: #wiced_bt_dev_encryption_status_t */
     BTM_SECURITY_REQUEST_EVT,                       /**< Security request (respond using #wiced_bt_ble_security_grant). Event data: #wiced_bt_dev_security_request_t */
@@ -875,7 +875,7 @@ typedef PACKED struct
 #endif
 
     BT_OCTET8           rand;           /**< random vector for LTK generation */
-    UINT16              ediv;           /**< LTK diversifier of this slave device */
+    UINT16              ediv;           /**< LTK diversifier of this peripheral device */
     UINT16              div;            /**< local DIV  to generate local LTK=d1(ER,DIV,0) and CSRK=d1(ER,DIV,1)  */
     uint8_t             sec_level;      /**< local pairing security level */
     uint8_t             key_size;       /**< key size of the LTK delivered to peer device */
@@ -1832,13 +1832,13 @@ wiced_result_t wiced_bt_dev_get_role( wiced_bt_device_address_t remote_bd_addr, 
 /**
  * Function         wiced_bt_dev_switch_role
  *
- *                  This function is called to switch the role between master and
- *                  slave.  If role is already set it will do nothing. If the
+ *                  This function is called to switch the role between central and
+ *                  peripheral.  If role is already set it will do nothing. If the
  *                  command was initiated, the callback function is called upon
  *                  completion.
  *
  * @param[in]       remote_bd_addr      : BD address of remote device
- * @param[in]       new_role            : New role (BTM_ROLE_MASTER or BTM_ROLE_SLAVE)
+ * @param[in]       new_role            : New role (BTM_ROLE_CENTRAL or BTM_ROLE_PERIPHERAL)
  * @param[in]       p_cback             : Result callback (wiced_bt_dev_switch_role_result_t will be passed to the callback)
 
  *

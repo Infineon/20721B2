@@ -88,8 +88,8 @@ int  emconninfo_getPeerAddrType(void);
 int emconninfo_getConnInterval(void);
 void emconninfo_setConnInterval(int interval);
 
-int  emconninfo_getSlaveLatency(void);
-void emconninfo_setSlaveLatency(int latency);
+int  emconninfo_getPeripheralLatency(void);
+void emconninfo_setPeripheralLatency(int latency);
 
 int emconninfo_getSupervisionTimeout(void);
 void emconninfo_setSupervisionTimeout(int timeout);

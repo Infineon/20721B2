@@ -46,7 +46,7 @@
 
 
 
-/**  \addtogroup keyscan
+/**  \addtogroup keyscan Keyscan Interface
  *  \ingroup HardwareDrivers
 */
 /*! @{ */
@@ -153,7 +153,7 @@ wiced_bool_t wiced_hal_keyscan_is_any_key_pressed(void);
 
 /* @} */
 
-/**  \addtogroup keyscanQueue
+/**  \addtogroup keyscanQueue Keyscan Interface Queue
  *  \ingroup keyscan
  */
 

@@ -247,7 +247,7 @@ enum wiced_hidd_pwmbuz_freq_e
 void wiced_hidd_app_init(wiced_bt_device_type_t dev_type);
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Register with the controller with callback function, which will be called just before the poll event from the master if enabled.
+/// Register with the controller with callback function, which will be called just before the poll event from the central if enabled.
 ///For LE link, if enabled, the callback function will be called before every connect event
 /// For BR_EDR link, if enabled, the callback function will be called before every sniff or sniff subrate event.
 ///
@@ -442,13 +442,17 @@ uint8_t wiced_blehidd_get_peer_addr_type(void);
 uint16_t wiced_blehidd_get_connection_interval(void);
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Get Connection Slave Latency
+/// Get Connection Peripheral Latency
 ///
 /// \param none
 ///
-/// \return current connection slave latency
+/// \return current connection peripheral latency
 ///////////////////////////////////////////////////////////////////////////////
+uint16_t wiced_blehidd_get_peripheral_latency(void);
+
+// deprecated and renamed
 uint16_t wiced_blehidd_get_slave_latency(void);
+#define wiced_blehidd_get_peripheral_latency() wiced_blehidd_get_slave_latency()
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Get Supervision Timeout
@@ -588,26 +592,34 @@ void wiced_blehidd_pwm_buz_off(uint8_t id);
 uint16_t wiced_blehidd_get_att_mtu_size(BD_ADDR bda);
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Allow applications to disable slave latency.
-/// Audio and gestural work best when slave latency is disabled.
+/// Allow applications to disable peripheral latency.
+/// Audio and gestural work best when peripheral latency is disabled.
 ///
-/// \param allow - WICED_TRUE (allow slave latency) or WICED_FALSE (disable slave latency)
+/// \param allow - WICED_TRUE (allow peripheral latency) or WICED_FALSE (disable peripheral latency)
 ///
 /// \return none
 ////////////////////////////////////////////////////////////////////////////////
-void wiced_blehidd_allow_slave_latency(wiced_bool_t allow);
+void wiced_blehidd_allow_peripheral_latency(wiced_bool_t allow);
+
+// deprecated and renamed
+uint16_t wiced_blehidd_allow_slave_latency(wiced_bool_t allow);
+#define wiced_blehidd_allow_peripheral_latency(x) wiced_blehidd_allow_slave_latency(x)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Allow applications to set asymmetric slave latency in slave side.
-/// when master doesn't accept slave's connection parameter update request, slave can enable
-/// asymmetric slave latency to lower power consumption
+/// Allow applications to set asymmetric peripheral latency in peripheral side.
+/// when central doesn't accept peripheral's connection parameter update request, peripheral can enable
+/// asymmetric peripheral latency to lower power consumption
 ///
 /// \param connHandle - connection handle
-/// \param latency  - slave latency
+/// \param latency  - peripheral latency
 ///
 /// \return none
 ////////////////////////////////////////////////////////////////////////////////
-void wiced_blehidd_set_asym_slave_latency(uint16_t connHandle, uint16_t latency);
+void wiced_blehidd_set_asym_peripheral_latency(uint16_t connHandle, uint16_t latency);
+
+// deprecated and renamed
+uint16_t wiced_blehidd_set_asym_slave_latency(uint16_t connHandle, uint16_t latency);
+#define wiced_blehidd_set_asym_peripheral_latency(x,y) wiced_blehidd_set_asym_slave_latency(x,y)
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Check if wake up from ShutDown Sleep is due to receiving LE connect request

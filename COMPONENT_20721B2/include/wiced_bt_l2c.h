@@ -131,8 +131,8 @@ typedef uint8_t wiced_bt_l2cap_chnl_data_rate_t;
 #define L2CAP_FLUSH_CHANNELS_GET       0x0000
 
 /** Definition used for wiced_bt_l2cap_set_desire_role */
-#define L2CAP_ROLE_SLAVE            HCI_ROLE_SLAVE
-#define L2CAP_ROLE_MASTER           HCI_ROLE_MASTER
+#define L2CAP_ROLE_PERIPHERAL            HCI_ROLE_PERIPHERAL
+#define L2CAP_ROLE_CENTRAL           HCI_ROLE_CENTRAL
 #define L2CAP_ROLE_ALLOW_SWITCH     0x80    /**< set this bit to allow switch at create conn */
 #define L2CAP_ROLE_DISALLOW_SWITCH  0x40    /**< set this bit to disallow switch at create conn */
 #define L2CAP_ROLE_CHECK_SWITCH     0xC0
@@ -842,7 +842,7 @@ uint8_t wiced_bt_l2cap_set_trace_level (uint8_t trace_level);
  *              If the new role is L2CAP_ROLE_DISALLOW_SWITCH, do not allow switch on
  *              HciCreateConnection.
  *
- *              If the new role is a valid role (HCI_ROLE_MASTER or HCI_ROLE_SLAVE),
+ *              If the new role is a valid role (HCI_ROLE_CENTRAL or HCI_ROLE_PERIPHERAL),
  *              the desire role is set to the new value. Otherwise, it is not changed.
  *
  *  @param[in]      new_role: New role value
