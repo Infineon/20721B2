@@ -376,6 +376,21 @@ void wiced_transport_uart_interrupt_disable(void);
  */
 void wiced_transport_uart_interrupt_enable(void);
 
+/**
+ * Function         wiced_set_hci_uart_cts_rts_flow_control
+ *
+ * Enable the CTS RTS Flow Control on or off
+ *
+ * Note: If user would like to turn off HCI UART flow control,
+ *       then this function must be called in APPLICATION_START()
+ *
+ * \param[in]    on  - true, enalbe CTS RTS Flow Control
+ *                     false, disable CTS RTS Flow Control
+ *
+ * \return       none
+ */
+void wiced_set_hci_uart_cts_rts_flow_control(BOOL32 on);
+
 /** @} */
 
 #endif // _WICED_TRANSPORT_H_

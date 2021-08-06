@@ -45,11 +45,19 @@
 /// Configures, enables, disables auto eLNA switch
 ///
 /// \param enable - 1 enables auto eLNA switch, 0 disables auto eLNA switch
-/// \param tx_pu_pin - GPIO number of TX_PU
 /// \param rx_pu_pin - GPIO number of RX_PU
 ///
 /// \return none
 ///////////////////////////////////////////////////////////////////////////////
-extern void wiced_hal_rfm_auto_elna_switch(uint8_t enable, wiced_bt_gpio_numbers_t tx_pu_pin ,wiced_bt_gpio_numbers_t rx_pu_pin);
+void wiced_hal_rfm_auto_elna_enable(BOOL8 enabled, wiced_bt_gpio_numbers_t rx_pu_pin);
 
+///////////////////////////////////////////////////////////////////////////////
+/// Configures, enables, disables auto ePA switch
+///
+/// \param enable - 1 enables auto ePA switch, 0 disables auto ePA switch
+/// \param tx_pu_pin - GPIO number of TX_PU
+///
+/// \return none
+///////////////////////////////////////////////////////////////////////////////
+void wiced_hal_rfm_auto_epa_enable(BOOL8 enabled, wiced_bt_gpio_numbers_t tx_pu_pin);
 #endif

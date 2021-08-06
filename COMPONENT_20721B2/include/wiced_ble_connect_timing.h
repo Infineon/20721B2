@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2020-2021, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -30,52 +30,51 @@
  * of such system or application assumes all risk of such use and in doing
  * so agrees to indemnify Cypress against all liability.
  */
-/**
- * A few utilities with a reasonable implementation for SPAR.
+/** @file
+ *
+ * support callback notification with timing since last ble connection
+ *
  */
-#pragma once
+#ifndef __WICED_BLE_CONNECT_TIMING_H__
+#define __WICED_BLE_CONNECT_TIMING_H__
 
-#ifdef __GNUC__
-#define sprintf __2sprintf
-#define snprintf __2snprintf
+typedef struct tag_app_connect_timing_data
+{
+    UINT64  cur_local_time64;               // Free-running local time in uSecs, at instant of callback
+    UINT32  time_since_conn_evt;            // Time since Connection Event in uSecs
+    UINT16  connection_handle;
+} BLE_CONNECT_TIMING_APP_DATA;
+
+
+typedef enum
+{
+    CONNECT_INFO_PERIPHERAL = (1 << 8),
+    CONNECT_INFO_SYNC       = (1 << 9),
+    CONNECT_INFO_LEVEL0     = (1 << 10),
+    CONNECT_INFO_LEVEL1     = (1 << 11),
+    CONNECT_INFO_LEVEL2     = (1 << 12),
+} CONECT_TIMING_CB_INFO_t;
+
+typedef enum
+{
+    NODE_LEVEL_0,
+    NODE_LEVEL_1,
+    NODE_LEVEL_2,
+} CONECT_TIMING_NODE_t;
+
+typedef struct tag_ble_connect_mesh_data
+{
+    uint64_t  last_rcvd_network_time_value;
+    uint16_t  last_rcvd_event_count;
+    uint8_t   received_tuple;
+    uint8_t   node_type;
+} BLE_CONNECT_TIMING_MESH_DATA;
+
+typedef void (*BLE_CONNECT_TIMING_CB_t)(BLE_CONNECT_TIMING_APP_DATA *app_data);
+typedef void (*BLE_CONNECT_MESH_CB_t)(BLE_CONNECT_TIMING_MESH_DATA *mesh_data);
+void ble_connect_timing_enable(BLE_CONNECT_TIMING_CB_t cb, BOOL32 provisioner);
+void ble_connect_timing_disable();
+void ble_bms_placement_enable(void);
+void ble_bms_placement_disable(void);
+
 #endif
-
-#ifdef ENABLE_DEBUG
-#include "wiced_hal_wdog.h"
-#include <string.h>
-unsigned int _tx_v7m_get_and_disable_int(void);
-void _tx_v7m_set_int(unsigned int posture);
-
-/// When debugging is enabled, sets up the HW for debugging.
-#define SETUP_APP_FOR_DEBUG_IF_DEBUG_ENABLED()   do{        \
-      wiced_hal_gpio_select_function(CY_PLATFORM_SWDCK, WICED_SWDCK); \
-      wiced_hal_gpio_select_function(CY_PLATFORM_SWDIO, WICED_SWDIO); \
-      wiced_hal_wdog_disable(); \
-   }while(0)
-
-/// Optionally waits in a pseudo while(1) until the user allows the CPU to continue
-#define BUSY_WAIT_TILL_MANUAL_CONTINUE_IF_DEBUG_ENABLED()     do{   \
-        volatile unsigned char spar_debug_continue = 0;             \
-        unsigned int interrupt_save = _tx_v7m_get_and_disable_int();\
-        while(!spar_debug_continue);                                \
-        _tx_v7m_set_int(interrupt_save);                            \
-        }while(0)
-#else
-#define SETUP_APP_FOR_DEBUG_IF_DEBUG_ENABLED()
-#define BUSY_WAIT_TILL_MANUAL_CONTINUE_IF_DEBUG_ENABLED()
-#endif
-
-/// Allow the app to place code in retention RAM.
-/// Note that there is very limited retention RAM, so choose
-/// what goes into this area very carefully.
-#define PLACE_CODE_IN_RETENTION_RAM    __attribute__ ((section(".code_in_retention_ram")))
-
-/// Allow app to place this data in retention RAM.
-#define PLACE_DATA_IN_RETENTION_RAM    __attribute__ ((section(".data_in_retention_ram")))
-
-// If we panic from SPAR, we might not even have access to anything in
-// the ROM or the Flash -- we suspect that we've been linked against
-// the wrong image. So this.
-
-#define SPAR_ASSERT_PANIC(expr) \
-    do { if (!(expr)) while (1) ; } while(0)

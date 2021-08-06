@@ -194,7 +194,7 @@ sub main
 		if($arg =~ /\.elf$/) {
 			$param->{'elf'} = $arg;
 		}
-		if($arg =~ /\.sym$/) {
+		if($arg =~ /\.sym/) {
 			$param->{'sym'} = $arg;
 		}
 		elsif($arg =~ /^ISTATIC_BEGIN=(\w+)/) {

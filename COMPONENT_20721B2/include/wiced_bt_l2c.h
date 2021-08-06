@@ -342,7 +342,7 @@ typedef struct
     wiced_bt_flow_spec_t            qos;
     wiced_bool_t                    flush_timeout_present;
     uint16_t                        flush_timeout;
-    wiced_bool_t                    fcr_present;
+    uint8_t                         fcr_present;
     wiced_bt_l2cap_fcr_options_t    fcr;
     wiced_bool_t                    fcs_present;
     uint8_t                         fcs;            /**< '0' if desire is to bypass FCS, otherwise '1' */

@@ -450,10 +450,6 @@ uint16_t wiced_blehidd_get_connection_interval(void);
 ///////////////////////////////////////////////////////////////////////////////
 uint16_t wiced_blehidd_get_peripheral_latency(void);
 
-// deprecated and renamed
-uint16_t wiced_blehidd_get_slave_latency(void);
-#define wiced_blehidd_get_peripheral_latency() wiced_blehidd_get_slave_latency()
-
 ///////////////////////////////////////////////////////////////////////////////
 /// Get Supervision Timeout
 ///
@@ -601,10 +597,6 @@ uint16_t wiced_blehidd_get_att_mtu_size(BD_ADDR bda);
 ////////////////////////////////////////////////////////////////////////////////
 void wiced_blehidd_allow_peripheral_latency(wiced_bool_t allow);
 
-// deprecated and renamed
-uint16_t wiced_blehidd_allow_slave_latency(wiced_bool_t allow);
-#define wiced_blehidd_allow_peripheral_latency(x) wiced_blehidd_allow_slave_latency(x)
-
 ////////////////////////////////////////////////////////////////////////////////
 /// Allow applications to set asymmetric peripheral latency in peripheral side.
 /// when central doesn't accept peripheral's connection parameter update request, peripheral can enable
@@ -616,10 +608,6 @@ uint16_t wiced_blehidd_allow_slave_latency(wiced_bool_t allow);
 /// \return none
 ////////////////////////////////////////////////////////////////////////////////
 void wiced_blehidd_set_asym_peripheral_latency(uint16_t connHandle, uint16_t latency);
-
-// deprecated and renamed
-uint16_t wiced_blehidd_set_asym_slave_latency(uint16_t connHandle, uint16_t latency);
-#define wiced_blehidd_set_asym_peripheral_latency(x,y) wiced_blehidd_set_asym_slave_latency(x,y)
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Check if wake up from ShutDown Sleep is due to receiving LE connect request

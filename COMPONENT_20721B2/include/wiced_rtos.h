@@ -181,6 +181,17 @@ wiced_bool_t wiced_rtos_check_for_stack_overflow( void );
  */
 uint32_t wiced_rtos_thread_stack_size( wiced_thread_t* thread );
 
+/** Returns maximum stack usage of the thread
+ *
+ * Returns maximum stack usage size if thread signature is valid, else returns 0
+ *
+ * @param[in]       thread   : point to the thread context
+ *                             Note: thread is a return value from wiced_rtos_create_thread()
+ *
+ * @return          maximum stack usage
+ *******************************************************************/
+uint32_t wiced_bt_rtos_max_stack_use( wiced_thread_t* thread );
+
 /** Sleep for a given period of milliseconds
  *
  * Causes the current thread to sleep for AT LEAST the

@@ -1751,46 +1751,6 @@ wiced_result_t wiced_bt_dev_get_bonded_devices(wiced_bt_dev_bonded_device_info_t
  */
 wiced_result_t wiced_bt_dev_delete_bonded_device(wiced_bt_device_address_t bd_addr);
 
-
-/**
- * Function         wiced_bt_dev_add_device_to_address_resolution_db
- *
- *                  add link key information to internal address resolution db
- *
- * @param[in]      p_link_keys    : link keys information stored in application side
- *
- * @return          wiced_result_t
- *
- */
-wiced_result_t wiced_bt_dev_add_device_to_address_resolution_db(wiced_bt_device_link_keys_t *p_link_keys);
-
-
-/**
- * Function         wiced_bt_dev_remove_device_from_address_resolution_db
- *
- *                  remove link key information from internal address resolution db
- *
- * @param[in]      p_link_keys    : link keys information stored in application side
- *
- * @return          wiced_result_t
- *
- */
-wiced_result_t wiced_bt_dev_remove_device_from_address_resolution_db(wiced_bt_device_link_keys_t *p_link_keys);
-
-
-/**
- * Function         wiced_bt_dev_get_ble_keys
- *
- *                  get le key mask from stored key information of nv ram
- *
- * @param[in]      bd_addr    : remote bd address
- * @param[out]      p_key_mask    : ble key mask stored
- *
- * @return          wiced_result_t
- *
- */
-wiced_result_t wiced_bt_dev_get_ble_keys(wiced_bt_device_address_t bd_addr, wiced_bt_dev_le_key_type_t *p_key_mask);
-
 /**
  * Function         wiced_bt_set_local_bdaddr
  *
@@ -1804,11 +1764,6 @@ wiced_result_t wiced_bt_dev_get_ble_keys(wiced_bt_device_address_t bd_addr, wice
  *
  * @return          void
  *
- * Note            BD_Address must be in Big Endian format
- *
- * Example         Data         | AB | CD | EF | 01 | 23 | 45 |
- *                 Address      | 0  | 1  | 2  | 3  | 4  | 5  |
- *                 For above example it will set AB:CD:EF:01:23:45 bd address
  */
 void wiced_bt_set_local_bdaddr( wiced_bt_device_address_t  bda , wiced_bt_ble_address_type_t addr_type);
 

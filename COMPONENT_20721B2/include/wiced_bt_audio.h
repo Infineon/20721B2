@@ -325,5 +325,43 @@ wiced_result_t wiced_audio_samples_route_init(wiced_audio_request_samples_callba
  */
 wiced_bool_t wiced_audio_samples_set(uint8_t *p_in, uint32_t size);
 
+/**
+* Function Name     wiced_audio_set_packet_types
+*
+* Sets the packet types used for a specific ACL connection and also sets the
+* max_audio_mtu that the audio processing unit uses, based on the provided
+* packet types, to format the SBC frames. By setting the max_audio_mtu according
+* to the packet type, it helps to ensure no fragmentation across SBC frames
+* occur.
+*
+* @param[in] peer_bda        Peer address of the desired ACL connection
+* @param[in] packet_types    Packet type bitmask. See hcidef.h for definitions
+*                            for packet type masks (BT1.2 and BT2.0 definitions).
+*
+* @return result             WICED_BT_PENDING is command has started successfully
+*                            else wiced result error code.
+*
+*/
+wiced_result_t wiced_audio_set_packet_types( BD_ADDR peer_bda, UINT16 packet_types );
+
+/**
+ * Function         wiced_audio_set_max_bitpool
+ *
+ *                  This function is called to set max_audio_bitpool
+ *
+ * @param[in]       max_value       : value to set max_audio_bitpool. Needs to be within WICED_MIN_AUDIO_BITPOOL and WICED_MAX_AUDIO_BITPOOL
+ * @return          wiced_result_t
+*/
+wiced_result_t wiced_audio_set_max_bitpool (uint8_t max_value);
+
+/**
+ * Function         wiced_audio_read_max_bitpool
+ *
+ *                  This function is called to read max_audio_bitpool
+ *
+ * @return          uint8_t max_value
+*/
+uint8_t wiced_audio_read_max_bitpool (void);
+
 #endif // _WICED_BT_AUDIO_H_
 /** @} wicedbt_audio_utils */

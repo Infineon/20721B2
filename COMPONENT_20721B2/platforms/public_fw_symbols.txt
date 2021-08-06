@@ -1,19 +1,20 @@
 # Place a '#' in the first column to indicate a comment
 #
-# This file defines OVERRIDE rules for ROM and LIBRARY symbols.
+# This file defines OVERRIDE rules for PATCH and LIBRARY symbols.
 # Each symbol defined below is used in conjunction with the elf file symbol tables.
 #
 #
 # Comma Seperated Value file
 #
-# Name,     Type,     Visibility,     Mangle Flag,     Mangle Name,     Trampoline Flag,
+# Name,     Type,     Visibility,     Rename Flag,     Rename Name,     Reserved Flag,
 #
 # Definitions
 #   Name
 #     <symbol name>    Name of exact symbol to find and modify (may exist in multiple elf files)
 #     <wildcard>       Wildcard is allowed.
-#                          *     match all SYMBOLS after this location in the name.    ie.  <Wiced_*>
+#                          *     match all SYMBOLS after this location in the name.    ie.  <wiced_*>
 #                                Sections are NOT supported at the moment with wildcards
+#     !~<wildcard>     Wildcard is explicitly not public (screened).
 #
 #                      Name is CASE-SENSITIVE and WHITE SPACE IN-sensitive at beginning or end of name.
 #
@@ -23,42 +24,38 @@
 #
 #   Visibility Status
 #     PUBLIC           Symbol will be exported and will be in the open (never mangled)
-#     PRIVATE          Allow libraries to use it as a mangled symbol (if mangling enabled, otherwise it is removed)
-#                      Allow exporting of mangled rom symbols(objects and functions)
-#     SECRET           Never allow this in an output elf file, trampoline function, symdefs, or just-symbols file
-#     no value         Defaults to SECRET (symbol only)
+#     no value         Defaults to NOT public, no symbol in .sym file
 #
-#   Mangle Flagh
+#   Rename Flag
 #     0        => No mangling will occur, use real name
-#     1        => Mangle this entry
+#     2        => Override symbol name with new name
 #     No Value => Defaults to 0
 #
-#   Mangle Name
-#     No Value => Use a randomized value (if mangling is enabled)
+#   Rename Name
+#     No Value => Use Name
 #     Value    => Use the supplied value as the new name for the entry
-#                 1st char MUST be a letter (max 17 chars)
-#
-#   Trampoline Flag (for ROM symbols only!! Ignored if symbol is in a library)
-#     0         => No trampoline function generated (Data object would use this value)
-#     1         => Trampoline function generated
-#     No Value  => Defaults to 0 (always for SECTION)
-#
-#                  For simplicity if an OBJECT has this flag set to 1, the script is expected to just ignore it.
-#
+#                 1st char MUST be a letter
 #
 #####################################################################################################################################
-# Section  #
-############
-# Name,                                    Type,      Status,     Mangle Flag,      Mangle Name,     Trampoline Flag
-CODE_AREA                         ,     SECTION,      PUBLIC,               0,                 ,
-RO_AREA                           ,     SECTION,      PUBLIC,               0,                 ,
-FIRST_FREE_SECTION_IN_SRAM        ,     SECTION,      PUBLIC,               0,                 ,
-FIRST_FREE_SECTION_IN_AON         ,     SECTION,      PUBLIC,               0,                 ,
+# Name,                                                        Type ,      Status,  Rename Flag,     Rename Name,     Reserved Flag,
 #
-#####################################################################################################################################
-# Symbols -- The corresponding section above must exist IF you are stripping sections/symbols as well. #
-########################################################################################################
-# Name,                                                        Type ,      Status,  Mangle Flag,     Mangle Name,     Trampoline Flag,
+# public API renames
+#
+wiced_blehidd_get_slave_latency                  ,           SYMBOL ,      PUBLIC,      2, wiced_blehidd_get_peripheral_latency,       1
+wiced_blehidd_allow_slave_latency                ,           SYMBOL ,      PUBLIC,      2, wiced_blehidd_allow_peripheral_latency,     1
+wiced_blehidd_set_asym_slave_latency             ,           SYMBOL ,      PUBLIC,      2, wiced_blehidd_set_asym_peripheral_latency,  1
+wiced_bt_allowSlaveLatency                       ,           SYMBOL ,      PUBLIC,      2, wiced_bt_allowPeripheralLatency,            1
+allowSlaveLatency                                ,           SYMBOL ,      PUBLIC,      2, allowPeripheralLatency,                     1
+rbg_get_psrng                                    ,           SYMBOL,       PUBLIC,      2, wiced_hal_get_pseudo_rand_number,           1
+bcsulp_AES                                       ,           SYMBOL,       PUBLIC,      2, wiced_bcsulp_AES,                           1
+wiced_bt_ble_update_advertising_white_list       ,           SYMBOL,       PUBLIC,      2, wiced_bt_ble_update_advertising_filter_accept_list, 1
+wiced_bt_ble_get_white_list_size                 ,           SYMBOL,       PUBLIC,      2, wiced_bt_ble_get_filter_accept_list_size,   1
+wiced_bt_ble_clear_white_list                    ,           SYMBOL,       PUBLIC,      2, wiced_bt_ble_clear_filter_accept_list,      1
+wiced_bt_ble_update_scanner_white_list           ,           SYMBOL,       PUBLIC,      2, wiced_bt_ble_update_scanner_filter_list,    1
+sha2_hmac                                        ,           SYMBOL,       PUBLIC,      2, wiced_sha2_hmac,                            1
+#
+# Generic
+#
 __aeabi_memclr                                   ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 __aeabi_memcpy                                   ,           SYMBOL ,      PUBLIC,      0,                      ,              1
 __aeabi_uldivmod                                 ,           SYMBOL ,      PUBLIC,      0,                      ,              1
