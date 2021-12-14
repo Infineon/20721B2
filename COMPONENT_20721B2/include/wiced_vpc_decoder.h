@@ -33,7 +33,7 @@
 
 /**
  * @file
- * @brief WICED Voice Prompt Decoder definitions
+ * @brief AIROC Voice Prompt Decoder definitions
  */
 
 #pragma once

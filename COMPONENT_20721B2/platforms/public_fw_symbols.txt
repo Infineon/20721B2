@@ -53,6 +53,7 @@ wiced_bt_ble_get_white_list_size                 ,           SYMBOL,       PUBLI
 wiced_bt_ble_clear_white_list                    ,           SYMBOL,       PUBLIC,      2, wiced_bt_ble_clear_filter_accept_list,      1
 wiced_bt_ble_update_scanner_white_list           ,           SYMBOL,       PUBLIC,      2, wiced_bt_ble_update_scanner_filter_list,    1
 sha2_hmac                                        ,           SYMBOL,       PUBLIC,      2, wiced_sha2_hmac,                            1
+BTM_SetLocalDeviceName                           ,           SYMBOL,       PUBLIC,      2, wiced_bt_dev_set_local_name,                1
 #
 # Generic
 #
@@ -507,7 +508,6 @@ gpio_configurePortPins                            , SYMBOL, PUBLIC, 0, , 1
 gpio_registerForInterrupt                         , SYMBOL, PUBLIC, 0, , 1
 BTM_SetDeviceClass                                , SYMBOL, PUBLIC, 0, , 1
 BTM_ReadDeviceClass                               , SYMBOL, PUBLIC, 0, , 1
-BTM_SetLocalDeviceName                            , SYMBOL, PUBLIC, 0, , 1
 BTM_ReadLocalDeviceName                           , SYMBOL, PUBLIC, 0, , 1
 memmove                                           , SYMBOL, PUBLIC, 0, , 1
 memcmp                                            , SYMBOL, PUBLIC, 0, , 1
@@ -529,3 +529,24 @@ adc_pdm_pinconfig                                 , SYMBOL, PUBLIC, 0, , 1
 adc_startAudio                                    , SYMBOL, PUBLIC, 0, , 1
 adc_stopAudio                                     , SYMBOL, PUBLIC, 0, , 1
 adc_config                                        , SYMBOL, PUBLIC, 0, , 1
+#
+# graphic
+#
+_memset_w                                         , SYMBOL, PUBLIC, 0, , 1
+dma_RequestTransfer                               , SYMBOL, PUBLIC, 0, , 1
+pmu_idle_SendMessageToIdleThread                  , SYMBOL, PUBLIC, 0, , 1
+pmu_idle_RegisterMsgHandler                       , SYMBOL, PUBLIC, 0, , 1
+dynamic_memory_AllocateOrDie                      , SYMBOL, PUBLIC, 0, , 1
+_tx_mutex_get                                     , SYMBOL, PUBLIC, 0, , 1
+_tx_mutex_create                                  , SYMBOL, PUBLIC, 0, , 1
+_tx_mutex_put                                     , SYMBOL, PUBLIC, 0, , 1
+clock_DelayMicroseconds                           , SYMBOL, PUBLIC, 0, , 1
+spiffy_waitForDoneBit                             , SYMBOL, PUBLIC, 0, , 1
+spiffy_clearDoneBit                               , SYMBOL, PUBLIC, 0, , 1
+spiffy_write_dbic                                 , SYMBOL, PUBLIC, 0, , 1
+spiffy_masterEnableTxOnly                         , SYMBOL, PUBLIC, 0, , 1
+spiffy_sw_reset                                   , SYMBOL, PUBLIC, 0, , 1
+spiffy_get_base_clock_khz                         , SYMBOL, PUBLIC, 0, , 1
+spiffy_get_tport_div                              , SYMBOL, PUBLIC, 0, , 1
+dma_SetPeripheralDMACSync                         , SYMBOL, PUBLIC, 0, , 1
+secExt_setExternalSecurityReg                     , SYMBOL, PUBLIC, 0, , 1

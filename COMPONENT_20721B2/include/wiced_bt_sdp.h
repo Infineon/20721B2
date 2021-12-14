@@ -361,8 +361,7 @@ extern "C"
  *
  * Function         wiced_bt_sdp_db_init
  *
- * Initialize local SDP server database (database generated using
- * WICED BT Designer)
+ * Initialize local SDP server database
  *
  * @param[in]       p_sdp_db:    First element in database array
  * @param[in]       size:        size (in bytes) of SDP database

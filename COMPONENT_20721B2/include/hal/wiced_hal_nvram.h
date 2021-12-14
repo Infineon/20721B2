@@ -51,7 +51,7 @@
  * @brief Defines the first usable NVRAM Volatile Section Identifier.
  * Application can use the VS ids starting from WICED_NVRAM_VSID_START.to
  * WICED_NVRAM_VSID_END
- * Note: Values less than 0x200 reserved for WICED internal purpose and not advisable to use by applications
+ * Note: Values less than 0x200 reserved for internal purpose and not advisable to use by applications
  **/
 enum
 {

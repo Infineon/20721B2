@@ -43,35 +43,11 @@ typedef struct tag_app_connect_timing_data
     UINT64  cur_local_time64;               // Free-running local time in uSecs, at instant of callback
     UINT32  time_since_conn_evt;            // Time since Connection Event in uSecs
     UINT16  connection_handle;
+    UINT8   rssi;
 } BLE_CONNECT_TIMING_APP_DATA;
 
-
-typedef enum
-{
-    CONNECT_INFO_PERIPHERAL = (1 << 8),
-    CONNECT_INFO_SYNC       = (1 << 9),
-    CONNECT_INFO_LEVEL0     = (1 << 10),
-    CONNECT_INFO_LEVEL1     = (1 << 11),
-    CONNECT_INFO_LEVEL2     = (1 << 12),
-} CONECT_TIMING_CB_INFO_t;
-
-typedef enum
-{
-    NODE_LEVEL_0,
-    NODE_LEVEL_1,
-    NODE_LEVEL_2,
-} CONECT_TIMING_NODE_t;
-
-typedef struct tag_ble_connect_mesh_data
-{
-    uint64_t  last_rcvd_network_time_value;
-    uint16_t  last_rcvd_event_count;
-    uint8_t   received_tuple;
-    uint8_t   node_type;
-} BLE_CONNECT_TIMING_MESH_DATA;
-
 typedef void (*BLE_CONNECT_TIMING_CB_t)(BLE_CONNECT_TIMING_APP_DATA *app_data);
-typedef void (*BLE_CONNECT_MESH_CB_t)(BLE_CONNECT_TIMING_MESH_DATA *mesh_data);
+
 void ble_connect_timing_enable(BLE_CONNECT_TIMING_CB_t cb, BOOL32 provisioner);
 void ble_connect_timing_disable();
 void ble_bms_placement_enable(void);

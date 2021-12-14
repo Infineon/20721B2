@@ -33,7 +33,7 @@
  * @endcond
  *
  * @file
- * This file constains general utilities of WICED.
+ * This file constains general utilities for AIROC BTSDK.
  */
 #pragma once
 

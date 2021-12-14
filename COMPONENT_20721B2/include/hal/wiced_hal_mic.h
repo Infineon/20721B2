@@ -99,7 +99,7 @@ typedef union
 /**
  * Microphone Callback function type wiced_hal_mic_callback_t
  *
- *                  WICED Microphone Event callback (registered with wiced_hal_mic_start)
+ *                  Microphone Event callback (registered with wiced_hal_mic_start)
  *
  * @param[in]       event: Microphone event received
  * @param[in]       p_data : Data (pointer on union of structure) associated with the event

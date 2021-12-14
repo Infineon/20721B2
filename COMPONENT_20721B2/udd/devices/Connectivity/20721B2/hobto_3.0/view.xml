@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Files xml_version="1" xmlns="http://cypress.com/xsd/cyhobtoviewdie_v2">
+  <Cores>
+    <Core type="CortexM4" count="1" />
+  </Cores>
+  <Clocks file="clocks" />
+  <DSIs file="dsi" />
+  <Interrupts file="interrupts" />
+  <IPs file="ipblocks" />
+  <Pins file="pins" />
+  <Triggers file="triggers" />
+  <AmuxBus file="amuxbus" />
+  <Module name="81-LGA" file="modules/module_81-LGA.cydata" />
+  <Module name="84-LGA" file="modules/module_84-LGA.cydata" />
+</Files>

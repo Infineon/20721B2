@@ -249,7 +249,7 @@ typedef union
 /**
  * Audio Insert Callback function type wiced_bt_audio_insert_callback_t
  *
- *                  WICED Audio Insert Event callback (registered with wiced_bt_audio_insert_init)
+ *                  Audio Insert Event callback (registered with wiced_bt_audio_insert_init)
  *
  * @param[in]       event: Audio Insert event received
  * @param[in]       p_data : Data (pointer on union of structure) associated with the event

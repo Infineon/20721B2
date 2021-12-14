@@ -45,7 +45,7 @@
  *
  * @defgroup wicedbt      Bluetooth
  *
- * WICED Bluetooth Framework Functions
+ * AIROC Bluetooth Framework Functions
  */
 
 #pragma once
@@ -288,6 +288,8 @@ typedef struct
     wiced_bt_device_address_t       bd_addr;            /**< Remote BD address involved with the switch */
 } wiced_bt_dev_switch_role_result_t;
 
+#define POWER_LEVELS_CNT_MAX 8
+
 /* Tx power table offset modes */
 typedef enum
 {
@@ -297,6 +299,13 @@ typedef enum
     POWER_LEVELS_MODE_LE2,
     POWER_LEVELS_MODE_MAX,
 } wiced_bt_tx_power_table_offset_mode_t;
+
+/** Structure returned with wiced_read_power_table_value complete callback */
+typedef struct
+{
+    uint8_t    index;                     /**< Power table index requested */
+    uint32_t   power_value;               /**< Power table value           */
+} wiced_bt_power_table_params_t;
 
 /*****************************************************************************
  *  SECURITY MANAGEMENT
@@ -448,7 +457,7 @@ typedef struct
 /** BR/EDR pairing complete infomation */
 typedef struct
 {
-    uint8_t         status;                 /**< status of the simple pairing process (see defintions for HCI status codes) */
+    uint8_t         status;                 /**< status of the simple pairing process (See standard HCI error codes. Please refer Bluetooth version 5.2, volume 1, part F for CONTROLLER ERROR CODES) */
 } wiced_bt_dev_br_edr_pairing_info_t;
 
 /** BLE pairing complete infomation */
@@ -1159,6 +1168,13 @@ typedef void (wiced_bt_remote_name_cback_t) (wiced_bt_dev_remote_name_result_t *
  */
 typedef void (wiced_bt_dev_vse_callback_t)(uint8_t len, uint8_t *p);
 
+/**
+ * Read power table value callback
+ *
+ * @param p_power_table_params : power table value
+ */
+typedef void (wiced_bt_read_power_table_value_cback_t) (wiced_bt_power_table_params_t *p_power_table_params);
+
 /******************************************************
  *               Function Declarations
  ******************************************************/
@@ -1848,7 +1864,6 @@ wiced_bool_t wiced_bt_get_identity_address(wiced_bt_device_address_t bd_addr, wi
  *  Command to set the tx power on link
  *
  * @param[in]       bd_addr       : peer address
- *                                  To set Adv Tx power keep bd_addr NULL
  * @param[in]       power          :  power value in db
  * @param[in]       p_cb           :  Result callback (wiced_bt_set_tx_power_result_t will be passed to the callback)
  *
@@ -1856,6 +1871,45 @@ wiced_bool_t wiced_bt_get_identity_address(wiced_bt_device_address_t bd_addr, wi
  *
  **/
 wiced_result_t wiced_bt_set_tx_power ( wiced_bt_device_address_t bd_addr , INT8 power, wiced_bt_dev_vendor_specific_command_complete_cback_t *p_cb );
+
+/**
+ * Function        wiced_bt_dev_set_tx_power_table
+ *
+ * Description     Application can invoke this function to configure a custom BT tx power table to
+ *                 be used for the provided mode.
+ *
+ * @param[in]      mode  : Phy mode (BR, EDR, LE, or LE2)
+ * @param[in]      p_values : tx power table (must be uint8_t array with 8 steps, indexes 0 - 7)
+ *
+ * @return         WICED_BT_BADARG if bad arguments passed
+ *                 WICED_BT_SUCCESS if successful
+ *
+ */
+wiced_result_t  wiced_bt_dev_set_tx_power_table(wiced_bt_tx_power_table_offset_mode_t mode, uint8_t *p_values);
+
+/**
+ * Function        wiced_bt_dev_force_update_tx_power_table
+ *
+ * Description     Application can invoke this function to force update tx power table, it only can be called after
+ *                 wiced_bt_dev_set_tx_power_table.
+ *
+ * @return         None
+ *
+ */
+void wiced_bt_dev_force_update_tx_power_table(void);
+
+/**
+ * Function        wiced_bt_read_power_table_values
+ *
+ * Description     Application can invoke this function to read a BR/EDR tx power table value
+ *
+ * @param[in]      index  : power table index (0 - 7)
+ * @param[in]      func : callback function to be called when value is received
+ *
+ * @return         None
+ *
+ */
+void wiced_bt_read_power_table_values(uint8_t index, wiced_bt_read_power_table_value_cback_t *f);
 
 /**
  * Function        wiced_bt_dev_set_tx_power_table_offset
@@ -2137,6 +2191,21 @@ wiced_result_t wiced_bt_dev_set_link_policy(wiced_bt_device_address_t remote_bda
 */
 
 wiced_result_t wiced_bt_set_device_class(wiced_bt_dev_class_t dev_class);
+
+/**
+ * Function         wiced_bt_dev_set_local_name
+ *
+ * Set the device local name
+ *
+ * @param[out]      p_name        : Local device name
+ *
+ * @return          wiced_result_t
+ *
+ *                  WICED_BT_PENDING        command initiated successfully
+ *                  WICED_BT_DEV_RESET      device not in the right state to execute the command
+ *                  WICED_BT_NO_RESOURCES   no resources to issue command
+ */
+wiced_result_t wiced_bt_dev_set_local_name( char* p_name );
 
 #ifdef __cplusplus
 }

@@ -32,7 +32,7 @@
  */
  /** @file
  *
- *  This implements the application-thread level event handling for WICED Apps
+ *  This implements the application-thread level event handling for AIROC Apps
  *
  * \defgroup appthread Application Thread Serialization
  * \ingroup  rtos
@@ -67,7 +67,7 @@ typedef enum
 * \{
 */
 
-/** WICED APP Event Serialization Failure Code
+/** AIROC APP Event Serialization Failure Code
  *
  * @note This failure code is used to check the failure status if the return value
  *       of wiced_app_event_serialize() utility is FALSE.
@@ -104,7 +104,7 @@ typedef enum wiced_app_event_serialization_failure_code
  * Global Data Structure definitions                                          *
  ******************************************************************************/
 
- /** Structure used in WICED stack to add callback and data into task queue.  The serialization queue will have these callbacks */
+ /** Structure used in AIROC stack to add callback and data into task queue.  The serialization queue will have these callbacks */
 typedef struct
 {
     int (*fn)(void*); /**< Callback invoked within the app thread context */
@@ -122,7 +122,7 @@ typedef struct
 ****************************************************************************//**
  *
 * This function lets you serialize a call onto the application thread, which
-* has been instantiated by the WICED stack and is used to interact with the
+* has been instantiated by the AIROC stack and is used to interact with the
 * application in an event-based fashion. Once serialized, tasks are pushed onto
 * a task queue, where they are pulled based on pre-defined priority of the
 * application thread. The queue is 16 deep, but this is shared with the stack.
@@ -144,7 +144,7 @@ typedef struct
 *******************************************************************************/
 wiced_bool_t wiced_app_event_serialize(int (*fn)(void*), void* data);
 
-/** WICED Application Event Serialization Handler Debug Callback.
+/** AIROC Application Event Serialization Handler Debug Callback.
  *
  * @param[in]   error code: Refer to the error codes defined in the section,
  *              "Failure code for handling the event", in enum,
@@ -154,7 +154,7 @@ wiced_bool_t wiced_app_event_serialize(int (*fn)(void*), void* data);
  */
 typedef void (wiced_app_event_debug_callback_t)(wiced_app_event_serialization_failure_code_t error_code);
 
-/** WICED Application Event Serialization Handler Debug Callback Register
+/** AIROC Application Event Serialization Handler Debug Callback Register
  *
  * @param[in]   callback
  *

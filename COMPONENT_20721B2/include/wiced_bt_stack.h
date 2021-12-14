@@ -45,7 +45,7 @@
  *
  * @defgroup wicedbt      Bluetooth
  *
- * WICED Bluetooth Framework Functions
+ * AIROC Bluetooth Framework Functions
  */
 
 #pragma once

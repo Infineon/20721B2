@@ -343,7 +343,7 @@ typedef uint8_t wiced_bt_avrc_battery_status_t;
 #define AVRC_MEDIA_ATTR_ID_GENRE                 0x00000006
 #define AVRC_MEDIA_ATTR_ID_PLAYING_TIME          0x00000007        /* in miliseconds */
 #define AVRC_MAX_NUM_MEDIA_ATTR_ID               7
-#define AVRC_MAX_MEDIA_ATTR_LEN                 200      /**< Maximum length of the stored media attribute fields. */
+#define AVRC_MAX_MEDIA_ATTR_LEN                 80      /**< Maximum length of the stored media attribute fields. */
 
 
 

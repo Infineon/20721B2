@@ -32,7 +32,7 @@
  */
 
 /** @file
- *  WICED audio interface header
+ *  AIROC audio interface header
  */
 
 #pragma once
@@ -64,7 +64,7 @@ typedef enum
 } platform_codec_device_id_t;
 
 /**
- * WICED audio output type
+ * AIROC audio output type
  */
 typedef enum
 {
@@ -88,7 +88,7 @@ typedef uint16_t    platform_audio_device_id_t;
  *                    Structures
  ******************************************************/
  /**
- * WICED audio configuration
+ * AIROC audio configuration
  */
 typedef struct
 {
@@ -101,7 +101,7 @@ typedef struct
 } platform_audio_config_t;
 
 /**
- * WICED audio device ioctl interface
+ * AIROC audio device ioctl interface
  */
 typedef enum
 {

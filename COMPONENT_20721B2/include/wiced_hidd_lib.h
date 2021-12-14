@@ -33,9 +33,9 @@
 
  /** @file
  *
- *  WICED BLEHIDD COMMON APIs for Human Interface Device Profile (HID) Device over BLE
+ *  AIROC BLEHIDD COMMON APIs for Human Interface Device Profile (HID) Device over LE
  *
- * This file provides definitions of the interfaces for WICED
+ * This file provides definitions of the interfaces for AIROC
  * BLEHIDD Application development.
  *
  */

@@ -113,7 +113,7 @@ typedef union
 /**
  * Audio Record Callback function type wiced_bt_audio_record_callback_t
  *
- *                  WICED Audio Record Event callback (registered with wiced_bt_audio_record_init)
+ *                  Audio Record Event callback (registered with wiced_bt_audio_record_init)
  *
  * @param[in]       event: Audio Record event received
  * @param[in]       p_data : Data (pointer on union of structure) associated with the event

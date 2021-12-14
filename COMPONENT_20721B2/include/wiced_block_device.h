@@ -32,7 +32,7 @@
  */
 
 /** @file
- *  Block device driver declarations for WICED
+ *  Block device driver declarations for AIROC
  */
 
 #pragma once

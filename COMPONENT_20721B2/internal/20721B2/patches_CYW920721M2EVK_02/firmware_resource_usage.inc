@@ -1,17 +1,17 @@
-# 20721B2 firmware build 211
-# patch entries used: 149 out of 256 elf patches, 58%
-CY_PATCH_ENTRIES_BASE=149
+# 20721B2 firmware build 239
+# patch entries used: 154 out of 256 elf patches, 60%
+CY_PATCH_ENTRIES_BASE=154
 # additional patch entries in these libraries:
+#   5 in wiced_mem_lib.a
+#   4 in wiced_uart_raw_mode_lib.a
+#   2 in wiced_app_watchdog_lib.a
+#   7 in wiced_audio_source_lib.a
+#   1 in wiced_uart_stop_bit_lib.a
 #   8 in wiced_ble_connect_timing_lib.a
-#   17 in wiced_audio_sink_lib.a
-#   1 in average_rssi_lib.a
+#   1 in ia_aaclc_lib.a
+#   1 in i2s_aud_record_lib.a
 #   1 in sco_aud_hook_lib.a
 #   50 in lr_cync_lib.a
-#   5 in wiced_mem_lib.a
-#   1 in i2s_aud_record_lib.a
-#   4 in wiced_uart_raw_mode_lib.a
-#   1 in wiced_uart_stop_bit_lib.a
-#   1 in ia_aaclc_lib.a
-#   7 in wiced_audio_source_lib.a
-#   2 in wiced_app_watchdog_lib.a
-# patch ram used: 28784 out of 64512 bytes, 44%
+#   1 in average_rssi_lib.a
+#   17 in wiced_audio_sink_lib.a
+# patch ram used: 30696 out of 64512 bytes, 47%

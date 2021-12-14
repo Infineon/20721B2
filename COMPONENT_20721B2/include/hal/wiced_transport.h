@@ -33,7 +33,7 @@
 
 /** @file
  *
- * @defgroup Transport     WICED Transport
+ * @defgroup Transport     AIROC Transport
  * @ingroup HardwareDrivers
  *
  * Defines the transport utilities for configuring the transport, send data and

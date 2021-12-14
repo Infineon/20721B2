@@ -36,12 +36,6 @@
 **
 **  Description: This file has function declarations and structs for integration
 **
-**  Revision :
-**               2015/11/26  hochangw
-**
-**  Copyright (c) 1999-2015, Cypress Semiconductor., All Rights Reserved.
-**  Cypress Semiconductor Bluetooth Core. Proprietary and confidential.
-**
 ******************************************************************************/
 
 #ifndef CELT_ENCODER_API_H

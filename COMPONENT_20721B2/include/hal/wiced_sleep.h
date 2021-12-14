@@ -39,10 +39,10 @@
 #define _WICED_SLEEP_H_
 
 /**
- * @addtogroup wiced_sleep_config       WICED Sleep Configuration
+ * @addtogroup wiced_sleep_config       AIROC Sleep Configuration
  * @ingroup HardwareDrivers
  *
- *  Defines functions for using the WICED Sleep Framework
+ *  Defines functions for using the AIROC Sleep Framework
  * @{
  */
 

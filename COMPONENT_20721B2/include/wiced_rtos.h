@@ -109,7 +109,7 @@ extern wiced_worker_thread_t wiced_networking_worker_thread;
 /*****************************************************************************/
 /** @defgroup rtos       RTOS
  *
- *  WICED Real-Time Operating System Functions
+ *  AIROC Real-Time Operating System Functions
  */
 /*****************************************************************************/
 
