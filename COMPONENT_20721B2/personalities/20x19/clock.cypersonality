@@ -15,7 +15,7 @@
   </Parameters>
 
   <DRCs>
-    <DRC type="ERROR" text="At least one amp signal must be connected if Clock peripheral is active" condition="`${!(hasClkConnection0 || hasClkConnection1) }`" />
+    <DRC type="ERROR" text="At least one clock signal must be connected if Clock peripheral is active" condition="`${!(hasClkConnection0 || hasClkConnection1) }`" />
   </DRCs>
 
   <ConfigFirmware>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -353,77 +353,33 @@ typedef unsigned char BOOL8;
 // Toolchain-specific stuff
 //==================================================================================================
 
-//! ARM RVDS-specific struct qualifier for structs inside a pragma pack(1) / pragma pack() block.
-//! It must be applied to ALL structs or unions in such a block of declarations as follows:
-//! BYTE_PACKED struct or BYTE_PACKED union.
-#if TOOLCHAIN_rvds
-      #define BYTE_PACKED __attribute__((packed))
-      #define PACKED __attribute__((packed))
-      #define BT_PRE_PACKED_STRUCT __packed
-      #define BT_POST_PACKED_STRUCT
-
-      #define ALIGN4 __align(4)
-
-    #if ALWAYS_ON_MEMORY_SUPPORT
-        //! ARM RVDS-specific attribute to place in always-on-memory. This must be applied to all
-        //! RW/ZI that is expected to be retained in 'persistant' memory. This memory will be custom
-        //! scatter-loaded.
-        #define PLACE_IN_ALWAYS_ON_RAM  __attribute__((section("always_on_ram_var")))
-        #define PLACE_IN_ALWAYS_ON_UNINIT_RAM  __attribute__((section("always_on_uninit_ram_var")))
-        #define PLACE_IN_ALWAYS_ON_RAM_CODE  __attribute__((section(".aon_code")))
-        #define PLACE_IN_LIMITED_RAM PLACE_IN_ALWAYS_ON_RAM
-        #define PLACE_IN_EPDS_AON_RAM  PLACE_IN_ALWAYS_ON_RAM
-        #define PLACE_IN_EPDS_AON_UNINIT_RAM  PLACE_IN_ALWAYS_ON_UNINIT_RAM
-    #else
-        //! If always on memory is not supported, we don't need this at all, place anywhere.
-        #define PLACE_IN_ALWAYS_ON_RAM
-        #define PLACE_IN_ALWAYS_ON_UNINIT_RAM
-        #define PLACE_IN_ALWAYS_ON_RAM_CODE
-        #define PLACE_IN_LIMITED_RAM
-        #define PLACE_IN_EPDS_AON_RAM
-        #define PLACE_IN_EPDS_AON_UNINIT_RAM
-    #endif
-    #if MICRO_BCS
-        #define PLACE_IN_MICRO_BCS_SRAM_VAR_AREA __attribute__((section("micro_bcs_sram_var")))
-    #else
-        #define PLACE_IN_MICRO_BCS_SRAM_VAR_AREA
-    #endif
-#elif TOOLCHAIN_wiced
-	#define BYTE_PACKED
-    #define PACKED
-    #define BT_PRE_PACKED_STRUCT
-    #define BT_POST_PACKED_STRUCT __attribute__((__packed__))
-    #define ALIGN4 __attribute__((aligned(4)))
-
-	#if ALWAYS_ON_MEMORY_SUPPORT
-		//! ARM RVDS-specific attribute to place in always-on-memory. This must be applied to all
-		//! RW/ZI that is expected to be retained in 'persistant' memory. This memory will be custom
-		//! scatter-loaded.
-		#define PLACE_IN_ALWAYS_ON_RAM  __attribute__((section("always_on_ram_var")))
-		#define PLACE_IN_ALWAYS_ON_UNINIT_RAM  __attribute__((section("always_on_uninit_ram_var")))
-		#define PLACE_IN_LIMITED_RAM PLACE_IN_ALWAYS_ON_RAM
-		#define PLACE_IN_ALWAYS_ON_TEXT  __attribute__((section(".aon_text")))
-        #define PLACE_IN_EPDS_AON_RAM PLACE_IN_ALWAYS_ON_RAM
-        #define PLACE_IN_EPDS_AON_UNINIT_RAM  PLACE_IN_ALWAYS_ON_UNINIT_RAM
-	#else
-		//! If always on memory is not supported, we don't need this at all, place anywhere.
-		#define PLACE_IN_ALWAYS_ON_RAM
-		#define PLACE_IN_ALWAYS_ON_UNINIT_RAM
-		#define PLACE_IN_LIMITED_RAM
-        #define PLACE_IN_EPDS_AON_RAM
-        #define PLACE_IN_EPDS_AON_UNINIT_RAM
-	#endif
-
-        #if MICRO_BCS
-            #define PLACE_IN_MICRO_BCS_SRAM_VAR_AREA __attribute__((section("micro_bcs_sram_var")))
-        #else
-            #define PLACE_IN_MICRO_BCS_SRAM_VAR_AREA
-        #endif
-
-        #define __weak __attribute__((weak))
-        #define PLACE_TEXT_IN_RAM __attribute__((section(".text_in_ram")))
+#define BYTE_PACKED
+#define PACKED
+#define BT_PRE_PACKED_STRUCT
+#define BT_POST_PACKED_STRUCT __attribute__((__packed__))
+#define ALIGN4 __attribute__((aligned(4)))
+#if ALWAYS_ON_MEMORY_SUPPORT
+    #define PLACE_IN_ALWAYS_ON_RAM  __attribute__((section("always_on_ram_var")))
+    #define PLACE_IN_ALWAYS_ON_UNINIT_RAM  __attribute__((section("always_on_uninit_ram_var")))
+    #define PLACE_IN_LIMITED_RAM PLACE_IN_ALWAYS_ON_RAM
+    #define PLACE_IN_ALWAYS_ON_TEXT  __attribute__((section(".aon_text")))
+    #define PLACE_IN_EPDS_AON_RAM PLACE_IN_ALWAYS_ON_RAM
+    #define PLACE_IN_EPDS_AON_UNINIT_RAM  PLACE_IN_ALWAYS_ON_UNINIT_RAM
+#else
+    //! If always on memory is not supported, we don't need this at all, place anywhere.
+    #define PLACE_IN_ALWAYS_ON_RAM
+    #define PLACE_IN_ALWAYS_ON_UNINIT_RAM
+    #define PLACE_IN_LIMITED_RAM
+    #define PLACE_IN_EPDS_AON_RAM
+    #define PLACE_IN_EPDS_AON_UNINIT_RAM
 #endif
-
+#if MICRO_BCS
+    #define PLACE_IN_MICRO_BCS_SRAM_VAR_AREA __attribute__((section("micro_bcs_sram_var")))
+#else
+    #define PLACE_IN_MICRO_BCS_SRAM_VAR_AREA
+#endif
+#define __weak __attribute__((weak))
+#define PLACE_TEXT_IN_RAM __attribute__((section(".text_in_ram")))
 
 //==================================================================================================
 // Prohibitions
@@ -456,12 +412,8 @@ typedef unsigned char BOOL8;
 
 #endif // _WIN32
 
-//! __inline isn't even ANSI C - don't use it.
-#if TOOLCHAIN_rvds
-#define INLINE __inline
-#else
 #define INLINE inline
-#endif
+
 #ifdef __cplusplus
 }
 #endif

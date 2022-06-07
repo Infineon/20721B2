@@ -18,14 +18,6 @@ The Infineon CYW20721 is an ultra-low-power dual-mode Bluetooth&#174; 5.1 wirele
 - Documentation for APIs, datasheet, profiles, and features.
 
 ## Kits Supported
-#### CYW920721B2EVK-02:
-- SiP Module, external Low Noise Amplifier and Power Amplifier (eLNA/ePA),
-  CYW9BT Audio 2 Arduino shield (pre-assembled on top of the CYW920721B2EVK-02 evaluation board)
-  with on-board microphones, audio codec chip, headphone and speaker output,
-  9-axis motion sensor, thermistor, user switches and LEDs, and a USB connector for power,
-  programming, and USB-UART bridge.<br>
-  Max UART baud rate is 3M
-
 #### CYW920721M2EVK-01:
 - SiP Module, external 8TR8211C Low Noise Amplifier and Power Amplifier (eLNA/ePA),
   CYW9BT Audio 3 Arduino shield (pre-assembled on top of the CYW920721M2EVK-01 evaluation board)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -519,7 +519,7 @@ BT_API extern void HCILL_RegState( tHCILL_STATE_CBACK *p_cback);
 
 /* Transport pause time (BT slot(0.625ms) unit) when switching between BB and MM */
 /* FW is using a tick which is 20 slot unit so if timeout is between 0 to 20 slot */
-/* then actual timeout would be 0 to 12.5ms because it could be beteen ticks. */
+/* then actual timeout would be 0 to 12.5ms because it could be between ticks. */
 /* if timeout is between 20 to 40 slot then actual timeout would be 12.5 to 25ms */
 #ifndef BTU_DUAL_TRANSPORT_PAUSE_TIME
 #define BTU_DUAL_TRANSPORT_PAUSE_TIME     40
@@ -932,7 +932,7 @@ and USER_HW_DISABLE_API macros */
 #define BTM_TBFC_INCLUDED               FALSE
 #endif
 
-/* TRUE to include bi-directionnal TBFC */
+/* TRUE to include bi-directional TBFC */
 #ifndef BTM_BI_DIR_TBFC_INCLUDED
 #define BTM_BI_DIR_TBFC_INCLUDED        FALSE
 #endif

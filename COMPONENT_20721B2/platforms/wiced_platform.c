@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -35,6 +35,7 @@
 #include "spar_utils.h"
 #include "wiced_transport.h"
 #include "hci_control_api.h"
+#include "wiced_hal_rfm.h"
 
 extern wiced_platform_gpio_t platform_gpio_pins[];
 extern wiced_platform_led_config_t platform_led[];
@@ -94,6 +95,20 @@ uint32_t wiced_platform_get_button_pressed_value(wiced_platform_button_number_t 
 	return platform_button[button].button_pressed_value;
 }
 
+#define cr_pad_fcn_ctl_adr0    0x00320088
+
+wiced_bt_gpio_select_status_t core_gpio_function_select (wiced_bt_gpio_numbers_t gpio, wiced_bt_gpio_function_t newfunction)
+{
+    uint8_t function_register_position = (gpio - WICED_GPIO_00) * 4;
+
+    // set new function if a match was found for this pad, or set to gpio input for no match
+    REG32(cr_pad_fcn_ctl_adr0) &= ~(0xf << function_register_position);
+    REG32(cr_pad_fcn_ctl_adr0) |= (newfunction << function_register_position);
+
+    // other configuration code is required to configure the pad
+    return WICED_GPIO_SUCCESS;
+}
+
 /**
  *  \brief Initialize all the required pins and configure their functionality
  *
@@ -105,10 +120,19 @@ void wiced_platform_init(void)
     uint32_t i = 0;
 
     wiced_app_hal_init();
+
     /* Configure pins available on the platform with the chosen functionality */
     for (i = 0; i < platform_gpio_pin_count; i++)
     {
-        wiced_hal_gpio_select_function(platform_gpio_pins[i].gpio_pin, platform_gpio_pins[i].functionality);
+        wiced_bt_gpio_numbers_t pin = platform_gpio_pins[i].gpio_pin;
+        if(pin < WICED_GPIO_00)
+        {
+            wiced_hal_gpio_select_function(pin, platform_gpio_pins[i].functionality);
+        }
+        else if(pin <= WICED_GPIO_05)
+        {
+            core_gpio_function_select(pin, platform_gpio_pins[i].functionality);
+        }
     }
 
     /* Initialize LEDs and turn off by default */
@@ -230,4 +254,13 @@ wiced_bool_t wiced_platform_transport_init(void *p_rx_data_handler)
     }
 
     return WICED_FALSE;
+}
+
+/* deprecated - this API has been replaced in newer BTSDK assets to control elna
+ * and epa individually.  Retaining here for backward compatibility
+ */
+void wiced_hal_rfm_auto_elna_switch(BOOL8 enabled, wiced_bt_gpio_numbers_t tx_pu_pin, wiced_bt_gpio_numbers_t rx_pu_pin)
+{
+    wiced_hal_rfm_auto_elna_enable(enabled, rx_pu_pin);
+    wiced_hal_rfm_auto_epa_enable(enabled, tx_pu_pin);
 }

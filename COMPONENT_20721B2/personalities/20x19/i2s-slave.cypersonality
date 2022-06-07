@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Personality id="20x19_i2s_slave" name="I2S Target" version="1.0" path="Peripherals" xmlns="http://cypress.com/xsd/cyhwpersonality_v1">
+  <Dependencies>
+    <IpBlock name="20x19_audio">
+      <Param name="I2S" value="1" />
+    </IpBlock>
+    <Resource name="audio" />
+  </Dependencies>
+  <ExposedMembers />
+  <Parameters>
+    <ParamSignal port="clk[0]" name="Clock" group="Pins" visible="true" desc="Clock signal." canBeEmpty="false" multiSelect="false" />
+    <ParamSignal port="ws_sync[0]" name="WS" group="Pins" visible="true" desc="I2S WS signal." canBeEmpty="false" multiSelect="false" />
+    <ParamSignal port="do_out[0]" name="DO" group="Pins" visible="true" desc="I2S Output signal." canBeEmpty="false" />
+    <ParamSignal port="di_in[0]" name="DI" group="Pins" visible="true" desc="I2S Input signal." canBeEmpty="false" multiSelect="false" />
+
+    <ParamString id="instNum" name="" group="" default="`${getInstNumber(&quot;audio&quot;)}`" visible="false" editable="false" desc="" />
+  </Parameters>
+
+  <DRCs/>
+
+  <ConfigFirmware>
+    <ConfigDefine name="WICED_AUDIO_I2S_TARGET" public="true" include="true" value="1" />
+    <ConfigDefine name="WICED_AUDIO_INTERFACE" public="true" include="true" value="WICED_AUDIO_I2S_TARGET" />
+    <ConfigDefine name="BT_GPIO_2_DI_IN" public="true" include="true" value="BT_GPIO_2_I2S_DI" />
+    <ConfigDefine name="BT_GPIO_3_WS_SYNC" public="true" include="true" value="BT_GPIO_3_I2S_SWS" />
+    <ConfigDefine name="BT_GPIO_4_DO_OUT" public="true" include="true" value="BT_GPIO_4_I2S_SDO" />
+    <ConfigDefine name="BT_GPIO_5_CLK" public="true" include="true" value="BT_GPIO_5_I2S_SCK" />
+  </ConfigFirmware>
+</Personality>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -60,4 +60,8 @@ void wiced_hal_rfm_auto_elna_enable(BOOL8 enabled, wiced_bt_gpio_numbers_t rx_pu
 /// \return none
 ///////////////////////////////////////////////////////////////////////////////
 void wiced_hal_rfm_auto_epa_enable(BOOL8 enabled, wiced_bt_gpio_numbers_t tx_pu_pin);
+
+// deprecated - this API was replaced by the individual elna/epa APIs above
+// retained for backward compatibility
+void wiced_hal_rfm_auto_elna_switch(BOOL8 enabled, wiced_bt_gpio_numbers_t tx_pu_pin, wiced_bt_gpio_numbers_t rx_pu_pin);
 #endif

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -47,7 +47,6 @@
  * Board specific configuration
  */
 #define RTOS_THREADX 1
-#define TOOLCHAIN_wiced 1
 #undef  COMBO_CHIP
 #define ASIC 1
 #define ASIC_BD_2045 1

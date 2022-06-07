@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Personality id="20x19_pcm" name="PCM" version="1.0" path="Peripherals" xmlns="http://cypress.com/xsd/cyhwpersonality_v1">
+  <Dependencies>
+    <IpBlock name="20x19_audio">
+      <Param name="PCM" value="1" />
+    </IpBlock>
+    <Resource name="audio" />
+  </Dependencies>
+  <ExposedMembers />
+  <Parameters>
+    <ParamSignal port="clk[0]" name="Clock" group="Pins" visible="true" desc="Clock signal." canBeEmpty="false" multiSelect="false" />
+    <ParamSignal port="ws_sync[0]" name="Sync" group="Pins" visible="true" desc="PCM Sycn signal." canBeEmpty="false" multiSelect="false" />
+    <ParamSignal port="do_out[0]" name="Out" group="Pins" visible="true" desc="PCM Out signal." canBeEmpty="false" />
+    <ParamSignal port="di_in[0]" name="In" group="Pins" visible="true" desc="PCM In signal." canBeEmpty="false" multiSelect="false" />
+
+    <ParamString id="instNum" name="" group="" default="`${getInstNumber(&quot;audio&quot;)}`" visible="false" editable="false" desc="" />
+  </Parameters>
+
+  <DRCs>
+
+  </DRCs>
+
+  <ConfigFirmware>
+    <ConfigDefine name="WICED_AUDIO_PCM" public="true" include="true" value="1" />
+    <ConfigDefine name="WICED_AUDIO_INTERFACE" public="true" include="true" value="WICED_AUDIO_PCM" />
+    <!-- No PCM audio innterface supported by BT_GPIO 2 - 5 pins for 20721 -->
+  </ConfigFirmware>
+</Personality>

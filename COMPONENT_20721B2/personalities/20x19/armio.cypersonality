@@ -16,7 +16,7 @@
   </Parameters>
 
   <DRCs>
-    <DRC type="ERROR" text="At least one amp signal must be connected if ARM IO peripheral is active" condition="`${!(hasArmioConnection0 || hasArmioConnection1 || hasArmioConnection2 || hasArmioConnection3 || hasArmioConnection4 || hasArmioConnection5 || hasArmioConnection6 || hasArmioConnection7)}`" />
+    <DRC type="ERROR" text="At least one armio signal must be connected if ARM IO peripheral is active" condition="`${!(hasArmioConnection0 || hasArmioConnection1 || hasArmioConnection2 || hasArmioConnection3 || hasArmioConnection4 || hasArmioConnection5 || hasArmioConnection6 || hasArmioConnection7)}`" />
   </DRCs>
 
   <ConfigFirmware>

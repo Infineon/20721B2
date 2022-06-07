@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -105,7 +105,7 @@ void wiced_hal_wdog_restart(void);
 ///////////////////////////////////////////////////////////////////////////////
 /// Change the watchdog count down
 ///
-/// \param count: countdown reload value for watchdog, 128000 = 1 sec for 20739B1
+/// \param count: countdown reload value for watchdog, 128000 = 1 sec
 ///
 /// \return none
 ///////////////////////////////////////////////////////////////////////////////

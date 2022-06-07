@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -65,11 +65,11 @@ typedef uint8_t wiced_timer_type_t;/* (see #wiced_timer_type_e) */
  * application context.
  */
 #if defined  _WIN32 || defined WICEDX || defined __ANDROID__ || defined __APPLE__
-#define WICED_TIMER_PARAM_TYPE    void *
+#define TIMER_PARAM_TYPE    void *
 #else
-#define WICED_TIMER_PARAM_TYPE    uint32_t
+#define TIMER_PARAM_TYPE    uint32_t
 #endif
-typedef void(*wiced_timer_callback_t)(WICED_TIMER_PARAM_TYPE cb_params);
+typedef void(*wiced_timer_callback_t)(TIMER_PARAM_TYPE cb_params);
 #define wiced_timer_callback_fp wiced_timer_callback_t // TODO: remove. Only for backward compatability
 
 /**
@@ -106,7 +106,7 @@ extern "C"
  * @return   wiced_result_t
  */
 wiced_result_t wiced_init_timer( wiced_timer_t* p_timer, wiced_timer_callback_t TimerCb,
-                                 WICED_TIMER_PARAM_TYPE cBackparam, wiced_timer_type_t type);
+                                 TIMER_PARAM_TYPE cBackparam, wiced_timer_type_t type);
 
 /**  Starts the timer
  * Timer should be initialized before starting the timer. Running the timer interfere with the

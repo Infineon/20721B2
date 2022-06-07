@@ -6,9 +6,11 @@
   </Dependencies>
   <ExposedMembers>
     <ExposedMember key="cfgStruct" paramId="cfgStruct" />
-    <ExposedMember key="cfgConnection" paramId="cfgConnection" />
+    <!--ExposedMember key="cfgConnection" paramId="cfgConnection" /-->
+    <ExposedMember key="cfgConnectionFunctionType" paramId="cfgConnectionFunctionType" />
     <ExposedMember key="type" paramId="Type" />
     <ExposedMember key="gpioResource" paramId="gpioResource" />
+    <ExposedMember key="gpioType" paramId="gpioType" />
   </ExposedMembers>
   <Parameters>
     <ParamDoc id="apiDoc" name="Configuration Help" group="Peripheral Documentation" default="file:///`${cy_libs_path()}`/docs/group___g_p_i_o_driver.html" linkText="Open GPIO Documentation" visible="true" desc="Opens the Hardware Driver Documentation" />
@@ -88,13 +90,47 @@
 	-->
 
     <!-- Utility -->
+    <ParamString id="WICED_GPIO" name="" group="" default="WICED_GPIO" visible="false" editable="false" desc="" />
+    <ParamString id="i2c_0_scl_0" name="" group="" default="WICED_I2C_1_SCL" visible="false" editable="false" desc="" />
+    <ParamString id="i2c_0_sda_0" name="" group="" default="WICED_I2C_1_SDA" visible="false" editable="false" desc="" />
+    <ParamString id="spi_0_clk_0" name="" group="" default="WICED_SPI_1_CLK" visible="false" editable="false" desc="" />
+    <ParamString id="spi_0_cs_0" name="" group="" default="WICED_SPI_1_CS" visible="false" editable="false" desc="" />
+    <ParamString id="spi_0_miso_0" name="" group="" default="WICED_SPI_1_MISO" visible="false" editable="false" desc="" />
+    <ParamString id="spi_0_mosi_0" name="" group="" default="WICED_SPI_1_MOSI" visible="false" editable="false" desc="" />
+    <ParamString id="spi_1_clk_0" name="" group="" default="WICED_SPI_2_CLK" visible="false" editable="false" desc="" />
+    <ParamString id="spi_1_cs_0" name="" group="" default="WICED_SPI_2_CS" visible="false" editable="false" desc="" />
+    <ParamString id="spi_1_miso_0" name="" group="" default="WICED_SPI_2_MISO" visible="false" editable="false" desc="" />
+    <ParamString id="spi_1_mosi_0" name="" group="" default="WICED_SPI_2_MOSI" visible="false" editable="false" desc="" />
+    <ParamString id="swd_0_scl_0" name="" group="" default="WICED_SWDCK" visible="false" editable="false" desc="" />
+    <ParamString id="swd_0_scl_0" name="" group="" default="WICED_SWDIO" visible="false" editable="false" desc="" />
+    <ParamString id="uart_0_txd_0" name="" group="" default="WICED_UART_1_TXD" visible="false" editable="false" desc="" />
+    <ParamString id="uart_0_rxd_0" name="" group="" default="WICED_UART_1_RXD" visible="false" editable="false" desc="" />
+    <ParamString id="uart_0_cts_0" name="" group="" default="WICED_UART_1_CTS" visible="false" editable="false" desc="" />
+    <ParamString id="uart_0_rts_0" name="" group="" default="WICED_UART_1_RTS" visible="false" editable="false" desc="" />
+    <ParamString id="uart_1_txd_0" name="" group="" default="WICED_UART_2_TXD" visible="false" editable="false" desc="" />
+    <ParamString id="uart_1_rxd_0" name="" group="" default="WICED_UART_2_RXD" visible="false" editable="false" desc="" />
+    <ParamString id="uart_1_cts_0" name="" group="" default="WICED_UART_2_CTS" visible="false" editable="false" desc="" />
+    <ParamString id="uart_1_rts_0" name="" group="" default="WICED_UART_2_RTS" visible="false" editable="false" desc="" />
+    <ParamString id="PUART_txd_0" name="" group="" default="WICED_UART_2_TXD" visible="false" editable="false" desc="" />
+    <ParamString id="PUART_rxd_0" name="" group="" default="WICED_UART_2_RXD" visible="false" editable="false" desc="" />
+    <ParamString id="PUART_cts_0" name="" group="" default="WICED_UART_2_CTS" visible="false" editable="false" desc="" />
+    <ParamString id="PUART_rts_0" name="" group="" default="WICED_UART_2_RTS" visible="false" editable="false" desc="" />
+    <ParamString id="audio_0_clk_0" name="" group="" default="WICED_PCM_CLK_I2S_CLK" visible="false" editable="false" desc="" />
+    <ParamString id="audio_0_ws_sync_0" name="" group="" default="WICED_PCM_SYNC_I2S_WS" visible="false" editable="false" desc="" />
+    <ParamString id="audio_0_do_out_0" name="" group="" default="WICED_PCM_OUT_I2S_DO" visible="false" editable="false" desc="" />
+    <ParamString id="audio_0_di_in_0" name="" group="" default="WICED_PCM_IN_I2S_DI" visible="false" editable="false" desc="" />
+
     <ParamString id="instNum" name="" group="" default="`${getInstNumber(&quot;pin&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="idxNum" name="" group="" default="`${hasExposedMember(&quot;ioss[0]&quot;, &quot;pinIndex&quot; . instNum) ? getExposedMember(&quot;ioss[0]&quot;, &quot;pinIndex&quot; . instNum) : &quot;&quot;}`" visible="false" editable="false" desc="" />
     <ParamString id="gpioResource" name="" group="" default="WICED_PLATFORM_`${Type}`_`${Index}`" visible="false" editable="false" desc="" />
     <ParamString id="cfgStruct" name="" group="" default="`${INST_NAME}`_config" visible="false" editable="false" desc="" />
     <ParamString id="cfgMap" name="" group="" default="`${INST_NAME}`_map" visible="false" editable="false" desc="" />
-    <ParamString id="cfgConnection" name="" group="" default="`${Type eq PERIPHERAL &amp;&amp; hasConnection(&quot;aux&quot;, 0) ? getDefineNameFromSignal(getParamValue(&quot;aux[0]&quot;)) . &quot;_TRIGGER_IN&quot; : &quot;WICED_GPIO&quot;}`" visible="false" editable="false" desc="" />
-
+    <ParamString id="blockName" name="Block name" group="Internal" default="`${&quot;ioss_0_pin_&quot; . instNum . &quot;_AUX&quot;}`" visible="false" editable="false" desc="" />
+    <ParamString id="cfgConnection" name="" group="" default="`${Type eq PERIPHERAL &amp;&amp; hasConnection(&quot;aux&quot;, 0) ? getDefineNameFromSignal(getParamValue(&quot;aux[0]&quot;)) . ((getInstNumber(&quot;pin&quot;) &gt;= 40) ? &quot;&quot; : &quot;_TRIGGER_IN&quot;) : &quot;WICED_GPIO&quot;}`" visible="false" editable="false" desc="" />
+    <ParamString id="bt_gpio_cfgConnection" name="" group="" default="`${Type eq PERIPHERAL &amp;&amp; hasConnection(&quot;aux&quot;, 0) ? blockName : &quot;WICED_GPIO&quot;}`" visible="false" editable="false" desc="" />
+    <ParamString id="gpioTypePrefix" name="" group="" default="WICED_`${(getInstNumber(&quot;pin&quot;) &lt; 40) ? &quot;P&quot; : &quot;GPIO_&quot;}`" visible="false" editable="false" desc="" />
+    <ParamString id="gpioTypeNumber" name="" group="" default="`${(getInstNumber(&quot;pin&quot;) &lt; 40) ? getInstNumber(&quot;pin&quot;) : getInstNumber(&quot;pin&quot;) - 40}`" visible="false" editable="false" desc="" />
+    <ParamString id="cfgConnectionFunctionType" name="" group="" default="`${(getInstNumber(&quot;pin&quot;) &lt; 40) ? cfgConnection : bt_gpio_cfgConnection}`" visible="false" editable="false" desc="" />
   </Parameters>
 
    <DRCs>
@@ -107,7 +143,8 @@
     <ConfigInclude value="wiced_platform.h" include="true" />
     <ConfigInclude value="cycfg_routing.h" include="true" />
 
-    <ConfigDefine name="`${INST_NAME}`" value="WICED_P`${padLeft(getInstNumber(&quot;pin&quot;), 2, &quot;0&quot;)}`" public="true" include="true" />
+    <!--ConfigDefine name="`${INST_NAME}`_GPIO_FUNCTION" value="`${getParamValue(cfgConnection)}`" public="true" include="`${getInstNumber(&quot;pin&quot;) &gt;= 40}`" /-->
+    <ConfigDefine name="`${INST_NAME}`" value="`${gpioTypePrefix}``${padLeft(gpioTypeNumber, 2, &quot;0&quot;)}`" public="true" include="true" />
 
     <ConfigDefine name="`${cfgStruct}`" public="false" include="`${Type ne PERIPHERAL}`" value="\&#xA;{\&#xA;
    .gpio = (wiced_bt_gpio_numbers_t*)&amp;platform_gpio_pins[PLATFORM_GPIO_`${idxNum}`].gpio_pin, \&#xA;

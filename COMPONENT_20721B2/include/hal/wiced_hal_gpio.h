@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -308,6 +308,20 @@ typedef enum
     WICED_TX_PU,              /**< TX PU */
     WICED_RX_PU,              /**< RX PU */
     WICED_EPA_CSD,
+
+    // for core gpio, each pin has a set of functions selected by value 0-15
+    BT_GPIO_2_I2S_DI        = 4,
+    BT_GPIO_3_I2S_MWS       = 3,
+    BT_GPIO_3_I2S_SWS       = 4,
+    BT_GPIO_4_I2S_MDO       = 3,
+    BT_GPIO_4_I2S_SDO       = 4,
+    BT_GPIO_4_UART2_RTS     = 11,
+    BT_GPIO_4_I2C_SDA       = 15,
+    BT_GPIO_5_I2S_MCK       = 3,
+    BT_GPIO_5_I2S_SCK       = 4,
+    BT_GPIO_5_UART2_CTS     = 11,
+    BT_GPIO_5_I2C_SCL       = 15,
+
     WICED_UNAVAILABLE = 0xFF  /**< Invalid functionality for error check */
 } wiced_bt_gpio_function_t;
 

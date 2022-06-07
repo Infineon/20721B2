@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -260,7 +260,7 @@ void * mpaf_memmove ( void * destination, const void * source, int num );
 #define HCI_CMD_POOL_ID                 GKI_POOL_ID_1
 #define HCI_CMD_POOL_BUF_SIZE           (p_btm_cfg_buf_pools[HCI_CMD_POOL_ID].buf_size)
 #define HCI_ACL_POOL_ID                 GKI_POOL_ID_2
-#define HCI_ACL_POOL_BUF_SIZE           (p_btm_cfg_buf_pools[HCI_ACL_POOL_ID].buf_size)
+#define HCI_ACL_POOL_BUF_SIZE           (wiced_app_cfg_buf_pools[HCI_ACL_POOL_ID].buf_size)
 #define HCI_SCO_POOL_ID                 GKI_POOL_ID_1
 #define HCI_SCO_POOL_BUF_SIZE           (p_btm_cfg_buf_pools[HCI_SCO_POOL_ID].buf_size)
 #define HCI_USE_VARIABLE_SIZE_CMD_BUF   TRUE    /* Allocate smallest possible buffer (for platforms with limited RAM) */

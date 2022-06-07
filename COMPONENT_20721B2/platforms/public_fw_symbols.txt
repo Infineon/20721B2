@@ -4,7 +4,7 @@
 # Each symbol defined below is used in conjunction with the elf file symbol tables.
 #
 #
-# Comma Seperated Value file
+# Comma Separated Value file
 #
 # Name,     Type,     Visibility,     Rename Flag,     Rename Name,     Reserved Flag,
 #
@@ -54,6 +54,7 @@ wiced_bt_ble_clear_white_list                    ,           SYMBOL,       PUBLI
 wiced_bt_ble_update_scanner_white_list           ,           SYMBOL,       PUBLIC,      2, wiced_bt_ble_update_scanner_filter_list,    1
 sha2_hmac                                        ,           SYMBOL,       PUBLIC,      2, wiced_sha2_hmac,                            1
 BTM_SetLocalDeviceName                           ,           SYMBOL,       PUBLIC,      2, wiced_bt_dev_set_local_name,                1
+PORT_GetQueueStatus                              ,           SYMBOL,       PUBLIC,      2, wiced_bt_rfcomm_port_get_queue_status,      1
 #
 # Generic
 #
