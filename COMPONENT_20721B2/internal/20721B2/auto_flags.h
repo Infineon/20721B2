@@ -625,7 +625,7 @@
 #undef  BT_SLIMBUS
 
 /*
- * BT LE Over WLAN (BLOW) configuration, this option depends on TBFC.
+ * Bluetooth LE Over WLAN (BLOW) configuration, this option depends on TBFC.
  */
 
 /*
@@ -699,7 +699,6 @@
 #define GPIO_NUMBER_OF_PINS 40
 #define GPIO_MAX_PINS_PER_PORT 16
 #undef  DRIVERS_20703_ENABLE
-#undef  DRIVERS_20735_ENABLE
 #define DRIVERS_20721_ENABLE 1
 #undef  CAPSCAN_ENABLE
 #undef  DRIVER_TEST_ENABLE

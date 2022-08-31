@@ -1,5 +1,4 @@
-------------------------------------------------------------------------------------
-# BTSDK - CYW20721
+# AIROC&#8482; BTSDK - CYW20721
 
 ## Overview
 
@@ -60,5 +59,3 @@ The Infineon CYW20721 is an ultra-low-power dual-mode Bluetooth&#174; 5.1 wirele
   with ambient light sensor, thermistor, footprint for Infineon digital microphone,
   user switches and LEDs, and a USB connector for power, programming, and USB-UART bridge.<br>
   Max UART baud rate is 3M
-
-------------------------------------------------------------------------------------

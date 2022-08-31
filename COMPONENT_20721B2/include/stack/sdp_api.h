@@ -90,7 +90,7 @@
 /* Define the PSM that SDP uses */
 #define SDP_PSM     0x0001
 
-/* Legacy #define to avoid code changes - SDP UUID is same as BT UUID */
+/* Legacy #define to avoid code changes - SDP UUID is same as Bluetooth UUID */
 #define tSDP_UUID   tBT_UUID
 
 /* Masks for attr_value field of tSDP_DISC_ATTR */

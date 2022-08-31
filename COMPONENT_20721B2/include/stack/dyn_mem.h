@@ -187,7 +187,7 @@
 #endif
 
 /****************************************************************************
-** Define memory usage for BT Trace (if not defined in buildcfg.h)
+** Define memory usage for Bluetooth Trace (if not defined in buildcfg.h)
 **  The default is to use static memory allocations.
 */
 #ifndef BTTRC_DYNAMIC_MEMORY

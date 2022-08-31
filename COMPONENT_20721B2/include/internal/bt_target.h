@@ -449,7 +449,7 @@ BT_API extern void HCILL_RegState( tHCILL_STATE_CBACK *p_cback);
 #define HCI_LM_DIAG_TO_LOWER(p)     bte_hcisu_send((BT_HDR *)(p), BT_EVT_TO_LM_DIAG);
 #endif
 
-/* Send HCISU a message to allow BT sleep */
+/* Send HCISU a message to allow Bluetooth sleep */
 #ifndef HCI_LP_ALLOW_BT_DEVICE_SLEEP
 #if (HCISU_H4_INCLUDED == TRUE)
 #define HCI_LP_ALLOW_BT_DEVICE_SLEEP()       bte_hcisu_lp_allow_bt_device_sleep()
@@ -496,17 +496,17 @@ BT_API extern void HCILL_RegState( tHCILL_STATE_CBACK *p_cback);
 #define BTU_DUAL_STACK_MM_INCLUDED     FALSE
 #endif
 
-/* If TRUE, stack is compiled to support Embedded Lite Stack in BT chip */
+/* If TRUE, stack is compiled to support Embedded Lite Stack in Bluetooth chip */
 #ifndef BTU_DUAL_STACK_BTC_INCLUDED
 #define BTU_DUAL_STACK_BTC_INCLUDED      FALSE
 #endif
 
-/* If TRUE, stack is compiled to support content protection in BT chip */
+/* If TRUE, stack is compiled to support content protection in Bluetooth chip */
 #ifndef BTU_DUAL_STACK_BTC_CP_INCLUDED
 #define BTU_DUAL_STACK_BTC_CP_INCLUDED  FALSE
 #endif
 
-/* If TRUE, stack is compiled to support Embedded Lite Stack for AV SNK in BT chip */
+/* If TRUE, stack is compiled to support Embedded Lite Stack for AV SNK in Bluetooth chip */
 #ifndef BTU_BTC_SNK_INCLUDED
 #define BTU_BTC_SNK_INCLUDED        FALSE
 #endif
@@ -517,7 +517,7 @@ BT_API extern void HCILL_RegState( tHCILL_STATE_CBACK *p_cback);
 #define BTU_STACK_LITE_ENABLED      FALSE
 #endif
 
-/* Transport pause time (BT slot(0.625ms) unit) when switching between BB and MM */
+/* Transport pause time (Bluetooth slot(0.625ms) unit) when switching between BB and MM */
 /* FW is using a tick which is 20 slot unit so if timeout is between 0 to 20 slot */
 /* then actual timeout would be 0 to 12.5ms because it could be between ticks. */
 /* if timeout is between 20 to 40 slot then actual timeout would be 12.5 to 25ms */
@@ -847,7 +847,7 @@ and USER_HW_DISABLE_API macros */
 #define BTM_SYNC_INFO_NUM_STR           2
 #endif
 
-/* Number of streams for dual stack in BT Controller */
+/* Number of streams for dual stack in Bluetooth Controller */
 #ifndef BTM_SYNC_INFO_NUM_STR_BTC
 #define BTM_SYNC_INFO_NUM_STR_BTC       2
 #endif
@@ -978,7 +978,7 @@ and USER_HW_DISABLE_API macros */
 #define MAX_L2CAP_CHANNELS          10
 #endif
 
-/* The maximum number of simultaneous channels that L2CAP BLE can support. */
+/* The maximum number of simultaneous channels that L2CAP LE can support. */
 #ifndef MAX_L2CAP_BLE_CHANNELS
 #define MAX_L2CAP_BLE_CHANNELS      10
 #endif
@@ -988,7 +988,7 @@ and USER_HW_DISABLE_API macros */
 #define MAX_L2CAP_CLIENTS           8
 #endif
 
-/* The maximum number of simultaneous applications that can register with L2CAP BLE. */
+/* The maximum number of simultaneous applications that can register with L2CAP LE. */
 #ifndef MAX_L2CAP_BLE_CLIENTS
 #define MAX_L2CAP_BLE_CLIENTS       8
 #endif
@@ -1098,7 +1098,7 @@ and USER_HW_DISABLE_API macros */
 #define L2CAP_MAX_UCD_CLIENTS               5
 #endif
 
-/* Used for features using fixed channels; set to false if no fixed channels supported (AMP, BLE, etc.) */
+/* Used for features using fixed channels; set to false if no fixed channels supported (AMP, LE, etc.) */
 #ifndef L2CAP_FIXED_CHANNELS_SUPPORTED
 #define L2CAP_FIXED_CHANNELS_SUPPORTED TRUE
 #endif
@@ -1139,7 +1139,7 @@ valid fixed channel id is 0x3e*/
 #define L2CAP_ERTM_STATS                    FALSE
 #endif
 
-/* Set to TRUE to support L2CAP BLE Connection-Oriented Channels (COC).
+/* Set to TRUE to support L2CAP LE Connection-Oriented Channels (COC).
 ** Can be set to TRUE only if BLE_INCLUDED is set to TRUE. */
 #ifndef L2CAP_LE_COC_INCLUDED
 #define L2CAP_LE_COC_INCLUDED            FALSE
@@ -1162,56 +1162,56 @@ valid fixed channel id is 0x3e*/
 
 /******************************************************************************
 **
-** BLE
+** LE
 **
 ******************************************************************************/
 
-/* Bluetooth low energy(BLE) or Bluetooth smart */
+/* Bluetooth Low Energy (LE) */
 #ifndef BLE_INCLUDED
 #define BLE_INCLUDED            TRUE
 #endif
 
-/* BLE connection parameter request procedure support */
+/* LE connection parameter request procedure support */
 #ifndef BLE_LLT_INCLUDED
 #define BLE_LLT_INCLUDED        TRUE
 #endif
 
-/* BLE data packet length extension support */
+/* LE data packet length extension support */
 #ifndef BLE_DATA_LEN_EXT_INCLUDED
 #define BLE_DATA_LEN_EXT_INCLUDED        TRUE
 #endif
 
-/* Local BLE controller identifier */
+/* Local LE controller identifier */
 #ifndef LOCAL_BLE_CONTROLLER_ID
 #define LOCAL_BLE_CONTROLLER_ID         (1)
 #endif
 
-/* BLE link layer privacy support */
+/* LE link layer privacy support */
 #ifndef BTM_BLE_PRIVACY_SPT
 #define BTM_BLE_PRIVACY_SPT         FALSE
 #endif
 
-/* BLE host address resolution support */
+/* LE host address resolution support */
 #ifndef BTM_BLE_HOST_ADDR_RESOLUTION
 #define BTM_BLE_HOST_ADDR_RESOLUTION FALSE
 #endif
 
-/* Host BLE support */
+/* Host LE support */
 #ifndef BTM_BLE_HOST_SUPPORT
 #define BTM_BLE_HOST_SUPPORT        0x01
 #endif
 
-/* Host simultaneous BLE and BR/EDR support */
+/* Host simultaneous LE and BR/EDR support */
 #ifndef BTM_BLE_SIMULTANEOUS_HOST
 #define BTM_BLE_SIMULTANEOUS_HOST    0x01
 #endif
 
-/* BLE private address timeout(time the controller uses the address before a new address is generated) */
+/* LE private address timeout(time the controller uses the address before a new address is generated) */
 #ifndef BTM_BLE_PRIVATE_ADDR_INT
 #define BTM_BLE_PRIVATE_ADDR_INT    900           /* 15 minutes minimum for random address refreshing */
 #endif
 
-/* BLE default connection parameters if not configured, use GAP recommend value for auto/selective connection */
+/* LE default connection parameters if not configured, use GAP recommend value for auto/selective connection */
 /* default scan interval */
 #ifndef BTM_BLE_SCAN_FAST_INT
 #define BTM_BLE_SCAN_FAST_INT    96    /* 30 ~ 60 ms (use 60)  = 96 * 0.625 */
@@ -1221,7 +1221,7 @@ valid fixed channel id is 0x3e*/
 #define BTM_BLE_SCAN_FAST_WIN   48      /* 30 ms = 48 * 0.625 */
 #endif
 
-/* BLE default scan paramter 1 used in reduced power cycle (background scanning) */
+/* LE default scan paramter 1 used in reduced power cycle (background scanning) */
 /* default scan interval */
 #ifndef BTM_BLE_SCAN_SLOW_INT_1
 #define BTM_BLE_SCAN_SLOW_INT_1    2048    /* 1.28 s   = 2048 * 0.625 */
@@ -1231,7 +1231,7 @@ valid fixed channel id is 0x3e*/
 #define BTM_BLE_SCAN_SLOW_WIN_1   18      /* 11.25 ms = 18 * 0.625 */
 #endif
 
-/* BLE default scan paramter 2 used in reduced power cycle (background scanning) */
+/* LE default scan paramter 2 used in reduced power cycle (background scanning) */
 /* default scan interval */
 #ifndef BTM_BLE_SCAN_SLOW_INT_2
 #define BTM_BLE_SCAN_SLOW_INT_2    4096    /* 2.56 s   = 4096 * 0.625 */
@@ -1241,7 +1241,7 @@ valid fixed channel id is 0x3e*/
 #define BTM_BLE_SCAN_SLOW_WIN_2   36      /* 22.5 ms = 36 * 0.625 */
 #endif
 
-/* BLE default connection interval min */
+/* LE default connection interval min */
 #ifndef BTM_BLE_CONN_INT_MIN_DEF
 #define BTM_BLE_CONN_INT_MIN_DEF     24      /* recommended min: 30ms  = 24 * 1.25 */
 #endif
@@ -1251,22 +1251,22 @@ valid fixed channel id is 0x3e*/
 #define BTM_BLE_CONN_INT_MAX_DEF     40      /* recommended max: 50 ms = 40 * 1.25 */
 #endif
 
-/* BLE default peripheral latency */
+/* LE default peripheral latency */
 #ifndef BTM_BLE_CONN_PERIPHERAL_LATENCY_DEF
 #define BTM_BLE_CONN_PERIPHERAL_LATENCY_DEF  0      /* 0 */
 #endif
 
-/* BLE default supervision timeout */
+/* LE default supervision timeout */
 #ifndef BTM_BLE_CONN_TIMEOUT_DEF
 #define BTM_BLE_CONN_TIMEOUT_DEF    2000
 #endif
 
-/* HID over BLE support */
+/* HID over LE support */
 #ifndef HID_LE_INCLUDED
 #define HID_LE_INCLUDED         FALSE
 #endif
 
-/* Broadcom BLE support */
+/* Broadcom LE support */
 #ifndef BLE_BRCM_INCLUDED
 #define BLE_BRCM_INCLUDED         FALSE
 #endif
@@ -1302,7 +1302,7 @@ valid fixed channel id is 0x3e*/
 
 /* GATT maximun physical channels */
 #ifndef GATT_MAX_PHY_CHANNEL
-#define GATT_MAX_PHY_CHANNEL        4 /* limited by the BLE controller upto 15 */
+#define GATT_MAX_PHY_CHANNEL        4 /* limited by the LE controller upto 15 */
 #endif
 
 /* Used for conformance testing ONLY */
@@ -1664,7 +1664,7 @@ L2CAP_DEFAULT_ERM_POOL_ID is specified to use the HCI ACL data pool.
 Note:  This pool needs to have enough buffers to hold two times the window size negotiated
  in the L2CA_SetFCROptions (2 * tx_win_size)  to allow for retransmissions.
  The size of each buffer must be able to hold the maximum MPS segment size passed in
- L2CA_SetFCROptions plus BT_HDR (8) + HCI preamble (4) + L2CAP_MIN_OFFSET (11 - as of BT 2.1 + EDR Spec).
+ L2CA_SetFCROptions plus BT_HDR (8) + HCI preamble (4) + L2CAP_MIN_OFFSET (11 - as of Bluetooth 2.1 + EDR Spec).
 */
 #ifndef OBX_FCR_TX_POOL_ID
 #define OBX_FCR_TX_POOL_ID      HCI_ACL_POOL_ID
@@ -2912,7 +2912,7 @@ L2CAP_DEFAULT_ERM_POOL_ID is specified to use the HCI ACL data pool.
 Note:  This pool needs to have enough buffers to hold two times the window size negotiated
  in the tL2CAP_FCR_OPTIONS (2 * tx_win_size)  to allow for retransmissions.
  The size of each buffer must be able to hold the maximum MPS segment size passed in
- tL2CAP_FCR_OPTIONS plus BT_HDR (8) + HCI preamble (4) + L2CAP_MIN_OFFSET (11 - as of BT 2.1 + EDR Spec).
+ tL2CAP_FCR_OPTIONS plus BT_HDR (8) + HCI preamble (4) + L2CAP_MIN_OFFSET (11 - as of Bluetooth 2.1 + EDR Spec).
 */
 #ifndef AVCT_BR_FCR_TX_POOL_ID
 #define AVCT_BR_FCR_TX_POOL_ID      HCI_ACL_POOL_ID
@@ -3038,7 +3038,7 @@ L2CAP_DEFAULT_ERM_POOL_ID is specified to use the HCI ACL data pool.
 Note:  This pool needs to have enough buffers to hold two times the window size negotiated
  in the tL2CAP_FCR_OPTIONS (2 * tx_win_size)  to allow for retransmissions.
  The size of each buffer must be able to hold the maximum MPS segment size passed in
- tL2CAP_FCR_OPTIONS plus BT_HDR (8) + HCI preamble (4) + L2CAP_MIN_OFFSET (11 - as of BT 2.1 + EDR Spec).
+ tL2CAP_FCR_OPTIONS plus BT_HDR (8) + HCI preamble (4) + L2CAP_MIN_OFFSET (11 - as of Bluetooth 2.1 + EDR Spec).
 */
 #ifndef MCA_FCR_TX_POOL_ID
 #define MCA_FCR_TX_POOL_ID      HCI_ACL_POOL_ID

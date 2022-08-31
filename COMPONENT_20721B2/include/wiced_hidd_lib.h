@@ -339,13 +339,13 @@ void wiced_hidd_event_queue_add_event_with_overflow(wiced_hidd_app_event_queue_t
 uint32_t wiced_hidd_get_current_native_bt_clock(void);
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Compute the time elapsed since "before", in BT clocks.
+/// Compute the time elapsed since "before", in Bluetooth clocks.
 /// This functions handles rollovers. Clock resets will cause
 /// a large value to be returned (i.e. expiring any timers).
 ///
 /// \param before - the previous counter value, as was returned by wiced_hidd_get_current_native_bt_clock().
 ///
-/// \return the time elapsed, in BT clocks (312.5 us).
+/// \return the time elapsed, in Bluetooth clocks (312.5 us).
 ////////////////////////////////////////////////////////////////////////////////
 uint32_t wiced_hidd_get_bt_clocks_since(uint32_t before);
 

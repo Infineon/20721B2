@@ -73,9 +73,9 @@ typedef enum PMU_LPO_CLK_SOURCE_TAG
     PMU_LPO_CLK_EXTERNAL,
     PMU_LPO_CLK_CRYSTAL,
     PMU_LPO_NO_SELECTED,
-    PMU_LPO_32KHZ_OSC,  // for 20735/739 and 43012/4347
-    PMU_LPO_LHL_703,    // for 20735/739
-    PMU_LPO_LHL_732,    // for 20735/739
+    PMU_LPO_32KHZ_OSC,  // for 20835/739 and 43012/4347
+    PMU_LPO_LHL_703,    // for 20835/739
+    PMU_LPO_LHL_732,    // for 20835/739
     PMU_LPO_LHL_LPO2,   // for 43012/4347
 }PMU_LPO_CLK_SOURCE;
 
@@ -83,10 +83,10 @@ typedef enum DEFAULT_ENHANCED_LPO_TAG
 {
     // 3 bits for this field!
     PMU_DEFAULT_NO_LHL  = 0,
-    PMU_DEFAULT_32kHz   = 1,    // for 20735/739 and 43012/4347
-    PMU_DEFAULT_LHL_703 = 2,    // for 20735/739
+    PMU_DEFAULT_32kHz   = 1,    // for 20835/739 and 43012/4347
+    PMU_DEFAULT_LHL_703 = 2,    // for 20835/739
     PMU_DEFAULT_LHL_LPO2 =2,    // for 43012/4347
-    PMU_DEFAULT_LHL_732 = 4,    // for 20735/739
+    PMU_DEFAULT_LHL_732 = 4,    // for 20835/739
 }DEFAULT_ENHANCED_LPO;
 
 
