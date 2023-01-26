@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -391,6 +391,15 @@ void wiced_transport_uart_interrupt_enable(void);
  */
 void wiced_set_hci_uart_cts_rts_flow_control(BOOL32 on);
 
+/**
+ * Function         wiced_uart_raw_mode_set_max_receive_timeout
+ *
+ * Configure the timeout beforing calling Wiced transport receive data handler
+ *
+ * @param[in]    timeout   : timeout value in ms
+ *
+ */
+void wiced_uart_raw_mode_set_max_receive_timeout(UINT32 timeout);
 /** @} */
 
 #endif // _WICED_TRANSPORT_H_
