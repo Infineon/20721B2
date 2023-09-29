@@ -298,6 +298,9 @@ typedef uint8_t AVDT_REPORT_TYPE;
 #define AVDT_REPORT_DISCONN_EVT     19      /**< Reporting channel disconnected */
 #define AVDT_DELAY_REPORT_EVT       20      /**< Delay report received */
 #define AVDT_DELAY_REPORT_CFM_EVT   21      /**< Delay report response received */
+#define AVDT_DISCOVER_EVT           22      /* Discover command received */
+#define AVDT_GETCAP_EVT             23      /* Get capabilities command received */
+#define AVDT_GETCAP_ALL_EVT         24      /* Get all capabilities command received */
 /** @} AVDT_EVT */
 
 #define AVDT_MAX_EVT                (AVDT_DELAY_REPORT_CFM_EVT)

@@ -87,6 +87,18 @@ wiced_bt_gatt_status_t wiced_bt_util_set_gatt_client_config_descriptor(uint16_t 
 wiced_bt_gatt_status_t wiced_bt_util_send_gatt_discover(uint16_t conn_id, wiced_bt_gatt_discovery_type_t type, uint16_t uuid, uint16_t s_handle, uint16_t e_handle);
 
 /**
+ * @brief   Format and send GATT discover request
+ *
+ * @param[in]  conn_id     : connection identifier.
+ * @param[in]  uuid        : UUID128 of the attribute to search for.
+ * @param[in]  s_handle    : Start handle.
+ * @param[in]  e_handle    : Start handle.
+ *
+ * @return @link wiced_bt_gatt_status_e wiced_bt_gatt_status_t @endlink
+ */
+wiced_bt_gatt_status_t wiced_bt_util_send_gatt_discover_by_uuid128(uint16_t conn_id, uint8_t uuid[LEN_UUID_128], uint16_t s_handle, uint16_t e_handle);
+
+/**
  * Function     wiced_bt_gatt_status_t wiced_bt_util_send_gatt_read_by_handle(uint16_t conn_id, uint16_t handle)
  *
  *              Format and send Read By Handle GATT request.

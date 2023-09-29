@@ -90,6 +90,9 @@ CY_CORE_APP_CHIPLOAD_FLAGS+=-NOHCIRESET
 # use btp file to determine flash layout
 CY_CORE_LD_DEFS+=BTP=$(CY_CORE_BTP)
 
+# indicate DS upgrade support to determine flash layout
+CY_CORE_LD_DEFS+=DS_UPGRADE=$(OTA_FW_UPGRADE)
+
 # XIP-specific options
 ifneq ($(XIP),none)
 CY_CORE_COMMON_OPTIONS=-mlong-calls
@@ -127,9 +130,9 @@ CY_CORE_DEFINES+=\
 
 CY_CORE_EXTRA_DEFINES=\
 	-DWICED_SDK_MAJOR_VER=4 \
-	-DWICED_SDK_MINOR_VER=2 \
-	-DWICED_SDK_REV_NUMBER=1 \
-	-DWICED_SDK_BUILD_NUMBER=2932
+	-DWICED_SDK_MINOR_VER=4 \
+	-DWICED_SDK_REV_NUMBER=2 \
+	-DWICED_SDK_BUILD_NUMBER=14114
 
 #
 # Set the output file paths
