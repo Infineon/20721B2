@@ -2,14 +2,14 @@
 
 ## Overview
 
-The Infineon CYW20721 is an ultra-low-power dual-mode Bluetooth&#174; 5.1 wireless MCU device. It has a stand-alone baseband processor with an integrated 2.4 GHz transceiver supporting LE/BR/EDR.
+The Infineon CYW20721 is an ultra-low-power dual-mode Bluetooth&#174; 5.4 wireless MCU device. It has a stand-alone baseband processor with an integrated 2.4 GHz transceiver supporting LE/BR/EDR.
 
 ## SDK Software Features
 - Dual mode Bluetooth&#174; stack included in the ROM (BR/EDR and LE).
 - Bluetooth&#174; stack and profile level APIs for embedded Bluetooth&#174; application development.
 - AIROC&#8482; HCI protocol to simplify host/MCU application development.
 - APIs and drivers to access on board peripherals.
-- Bluetooth&#174; protocols include GAP, GATT, SMP, RFCOMM, SDP, AVDT/AVCT, LE Mesh
+- Bluetooth&#174; protocols include GAP, GATT, SMP, RFCOMM, SDP, AVDT/AVCT
 - LE and BR/EDR profile APIs, libraries, and sample apps.
 - Support for Over-The-Air (OTA) upgrade.
 - Device Configurator for creating custom pin mapping.

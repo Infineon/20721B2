@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -42,7 +42,7 @@
 #define SDP_DEFS_H
 
 /* Define the service attribute IDs.
-*/
+ */
 #define  ATTR_ID_SERVICE_RECORD_HDL             0x0000
 #define  ATTR_ID_SERVICE_CLASS_ID_LIST          0x0001
 #define  ATTR_ID_SERVICE_RECORD_STATE           0x0002
@@ -64,7 +64,7 @@
 #define  ATTR_ID_PROVIDER_NAME                  LANGUAGE_BASE_ID + 0x0002
 
 /* Device Identification (DI)
-*/
+ */
 #define ATTR_ID_SPECIFICATION_ID                0x0200
 #define ATTR_ID_VENDOR_ID                       0x0201
 #define ATTR_ID_PRODUCT_ID                      0x0202
@@ -86,7 +86,7 @@
 #define  ATTR_ID_HCRP_1284ID                    0x0300
 
 #define  ATTR_ID_SUPPORTED_DATA_STORES          0x0301
-#define  ATTR_ID_NETWORK				        0x0301
+#define  ATTR_ID_NETWORK                        0x0301
 #define  ATTR_ID_EXTERNAL_NETWORK               0x0301
 #define  ATTR_ID_FAX_CLASS_1_SUPPORT            0x0302
 #define  ATTR_ID_REMOTE_AUDIO_VOLUME_CONTROL    0x0302
@@ -179,7 +179,7 @@
 #define BTA_MPS_UUID_PPD_SUPPORTED          ((UINT16) 0x202)
 
 /* Define common 16-bit protocol UUIDs
-*/
+ */
 #define UUID_PROTOCOL_SDP                    0x0001
 #define UUID_PROTOCOL_UDP                    0x0002
 #define UUID_PROTOCOL_RFCOMM                 0x0003
@@ -207,7 +207,7 @@
 #define UUID_PROTOCOL_ATT                    0x0007
 
 /* Define common 16-bit service class UUIDs
-*/
+ */
 #define UUID_SERVCLASS_SERVICE_DISCOVERY_SERVER 0X1000
 #define UUID_SERVCLASS_BROWSE_GROUP_DESCRIPTOR  0X1001
 #define UUID_SERVCLASS_PUBLIC_BROWSE_GROUP      0X1002
@@ -303,10 +303,10 @@
 #define UUID_SERVCLASS_NWA                      0x180B      /* Network availability (not in spec?) */
 #define UUID_SERVCLASS_HEART_RATE               0x180D      /* Heart Rate service */
 #define UUID_SERVCLASS_PHALERT                  0x180E      /* phone alert service */
-#define UUID_SERVCLASS_BATTERY                  0x180F     /* battery service */
-#define UUID_SERVCLASS_BPM                      0x1810      /*  blood pressure service */
+#define UUID_SERVCLASS_BATTERY                  0x180F      /* battery service */
+#define UUID_SERVCLASS_BPM                      0x1810      /* blood pressure service */
 #define UUID_SERVCLASS_ALERT_NOTIFICATION       0x1811      /* alert notification service */
-#define UUID_SERVCLASS_LE_HID                   0x1812     /*  HID over LE */
+#define UUID_SERVCLASS_LE_HID                   0x1812      /* HID over LE */
 #define UUID_SERVCLASS_SCAN_PARAM               0x1813      /* Scan Parameter service */
 #define UUID_SERVCLASS_RSC                      0x1814      /* Runners Speed and Cadence Service */
 #define UUID_SERVCLASS_AUTO_IO                  0x1815      /* Automation IO */
@@ -327,7 +327,7 @@
 
 #define UUID_SERVCLASS_TEST_SERVER              0x9000      /* Test Group UUID */
 
-#if (BTM_WBS_INCLUDED == TRUE )
+#if (BTM_WBS_INCLUDED == TRUE)
 #define UUID_CODEC_CVSD                         0x0001   /* CVSD */
 #define UUID_CODEC_MSBC                         0x0002   /* mSBC */
 #endif
@@ -335,7 +335,7 @@
 #define UUID_HF_IND_EDS                         0x0001      /* HF indicator for enhanced driver safety */
 
 /* Define all the 'Descriptor Type' values.
-*/
+ */
 #define  NULL_DESC_TYPE                     0
 #define  UINT_DESC_TYPE                     1
 #define  TWO_COMP_INT_DESC_TYPE             2
@@ -347,7 +347,7 @@
 #define  URL_DESC_TYPE                      8
 
 /* Define all the "Descriptor Size" values.
-*/
+ */
 #define  SIZE_ONE_BYTE                0
 #define  SIZE_TWO_BYTES               1
 #define  SIZE_FOUR_BYTES              2
@@ -375,4 +375,4 @@
 #define  ATTR_ID_FAX_CLASS_2_OR_FRIENDLY_NAME                       0x0304
 #define  ATTR_ID_NETADDRESS_OR_DEVLOCATION                          0x0306
 
-#endif
+#endif // ifndef SDP_DEFS_H
